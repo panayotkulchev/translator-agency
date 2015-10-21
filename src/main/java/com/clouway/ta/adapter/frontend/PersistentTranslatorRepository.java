@@ -1,5 +1,6 @@
 package com.clouway.ta.adapter.frontend;
 
+import com.google.appengine.api.datastore.Key;
 import com.google.inject.Inject;
 import com.vercer.engine.persist.ObjectDatastore;
 
@@ -18,10 +19,8 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
   }
 
   @Override
-  public void add(TranslatorEntity entity) {
-
-    datastore.store(entity);
-
+  public String add(TranslatorEntity entity) {
+    return String.valueOf(datastore.store(entity).getId());
   }
 
 

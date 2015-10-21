@@ -9,20 +9,22 @@ import java.util.List;
  */
 public class TranslatorDo {
 
-  private Long id;
-  private String name;
-  private String currentAddress;
-  private String permanentAddress;
-  private String phones;
-  private List<String> languages;
-  private List<String> educations;
-  private String email;
-  private String skype;
-  private String eid;
-  private String document;
-  private String iban;
+  public final Long id;
+  public final String name;
+  public final String currentAddress;
+  public final String permanentAddress;
+  public final String phones;
+  public final List<String> languages;
+  public final List<String> educations;
+  public final String email;
+  public final String skype;
+  public final String eid;
+  public final String document;
+  public final String iban;
+
 
   public TranslatorDo(String name, String currentAddress, String permanentAddress, String phones, List<String> languages, List<String> educations, String email, String skype, String eid, String document, String iban) {
+    this.id = null;
     this.name = name;
     this.currentAddress = currentAddress;
     this.permanentAddress = permanentAddress;

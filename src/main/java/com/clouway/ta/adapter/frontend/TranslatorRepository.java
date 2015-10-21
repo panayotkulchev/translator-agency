@@ -7,5 +7,5 @@ package com.clouway.ta.adapter.frontend;
  */
 public interface TranslatorRepository {
 
-  void add(TranslatorEntity entity);
+  Long add(TranslatorEntity entity);
 }

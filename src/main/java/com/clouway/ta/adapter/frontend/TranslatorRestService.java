@@ -1,6 +1,7 @@
 package com.clouway.ta.adapter.frontend;
 
 import com.google.inject.Inject;
+import com.google.sitebricks.At;
 import com.google.sitebricks.client.transport.Json;
 import com.google.sitebricks.headless.Reply;
 import com.google.sitebricks.headless.Request;
@@ -17,7 +18,6 @@ import com.google.sitebricks.http.Post;
 @Service
 public class TranslatorRestService {
 
-
   private TranslatorService service;
 
   @Inject
@@ -31,15 +31,14 @@ public class TranslatorRestService {
     return Reply.saying().ok();
   }
 
-
   @Post
   public Reply<?> add(Request request) {
 
-//    final TranslatorDto dto = request.read(TranslatorDto.class).as(Json.class);
-//    System.out.println(dto);
-//    final TranslatorDo translator = dtoToDo(dto);
-//
-//    service.add(translator);
+    final TranslatorDto dto = request.read(TranslatorDto.class).as(Json.class);
+    System.out.println(dto);
+    final TranslatorDo translator = dtoToDo(dto);
+
+    service.add(translator);
 
     return Reply.saying().ok();
   }

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class TranslatorEntity {
   @Key
-  public Long id;
+  public String id;
 
   private String name;
   private String currentAddress;

@@ -10,17 +10,29 @@ import com.google.inject.Inject;
 public class TranslatorServiceImpl implements TranslatorService {
 
 
-  private TranslatorRepository repository;
+  private TranslatorRepository translatorRepository;
+  private final LanguageRepository languageRepository;
 
   @Inject
-  public TranslatorServiceImpl(TranslatorRepository repository) {
-    this.repository = repository;
+  public TranslatorServiceImpl(TranslatorRepository translatorRepository,
+                               LanguageRepository languageRepository) {
+    this.translatorRepository = translatorRepository;
+    this.languageRepository = languageRepository;
   }
 
   @Override
   public void add(TranslatorDo translator) {
 
+    final Long key = translatorRepository.add(toEntity(translator));
+
+    for (String each : translator.languages){
+      languageRepository.mapUserId(each,key);
+    }
 
 
+  }
+
+  private TranslatorEntity toEntity(TranslatorDo tdo) {
+    return new TranslatorEntity(tdo.name,tdo.currentAddress,tdo.permanentAddress,tdo.phones,tdo.languages,tdo.educations,tdo.email,tdo.skype,tdo.eid,tdo.document,tdo.iban);
   }
 }
