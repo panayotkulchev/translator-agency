@@ -1,7 +1,6 @@
 package com.clouway.ta.adapter.frontend;
 
 import com.google.inject.Inject;
-import com.google.sitebricks.At;
 import com.google.sitebricks.client.transport.Json;
 import com.google.sitebricks.headless.Reply;
 import com.google.sitebricks.headless.Request;
@@ -22,11 +21,11 @@ public class TranslatorRestService {
 
   @Inject
   public TranslatorRestService(TranslatorService service) {
-    this.service=service;
+    this.service = service;
   }
 
   @Get
-  public Reply<?> get(Request request){
+  public Reply<?> get(Request request) {
     System.out.println("GET");
     return Reply.saying().ok();
   }

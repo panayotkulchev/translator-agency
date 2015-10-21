@@ -7,11 +7,7 @@ import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.sitebricks.SitebricksModule;
 
-/**
- * @author Dimitar Dimitrov (dimitar.dimitrov045@gmail.com)
- */
 public class AppConfig extends GuiceServletContextListener {
-
 
   @Override
   protected Injector getInjector() {
