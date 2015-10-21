@@ -1,0 +1,245 @@
+<div class="panel">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <ul class="nav nav-tabs" ng-init="this.invoicemode=false">
+                    <li class="active"><a data-toggle="tab" href="#listTranslator" translate>TRANSLATORS.LISTS</a></li>
+                    <li><a data-toggle="tab" href="#addTranslators" translate>TRANSLATORS.ADD</a>
+                    </li>
+                </ul>
+                <div class="row tab-content top-buffer" style="margin-top: 20px">
+                    <div id="listTranslator" class="tab-pane fade in active">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <form class="form-inline" role="form">
+                                    <div class="form-group form-group-sm">
+                                        <label for="filter">Филтър: </label>
+
+                                            <ol id="filter" class="nya-bs-select btn-sm" ng-model="translator.filteredLanguages" multiple
+                                                data-size="5" data-live-search="true">
+                                                <li nya-bs-option="option in languageOptions">
+                                                    <a>
+                                                        {{ option.name }}
+                                                        <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                    </a>
+                                                </li>
+                                            </ol>
+
+                                    </div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox">{{'TRANSLATORS.ONLY_LEGALS' | translate}}</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-sm" uib-tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}" translate>TRANSLATORS.SEARCH</button>
+                                </form>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <h5 class="text-muted">{{'TRANSLATORS.RESULTS'| translate}} {{translators.length}}</h5>
+                            </div>
+                        </div>
+
+                        <!--<div class="table-responsive">-->
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th class="text-center text-primary" style="width: 15px">
+                                        <h6><strong>#</strong></h6>
+                                    </th>
+                                    <th class="text-center text-primary">
+                                        <h6><strong translate>TRANSLATORS.LEGAL_SIGN</strong></h6>
+                                    </th>
+                                    <th class="text-center text-primary">
+                                        <h6><strong translate>TRANSLATORS.NAME</strong></h6>
+                                    </th>
+                                    <th class="text-center text-primary">
+                                        <h6><strong translate>TRANSLATORS.LANGUAGES_EDUCATION</strong></h6>
+                                    </th>
+                                    <th class="text-center text-primary">
+                                        <h6><strong translate>TRANSLATORS.EMAIL</strong></h6>
+                                    </th>
+                                    <th class="text-center text-primary">
+                                        <h6><strong translate>TRANSLATORS.PHONES</strong></h6>
+                                    </th>
+                                    <th class="text-center text-primary">
+                                        <h6><strong translate>TRANSLATORS.OPTIONS</strong></h6>
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr ng-repeat="row in translators | orderBy: 'name'">
+                                    <td class="text-center" style="width: 15px">
+                                        <small>{{$index+1}}</small>
+                                    </td>
+                                    <td class="text-center" width="20px">
+                                        <small>
+                                            <span ng-if="row.registered==true" >
+                                                <i class="fa fa-star-o" uib-tooltip="{{'TRANSLATORS.TOOLTIP_LEGAL'| translate}}"></i>
+                                            </span>
+                                            <span ng-if="row.favorite==true">
+                                                <i class="fa fa-heart-o" uib-tooltip="{{'TRANSLATORS.TOOLTIP_FAVORITE'| translate}}"></i>
+                                            </span>
+                                        </small>
+
+                                    </td>
+                                    <td class="text-center">
+                                        <small>{{row.name}}
+                                        </small>
+                                    </td>
+                                    <td class="text-center">
+                                        <small>
+                                            {{row.languages}}
+                                        </small>
+                                    </td>
+                                    <td class="text-center">
+                                        <small> {{row.email}}
+                                        </small>
+                                    </td>
+                                    <td class="text-center">
+                                        <small>{{row.phones}}</small>
+                                    </td>
+                                    <td class="text-center" width="80px">
+
+                                            <div class="row text-center btn-group" align="center">
+                                                <span>
+                                                               <button type="button" class="btn btn-success btn-xs"
+                                                                       ng-click="openModal()"
+                                                                       uib-tooltip="{{'TRANSLATORS.FULL_INFO'| translate}}">
+                                                                   <i class="fa fa-info-circle"></i>
+                                                               </button>
+                                                </span>
+                                                <span>
+                                                          <button type="button" class="btn btn-info btn-xs"
+                                                                  ng-click="openModal()"
+                                                                  uib-tooltip="{{'TRANSLATORS.EDIT'| translate}}">
+                                                              <i class="fa fa-pencil"></i></button>
+                                                </span>
+                                          
+                                                <confirm-modal message="Test" ok-pressed="deleteById(5)">
+                                                    <button type="button" class="btn btn-danger btn-xs"
+                                                            uib-tooltip="{{'TRANSLATORS.DELETE'| translate}}">
+                                                        <i class="fa fa-trash"></i></button>
+                                                </confirm-modal>
+
+                                            </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        <!--</div>-->
+
+                    </div>
+                    <div id="addTranslators" class="tab-pane fade">
+                        <form class="form-horizontal">
+                            <div class="form-group form-group-sm">
+                                <label for="names" class="col-sm-2 control-label">Име: </label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="names" placeholder="Име..."
+                                           ng-model="translator.name">
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label for="currentAddress" class="col-sm-2 control-label">Настоящ адрес: </label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="currentAddress"
+                                           placeholder="Настоящ адрес:..."
+                                           ng-model="translator.currentAddress">
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label for="permanentAddress" class="col-sm-2 control-label">Постоянен адрес: </label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="permanentAddress"
+                                           placeholder="Постоянен адрес..."
+                                           ng-model="translator.permanentAddress">
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label for="phones" class="col-sm-2 control-label">Телефон: </label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="phones" placeholder="Телефон..."
+                                           ng-model="translator.phones">
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label for="langs" class="col-sm-2 control-label">Езици: </label>
+
+                                <div class="col-sm-4">
+                                    <ol id="langs" class="nya-bs-select btn-sm" ng-model="translator.languages" multiple
+                                        data-size="5" data-live-search="true">
+                                        <li nya-bs-option="option in languageOptions">
+                                            <a>
+                                                {{ option.name }}
+                                                <span class="glyphicon glyphicon-ok check-mark"></span>
+                                            </a>
+                                        </li>
+                                    </ol>
+                                </div>
+                                <label for="educations" class="col-sm-2 control-label">Образование: </label>
+
+                                <div class="col-sm-4">
+                                    <ol id="educations" class="nya-bs-select btn-sm" ng-model="translator.educations"
+                                        multiple
+                                        data-size="5" data-live-search="true">
+                                        <li nya-bs-option="option in educationOptions">
+                                            <a>
+                                                {{ option.name }}
+                                                <span class="glyphicon glyphicon-ok check-mark"></span>
+                                            </a>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label for="email" class="col-sm-2 control-label">E-mail: </label>
+
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="email" placeholder="e-mail..."
+                                           ng-model="translator.email">
+                                </div>
+                                <label for="skype" class="col-sm-2 control-label">Skype: </label>
+
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="skype" placeholder="Skype..."
+                                           ng-model="translator.skype">
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label for="eid" class="col-sm-2 control-label">ЕГН: </label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="eid" placeholder="ЕГН..."
+                                           ng-model="translator.eid">
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label for="eid" class="col-sm-2 control-label">Лична карта: </label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="lk" placeholder="Лична карта..."
+                                           ng-model="translator.document">
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                <label for="iban" class="col-sm-2 control-label">IBAN: </label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="iban" placeholder="IBAN..."
+                                           ng-model="translator.iban">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success btn-sm pull-right" ng-click="add(translator)"
+                                    style="width: 100px;">
+                                <i class="fa fa-plus"></i> Добави
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

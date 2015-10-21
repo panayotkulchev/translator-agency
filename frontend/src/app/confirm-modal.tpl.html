@@ -1,0 +1,25 @@
+<style>
+    .confirm-modal , .modal-open {
+        overflow: auto;
+    }
+</style>
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="close" ng-click="cancel()">&times;</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p translate>{{data.message}}</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-success btn-sm" ng-click="ok()">{{'BUTTON.YES' | translate}}</button>
+    <button class="btn btn-danger btn-sm" ng-click="cancel()">{{'BUTTON.NO' | translate}}</button>
+</div>
