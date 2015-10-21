@@ -5,7 +5,7 @@
  * automatically.
  */
 describe('home section', function () {
-  beforeEach(module('cw.home'));
+  beforeEach(module('ta.home'));
 
   it('should have a dummy test', inject(function () {
     expect(true).toBeTruthy();

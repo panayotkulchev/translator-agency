@@ -1,7 +1,7 @@
 describe('http request service', function () {
   var $httpBackend, httpRequest, $rootScope;
 
-  beforeEach(module('cw.core'));
+  beforeEach(module('ta.core'));
 
   beforeEach(function () {
 

@@ -1,18 +1,9 @@
-angular.module('cw.core', [
+angular.module('ta.core', [
   'templates-app',
   'templates-common',
   'angular-growl',
   'nya.bootstrap.select',
-  'cw.home',
-  'cw.about',
-  'cw.clients',
-  'cw.partners',
-  'cw.pricelist',
-  'cw.sales',
-  'cw.goods',
-  'cw.reports',
-  'cw.invoices',
-  'cw.deliveries',
+  'ta.home',
   'ta.translators',
   'i18n',
   'ui.router'

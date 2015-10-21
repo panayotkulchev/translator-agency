@@ -1,4 +1,11 @@
-appengine-skeleton
+Translator Agency
 =============================
 
-This is a generated application from the appengine-skeleton archetype.
+Software for managing translator agencies.
+
+-translators
+-translations
+-legalization
+
+Created by Panayot Kulchev
+Clouway BSS Te@m
