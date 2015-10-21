@@ -1,7 +1,12 @@
 package com.clouway.ta.adapter.frontend;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.vercer.engine.persist.ObjectDatastore;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Panayot Kulchev on 15-10-19.
@@ -26,11 +31,19 @@ public class PersistentLanguageRepository implements LanguageRepository{
   @Override
   public void mapUserId(String language, Long userId) {
 
-    final LanguageEntity entity = datastore.load(LanguageEntity.class, language);
+    LanguageEntity entity = datastore.load(LanguageEntity.class, language);
+    if(entity!=null){
+      entity.getTranslatorIds().add(userId);
+      datastore.update(entity);
+      return;
+    }
 
-    entity.getTranslatorIds().add(userId);
+    entity= new LanguageEntity();
 
-    datastore.update(entity);
+    Set<Long> ids = Sets.newHashSet(userId);
+    entity.setTranslatorIds(ids);
+    datastore.store(entity);
+
 
 
   }
