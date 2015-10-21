@@ -16,6 +16,7 @@ public class PersistenceModule extends AbstractModule {
   protected void configure() {
     bind(TranslatorRepository.class).to(PersistentTranslatorRepository.class);
     bind(TranslatorService.class).to(TranslatorServiceImpl.class);
+    bind(LanguageRepository.class).to(PersistentLanguageRepository.class);
   }
 
   @Provides

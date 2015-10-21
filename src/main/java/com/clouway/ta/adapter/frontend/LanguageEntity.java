@@ -15,6 +15,9 @@ public class LanguageEntity {
   public String id;
   private Set<Long> translatorIds;
 
+  public LanguageEntity() {
+  }
+
   public LanguageEntity(String id) {
     this.id = id;
   }

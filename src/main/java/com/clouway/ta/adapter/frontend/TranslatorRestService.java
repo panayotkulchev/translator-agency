@@ -18,7 +18,7 @@ import com.google.sitebricks.http.Post;
 @Service
 public class TranslatorRestService {
 
-  private TranslatorService service;
+  private final TranslatorService service;
 
   @Inject
   public TranslatorRestService(TranslatorService service) {

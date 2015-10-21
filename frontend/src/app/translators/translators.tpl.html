@@ -114,7 +114,8 @@
                                                               <i class="fa fa-pencil"></i></button>
                                                 </span>
                                           
-                                                <confirm-modal message="Test" ok-pressed="deleteById(5)">
+                                                <confirm-modal
+                                                        message="Сигурни ли сте, че искате да изтриете {{row.name}}?" ok-pressed="deleteById(5)">
                                                     <button type="button" class="btn btn-danger btn-xs"
                                                             uib-tooltip="{{'TRANSLATORS.DELETE'| translate}}">
                                                         <i class="fa fa-trash"></i></button>

@@ -10,7 +10,7 @@ import com.google.inject.Inject;
 public class TranslatorServiceImpl implements TranslatorService {
 
 
-  private TranslatorRepository translatorRepository;
+  private final TranslatorRepository translatorRepository;
   private final LanguageRepository languageRepository;
 
   @Inject
