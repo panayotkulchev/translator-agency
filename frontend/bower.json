@@ -1,18 +1,31 @@
 {
-  "name": "clouway-cw",
+  "name": "Translators Frontend",
   "version": "0.1",
   "devDependencies": {
     "angular": "~1.4.6",
-    "angular-mocks": "~1.4",
-    "bootstrap": "~3.3",
-    "angular-ui-router": "~0.2",
+    "angular-bootstrap": "~0.13.0",
+    "angular-bootstrap-switch": "~0.4.0",
+    "angular-dynamic-locale": "~0.1.27",
     "angular-growl-v2": "~0.7.4",
+    "angular-i18n": "~1.4.5",
+    "angular-messages": "~1.4.1",
+    "angular-mocks": "~1.4.1",
+    "angular-smart-table": "~2.1.0",
+    "angular-google-maps": "2.1.6",
+    "underscore": "1.8.3",
+    "angular-google-maps-places": "~0.0.4",
+    "angular-translate": "~2.7.2",
+    "angular-translate-loader-static-files": "~2.7.2",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3",
     "components-font-awesome": "~4.1.0",
     "smalot-bootstrap-datetimepicker": "2.3.1",
-    "angular-ui-utils": "keypress-0.1.0",
-    "nya-bootstrap-select": "~2.1.2",
-    "angular-bootstrap": "~0.14.2",
-    "angular-translate": "~2.8.1"
+    "angular-ui-utils": "keypress-0.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "nya-bootstrap-select": "~2.0.10"
+  },
+  "resolutions": {
+    "angular": "~1.4"
+  }
 }
