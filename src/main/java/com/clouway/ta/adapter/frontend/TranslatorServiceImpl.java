@@ -24,7 +24,7 @@ public class TranslatorServiceImpl implements TranslatorService {
   public void add(TranslatorDo translator) {
 
     final Long key = translatorRepository.add(toEntity(translator));
-
+    System.out.println(key);
     for (String each : translator.languages){
       languageRepository.mapUserId(each,key);
     }

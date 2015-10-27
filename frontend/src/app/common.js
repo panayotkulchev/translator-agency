@@ -523,8 +523,6 @@ angular.module('common', ['ui.bootstrap'])
             animation: true,
             templateUrl: 'confirm-modal.tpl.html',
             controller: 'ConfirmModalCtrl',
-            windowClass: 'confirm-modal',
-            backdrop: 'static',
             resolve: {
               data: function () {
                 return {

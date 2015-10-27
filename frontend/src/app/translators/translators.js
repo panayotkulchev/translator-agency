@@ -5,6 +5,7 @@ angular.module('ta.translators', [
   'ui.router',
   'ui.bootstrap',
   'ta.http',
+        'ngAnimate',
   'common'
 ])
         .config(function config($stateProvider) {
@@ -92,7 +93,7 @@ angular.module('ta.translators', [
           var extractLanguages = function (languages) {
             var result = [];
             angular.forEach(languages, function (language) {
-              result.push(language.name);
+              result.push(language.key);
             });
             return result;
           };
@@ -106,13 +107,13 @@ angular.module('ta.translators', [
           };
 
           $scope.languageOptions = [
-            {name: 'Английски'},
-            {name: 'Български'},
-            {name: 'Руски'},
-            {name: 'Френски'},
-            {name: 'Испански'},
-            {name: 'Полски'},
-            {name: 'Холандски'}
+            {name: 'Английски', key: "english" },
+            {name: 'Български' , key: "bulgarian"},
+            {name: 'Руски', key: "russian"},
+            {name: 'Френски', key: "french"},
+            {name: 'Испански', key: "spanish"},
+            {name: 'Полски', key: "polish"},
+            {name: 'Холандски', key: "netherlands"}
           ];
 
           $scope.educationOptions = [

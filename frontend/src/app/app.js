@@ -9,7 +9,7 @@ angular.module('ta.core', [
   'ui.router'
 ])
         .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider) {
-          $urlRouterProvider.otherwise('/');
+          $urlRouterProvider.otherwise('/translators');
 
           growlProvider.onlyUniqueMessages(false);
           growlProvider.globalDisableCountDown(true);

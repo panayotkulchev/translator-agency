@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-    <application>${app.id}</application>
-    <version>${app.version}</version>
+    <application>computer-warehouse</application>
+    <version>3</version>
     <threadsafe>true</threadsafe>
     
     <system-properties>
-        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+      <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+      <property name= "appengine.orm.disable.duplicate.emf.exception"  value="true" />
+      <property name="grails.stringchararrayaccessor.disabled" value="true"/>
+      <property name="stringchararrayaccessor.disabled" value="true"/>
     </system-properties>
 </appengine-web-app>

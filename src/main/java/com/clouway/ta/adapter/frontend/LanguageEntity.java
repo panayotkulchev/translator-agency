@@ -1,7 +1,9 @@
 package com.clouway.ta.adapter.frontend;
 
+import com.vercer.engine.persist.annotation.Embed;
 import com.vercer.engine.persist.annotation.Key;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,21 +14,24 @@ import java.util.Set;
 public class LanguageEntity {
 
   @Key
-  public String id;
-  private Set<Long> translatorIds;
+  public String lang_id;
+  @Embed
+  public List<Long> translatorIds;
 
   public LanguageEntity() {
   }
 
-  public LanguageEntity(String id) {
-    this.id = id;
+  public LanguageEntity(String lang_id, List<Long> translatorIds) {
+    this.lang_id = lang_id;
+    this.translatorIds = translatorIds;
   }
 
-  public Set<Long> getTranslatorIds() {
-    return translatorIds;
-  }
-
-  public void setTranslatorIds(Set<Long> translaorIds) {
-    this.translatorIds = translaorIds;
+  @Override
+  public String toString() {
+    return "LanguageEntity{" +
+            "lang_id='" + lang_id + '\'' +
+            ", translatorIds=" + translatorIds +
+            '}';
   }
 }
+

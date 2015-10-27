@@ -1,19 +1,17 @@
 package com.clouway.ta.adapter.frontend;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.vercer.engine.persist.ObjectDatastore;
 
-import java.util.List;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by Panayot Kulchev on 15-10-19.
  * e-mail: panayotkulchev@gmail.com
  * happy codding ...
  */
-public class PersistentLanguageRepository implements LanguageRepository{
+public class PersistentLanguageRepository implements LanguageRepository {
 
   private ObjectDatastore datastore;
 
@@ -24,27 +22,26 @@ public class PersistentLanguageRepository implements LanguageRepository{
 
   @Override
   public void add(String id) {
-  final LanguageEntity languageEntity = new LanguageEntity(id);
+    final LanguageEntity languageEntity = new LanguageEntity(id, new ArrayList<Long>());
     datastore.store(languageEntity);
   }
 
   @Override
   public void mapUserId(String language, Long userId) {
+//    Set<Long> t = new HashSet<Long>();
+//    datastore.store(new LanguageEntity(language, t));
+
+//    final LanguageEntity languageEntity = new LanguageEntity(language, new ArrayList<Long>());
+//    datastore.store(languageEntity);
+//    System.out.println(languageEntity);
 
     LanguageEntity entity = datastore.load(LanguageEntity.class, language);
-    if(entity!=null){
-      entity.getTranslatorIds().add(userId);
-      datastore.update(entity);
-      return;
-    }
 
-    entity= new LanguageEntity();
-
-    Set<Long> ids = Sets.newHashSet(userId);
-    entity.setTranslatorIds(ids);
-    datastore.store(entity);
-
-
+    System.out.println("There is entity:" + language);
+    System.out.println(entity);
+    entity.translatorIds.add(userId);
+    System.out.println(entity);
+//    datastore.update(entity);
 
   }
 
