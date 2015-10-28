@@ -1,10 +1,10 @@
 package com.clouway.ta.adapter.frontend;
 
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.vercer.engine.persist.ObjectDatastore;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Panayot Kulchev on 15-10-19.
@@ -22,31 +22,44 @@ public class PersistentLanguageRepository implements LanguageRepository {
 
   @Override
   public void add(String id) {
-    final LanguageEntity languageEntity = new LanguageEntity(id, new ArrayList<Long>());
+
+    final LanguageEntity languageEntity = new LanguageEntity(id);
+
     datastore.store(languageEntity);
   }
 
   @Override
-  public void mapUserId(String language, Long userId) {
-//    Set<Long> t = new HashSet<Long>();
-//    datastore.store(new LanguageEntity(language, t));
+  public void mapUserId(String langId, Long userId) {
 
-//    final LanguageEntity languageEntity = new LanguageEntity(language, new ArrayList<Long>());
-//    datastore.store(languageEntity);
-//    System.out.println(languageEntity);
+    LanguageEntity entity = datastore.load(LanguageEntity.class, langId);
 
-    LanguageEntity entity = datastore.load(LanguageEntity.class, language);
-
-    System.out.println("There is entity:" + language);
-    System.out.println(entity);
     entity.translatorIds.add(userId);
-    System.out.println(entity);
-//    datastore.update(entity);
+
+    datastore.update(entity);
 
   }
 
   @Override
-  public void delete() {
+  public void delete(String langId) {
 
+    LanguageEntity entity = datastore.load(LanguageEntity.class, langId);
+
+    datastore.delete(entity);
+  }
+
+  @Override
+  public Set<Long> getUserIds(Set<String> langIds) {
+
+    Set<Long> translatorIds = Sets.newHashSet();
+    System.out.println(langIds);
+    for (String each : langIds){
+      LanguageEntity entity = datastore.load(LanguageEntity.class, each);
+      System.out.println(entity);
+      for(Long id : entity.translatorIds){
+        translatorIds.add(id);
+      }
+    }
+
+      return translatorIds;
   }
 }

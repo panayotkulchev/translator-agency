@@ -13,17 +13,17 @@ public class TranslatorEntity {
   @Key
   public String id;
 
-  private String name;
-  private String currentAddress;
-  private String permanentAddress;
-  private String phones;
-  private List<String> languages;
-  private List<String> educations;
-  private String email;
-  private String skype;
-  private String eid;
-  private String document;
-  private String iban;
+  public String name;
+  public String currentAddress;
+  public String permanentAddress;
+  public String phones;
+  public List<String> languages;
+  public List<String> educations;
+  public String email;
+  public String skype;
+  public String eid;
+  public String document;
+  public String iban;
 
   @SuppressWarnings("unchecked")
     public TranslatorEntity() {

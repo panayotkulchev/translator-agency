@@ -18,7 +18,7 @@ public class AppConfig extends GuiceServletContextListener {
             new SitebricksModule() {
               @Override
               protected void configureSitebricks() {
-                at("/r/nomenclature/translators").serve(TranslatorRestService.class);
+                at("/r/translators").serve(TranslatorRestService.class);
               }
             }
     );

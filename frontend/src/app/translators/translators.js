@@ -24,8 +24,11 @@ angular.module('ta.translators', [
         .service('translatorsGateway', function (httpRequest) {
           return {
             getAll: function (offset, count, keyword) {
-              return httpRequest.post('/r/nomenclature/translators',
+              return httpRequest.post('/r/translators/getAll',
                       {offset: offset, count: count, keyword: keyword});
+            },
+            getByLanguages: function (selectedLanguages) {
+              return httpRequest.post('/r/translators/getByLanguages', selectedLanguages);
             },
             add: function (translatorDto) {
               return httpRequest.post('r/nomenclature/translators', translatorDto);
@@ -50,7 +53,21 @@ angular.module('ta.translators', [
                       $scope.translator = {};
                     },
                     function onError() {
-                      growl.warning("Unexpected system error!");
+                      growl.warning("Възникна системна грешка!");
+                    }
+            );
+          };
+
+          $scope.getByLanguages = function (selectedLanguages) {
+            selectedLanguages=['english'];
+            translatorsGateway.getByLanguages(selectedLanguages).then(
+
+                    function onSuccess(data) {
+                      $scope.translators = data;
+                    },
+                    function onError() {
+                      $scope.translators={};
+                      growl.warning("Възникна системна грешка!");
                     }
             );
           };

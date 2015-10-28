@@ -7,5 +7,7 @@ package com.clouway.ta.adapter.frontend;
  */
 public interface TranslatorRepository {
 
-  Long add(TranslatorEntity entity);
+  Long add(TranslatorDo translator);
+
+  TranslatorDo getById(Long translatorId);
 }

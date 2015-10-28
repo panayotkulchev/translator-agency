@@ -18,8 +18,18 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
   }
 
   @Override
-  public Long add(TranslatorEntity entity) {
+  public Long add(TranslatorDo entity) {
     return datastore.store(entity).getId();
+  }
+
+  @Override
+  public TranslatorDo getById(Long translatorId) {
+
+    return from(datastore.load(TranslatorEntity.class, translatorId));
+  }
+
+  private TranslatorDo from(TranslatorEntity entity) {
+    return new TranslatorDo(entity.name, entity.currentAddress, entity.permanentAddress, entity.phones, entity.languages, entity.educations, entity.email, entity.skype, entity.eid, entity.document, entity.iban);
   }
 
 

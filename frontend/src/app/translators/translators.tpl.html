@@ -97,7 +97,7 @@
 <div class="panel">
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-offset-1 col-md-10">
+            <div class="col-sm-offset-1 col-sm-10">
                 <ul class="nav nav-tabs" ng-init="this.invoicemode=false">
                     <li class="active"><a data-toggle="tab" href="#listTranslator" translate>TRANSLATORS.LISTS</a></li>
                     <li><a data-toggle="tab" href="#addTranslators" translate>TRANSLATORS.ADD</a>
@@ -106,7 +106,7 @@
                 <div class="row tab-content top-buffer" style="margin-top: 20px">
                     <div id="listTranslator" class="tab-pane fade in active">
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-offset-1 col-md-8">
                                 <form class="form-inline" role="form">
                                     <div class="form-group form-group-sm">
                                         <label for="filter">Филтър: </label>
@@ -127,20 +127,28 @@
                                         <label><input type="checkbox">{{'TRANSLATORS.ONLY_LEGALS' | translate}}</label>
                                     </div>
                                     <button type="submit" class="btn btn-success btn-sm"
-                                            uib-tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}" translate>
+                                            tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
+                                            ng-click="getByLanguages()" translate>
                                         TRANSLATORS.SEARCH
                                     </button>
                                 </form>
                             </div>
-                            <div class="col-md-2 text-right">
+                            <div class="col-sm-3 text-right">
                                 <h5 class="text-muted">{{'TRANSLATORS.RESULTS'| translate}} {{translators.length}}</h5>
                             </div>
                         </div>
 
 
-                        <div class="input-append">
-                            <input type="text" ng-model="search" class="search-query" style="width: 80px">
-                            <button type="submit" class="btn">Search</button>
+                        <div class="row top-buffered">
+                            <div class="col-sm-offset-1 col-sm-10 input-group" style="margin: 10px auto">
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                <input class="form-control" type="text" ng-model="search" placeholder="Търси в резултатите..."/>
+                            </div>
+                            <!--<div class="col-sm-12">-->
+                                <!--<input type="text" ng-model="search" class="form-control">-->
+                                <!--<button type="submit" class="btn">Search</button>-->
+                            <!--</div>-->
+
                         </div>
 
 
@@ -151,22 +159,22 @@
                                 <th class="text-center text-primary" style="width: 15px">
                                     <h6><strong>#</strong></h6>
                                 </th>
-                                <th class="text-center text-primary">
+                                <th class="text-center text-primary" style="width: 20px">
                                     <h6><strong translate>TRANSLATORS.LEGAL_SIGN</strong></h6>
                                 </th>
-                                <th class="text-center text-primary">
+                                <th class="text-center text-primary" style="width: 200px">
                                     <h6><strong translate>TRANSLATORS.NAME</strong></h6>
                                 </th>
-                                <th class="text-center text-primary">
+                                <th class="text-center text-primary" style="width: 100px">
                                     <h6><strong translate>TRANSLATORS.LANGUAGES_EDUCATION</strong></h6>
                                 </th>
-                                <th class="text-center text-primary">
+                                <th class="text-center text-primary" style="width: 150px">
                                     <h6><strong translate>TRANSLATORS.EMAIL</strong></h6>
                                 </th>
-                                <th class="text-center text-primary">
+                                <th class="text-center text-primary" style="width: 200px">
                                     <h6><strong translate>TRANSLATORS.PHONES</strong></h6>
                                 </th>
-                                <th class="text-center text-primary">
+                                <th class="text-center text-primary" style="width: 80px">
                                     <h6><strong translate>TRANSLATORS.OPTIONS</strong></h6>
                                 </th>
                             </tr>
@@ -213,14 +221,14 @@
                                                 <span>
                                                                <button type="button" class="btn btn-success btn-xs"
                                                                        ng-click="openModal()"
-                                                                       uib-tooltip="{{'TRANSLATORS.FULL_INFO'| translate}}">
+                                                                       tooltip="{{'TRANSLATORS.FULL_INFO'| translate}}">
                                                                    <i class="fa fa-info-circle"></i>
                                                                </button>
                                                 </span>
                                                 <span>
                                                           <button type="button" class="btn btn-info btn-xs"
                                                                   ng-click="openModal()"
-                                                                  uib-tooltip="{{'TRANSLATORS.EDIT'| translate}}">
+                                                                  tooltip="{{'TRANSLATORS.EDIT'| translate}}">
                                                               <i class="fa fa-pencil"></i></button>
                                                 </span>
 
@@ -246,11 +254,14 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="panel panel-default">
+
                                     <div class="panel-heading">
                                         ОСНОВНИ ДАННИ:
                                     </div>
+
                                     <div class="panel-body">
                                         <form class="form-horizontal">
+
                                             <!--NAMES-->
                                             <div class="form-group form-group-sm">
                                                 <label for="names" class="col-sm-2 control-label">Име: </label>
@@ -366,6 +377,8 @@
 
 
                         </div>
+
+                        <!--EXTRA INFORMATION-->
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="panel panel-default">
