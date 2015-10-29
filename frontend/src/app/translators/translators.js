@@ -31,7 +31,7 @@ angular.module('ta.translators', [
               return httpRequest.post('/r/translators/getByLanguages', selectedLanguages);
             },
             add: function (translatorDto) {
-              return httpRequest.post('r/nomenclature/translators', translatorDto);
+              return httpRequest.post('r/translators/add', translatorDto);
             },
             deleteById: function (id) {
               return httpRequest.del('/r/nomenclature/translators', {id: id});

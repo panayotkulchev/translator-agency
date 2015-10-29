@@ -25,10 +25,12 @@ public class TranslatorServiceImpl implements TranslatorService {
 
   @Override
   public void add(TranslatorDo translator) {
-
+    System.out.println("add user " + translator);
     final Long key = translatorRepository.add(translator);
-
+    System.out.println(key);
     for (String each : translator.languages) {
+//      languageRepository.add(each);
+      System.out.println(each);
       languageRepository.mapUserId(each, key);
     }
   }

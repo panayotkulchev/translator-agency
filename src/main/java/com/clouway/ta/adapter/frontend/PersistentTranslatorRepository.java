@@ -18,8 +18,8 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
   }
 
   @Override
-  public Long add(TranslatorDo entity) {
-    return datastore.store(entity).getId();
+  public Long add(TranslatorDo translator) {
+    return datastore.store(from(translator)).getId();
   }
 
   @Override
@@ -30,6 +30,11 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
 
   private TranslatorDo from(TranslatorEntity entity) {
     return new TranslatorDo(entity.name, entity.currentAddress, entity.permanentAddress, entity.phones, entity.languages, entity.educations, entity.email, entity.skype, entity.eid, entity.document, entity.iban);
+  }
+
+  private TranslatorEntity from(TranslatorDo translator){
+    return new TranslatorEntity(translator.name, translator.currentAddress, translator.permanentAddress, translator.phones, translator.languages, translator.educations, translator.email, translator.skype, translator.eid, translator.document, translator.iban);
+
   }
 
 

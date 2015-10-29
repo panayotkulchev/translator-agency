@@ -7,6 +7,7 @@ import com.google.sitebricks.client.transport.Json;
 import com.google.sitebricks.headless.Reply;
 import com.google.sitebricks.headless.Request;
 import com.google.sitebricks.headless.Service;
+import com.google.sitebricks.http.Get;
 import com.google.sitebricks.http.Post;
 
 import java.util.List;
@@ -23,10 +24,22 @@ import java.util.Set;
 public class TranslatorRestService {
 
   private final TranslatorService service;
+  private final LanguageRepository languageRepository;
+  private final TranslatorRepository translatorRepository;
 
   @Inject
-  public TranslatorRestService(TranslatorService service) {
+  public TranslatorRestService(TranslatorService service, LanguageRepository languageRepository, TranslatorRepository translatorRepository) {
     this.service = service;
+    this.languageRepository = languageRepository;
+    this.translatorRepository = translatorRepository;
+  }
+
+  @Get
+  public Reply<?> get(Request request) {
+
+    languageRepository.add("english");
+
+    return Reply.saying().ok();
   }
 
   @At("/getByLanguages")

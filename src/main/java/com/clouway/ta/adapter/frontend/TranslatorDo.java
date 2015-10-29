@@ -38,4 +38,21 @@ public class TranslatorDo {
     this.iban = iban;
   }
 
+  @Override
+  public String toString() {
+    return "TranslatorDo{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", currentAddress='" + currentAddress + '\'' +
+            ", permanentAddress='" + permanentAddress + '\'' +
+            ", phones='" + phones + '\'' +
+            ", languages=" + languages +
+            ", educations=" + educations +
+            ", email='" + email + '\'' +
+            ", skype='" + skype + '\'' +
+            ", eid='" + eid + '\'' +
+            ", document='" + document + '\'' +
+            ", iban='" + iban + '\'' +
+            '}';
+  }
 }

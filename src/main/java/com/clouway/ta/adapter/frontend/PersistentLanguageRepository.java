@@ -23,7 +23,8 @@ public class PersistentLanguageRepository implements LanguageRepository {
   @Override
   public void add(String id) {
 
-    final LanguageEntity languageEntity = new LanguageEntity(id);
+    LanguageEntity languageEntity = new LanguageEntity();
+    languageEntity.langId = id;
 
     datastore.store(languageEntity);
   }
@@ -32,7 +33,7 @@ public class PersistentLanguageRepository implements LanguageRepository {
   public void mapUserId(String langId, Long userId) {
 
     LanguageEntity entity = datastore.load(LanguageEntity.class, langId);
-
+    System.out.println(entity);
     entity.translatorIds.add(userId);
 
     datastore.update(entity);
@@ -53,7 +54,10 @@ public class PersistentLanguageRepository implements LanguageRepository {
     Set<Long> translatorIds = Sets.newHashSet();
     System.out.println(langIds);
     for (String each : langIds){
+      System.out.println(each);
       LanguageEntity entity = datastore.load(LanguageEntity.class, each);
+//      datastore.load(TranslatorEntity.class,4609152743636992l);
+//      LanguageEntity entity = datastore.load(LanguageEntity.class, "english");
       System.out.println(entity);
       for(Long id : entity.translatorIds){
         translatorIds.add(id);
