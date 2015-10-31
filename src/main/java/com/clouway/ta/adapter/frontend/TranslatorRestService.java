@@ -1,6 +1,7 @@
 package com.clouway.ta.adapter.frontend;
 
-import com.google.common.collect.Sets;
+import com.clouway.ta.adapter.db.LanguageRepository;
+import com.clouway.ta.adapter.db.TranslatorRepository;
 import com.google.inject.Inject;
 import com.google.sitebricks.At;
 import com.google.sitebricks.client.transport.Json;
@@ -9,9 +10,9 @@ import com.google.sitebricks.headless.Request;
 import com.google.sitebricks.headless.Service;
 import com.google.sitebricks.http.Get;
 import com.google.sitebricks.http.Post;
+import com.vercer.engine.persist.ObjectDatastore;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Panayot Kulchev on 15-10-14.
@@ -26,19 +27,22 @@ public class TranslatorRestService {
   private final TranslatorService service;
   private final LanguageRepository languageRepository;
   private final TranslatorRepository translatorRepository;
+  private ObjectDatastore datastore;
 
   @Inject
-  public TranslatorRestService(TranslatorService service, LanguageRepository languageRepository, TranslatorRepository translatorRepository) {
+  public TranslatorRestService(TranslatorService service, LanguageRepository languageRepository, TranslatorRepository translatorRepository, ObjectDatastore datastore) {
     this.service = service;
     this.languageRepository = languageRepository;
     this.translatorRepository = translatorRepository;
+    this.datastore = datastore;
   }
 
   @Get
   public Reply<?> get(Request request) {
 
-    languageRepository.add("english");
-
+//    languageRepository.add("english");
+//    languageRepository.add("bulgarian");
+    languageRepository.mapUserId("english","pepo");
     return Reply.saying().ok();
   }
 
@@ -46,9 +50,9 @@ public class TranslatorRestService {
   @Post
   public Reply<?> getByLanguages(Request request) {
 
-    Set languages = request.read(Set.class).as(Json.class);
+    List languages = request.read(List.class).as(Json.class);
 
-    Set<TranslatorDo> translators = service.getByLanguages(languages);
+    List<Translator> translators = service.getByLanguages(languages);
 
     return Reply.with(translators).as(Json.class);
   }
@@ -57,31 +61,10 @@ public class TranslatorRestService {
   @Post
   public Reply<?> add(Request request) {
 
-    final TranslatorDto dto = request.read(TranslatorDto.class).as(Json.class);
-
-    final TranslatorDo translator = from(dto);
+    Translator translator = request.read(Translator.class).as(Json.class);
 
     service.add(translator);
 
     return Reply.saying().ok();
-  }
-
-
-  private TranslatorDo from(TranslatorDto dto) {
-    return new TranslatorDo(dto.name, dto.currentAddress, dto.permanentAddress, dto.phones,
-            dto.languages, dto.educations, dto.email, dto.skype, dto.eid, dto.document, dto.iban);
-  }
-
-  private Set<TranslatorDto> from(Set<TranslatorDo> dos){
-    Set<TranslatorDto> dtos = Sets.newHashSet();
-    for (TranslatorDo each: dos){
-      dtos.add(from(each));
-    }
-    return dtos;
-  }
-
-  private TranslatorDto from(TranslatorDo aDo){
-    return new TranslatorDto(aDo.name, aDo.currentAddress, aDo.permanentAddress, aDo.phones,
-            aDo.languages, aDo.educations, aDo.email, aDo.skype, aDo.eid, aDo.document, aDo.iban);
   }
 }

@@ -96,7 +96,7 @@ angular.module('ta.translators', [
             dto.currentAddress = translator.currentAddress;
             dto.phones = translator.phones;
             dto.languages = extractLanguages(translator.languages);
-            dto.educations = extractEducations(translator.educations);
+            //dto.educations = extractEducations(translator.educations);
             dto.email = translator.email;
             dto.skype = translator.skype;
             dto.eid = translator.eid;

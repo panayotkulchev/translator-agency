@@ -1,9 +1,11 @@
 package com.clouway.ta.adapter.frontend;
 
-import com.google.common.collect.Sets;
+import com.clouway.ta.adapter.db.LanguageRepository;
+import com.clouway.ta.adapter.db.TranslatorRepository;
+import com.google.api.client.util.Lists;
 import com.google.inject.Inject;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by Panayot Kulchev on 15-10-19.
@@ -24,33 +26,23 @@ public class TranslatorServiceImpl implements TranslatorService {
   }
 
   @Override
-  public void add(TranslatorDo translator) {
-    System.out.println("add user " + translator);
-    final Long key = translatorRepository.add(translator);
-    System.out.println(key);
-    for (String each : translator.languages) {
-//      languageRepository.add(each);
-      System.out.println(each);
-      languageRepository.mapUserId(each, key);
-    }
+  public void add(Translator translator) {
+
+    translatorRepository.add(translator);
+
+    languageRepository.mapUserId(translator.languages, translator.email);
   }
 
   @Override
-  public Set<TranslatorDo> getAll() {
+  public List<Translator> getAll() {
     return null;
   }
 
   @Override
-  public Set<TranslatorDo> getByLanguages(Set<String> langIds) {
+  public List<Translator> getByLanguages(List<String> langIds) {
 
-    Set<TranslatorDo> translators = Sets.newHashSet();
+    List<Translator> result = Lists.newArrayList();
 
-    final Set<Long> userIds = languageRepository.getUserIds(langIds);
-
-    for (Long each : userIds) {
-      TranslatorDo translator = translatorRepository.getById(each);
-      translators.add(translator);
-    }
-    return translators;
+    return result;
   }
 }

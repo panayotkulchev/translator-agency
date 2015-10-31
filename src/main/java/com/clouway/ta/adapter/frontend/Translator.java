@@ -10,16 +10,16 @@ import java.util.Set;
  * e-mail: panayotkulchev@gmail.com
  * happy codding ...
  */
-public class TranslatorEntity {
+public class Translator {
   @Key
-  public String id;
+  public String translId;
 
   public String name;
   public String currentAddress;
   public String permanentAddress;
   public String phones;
   public List<String> languages;
-  public List<String> educations;
+//  public List<String> educations;
   public String email;
   public String skype;
   public String eid;
@@ -27,26 +27,26 @@ public class TranslatorEntity {
   public String iban;
 
   @SuppressWarnings("unchecked")
-    public TranslatorEntity() {
+    public Translator() {
     }
 
-  public TranslatorEntity(String name,
-                          String currentAddress,
-                          String permanentAddress,
-                          String phones,
-                          List<String> languages,
-                          List<String> educations,
-                          String email,
-                          String skype,
-                          String eid,
-                          String document,
-                          String iban) {
+  public Translator(String name,
+                    String currentAddress,
+                    String permanentAddress,
+                    String phones,
+                    List<String> languages,
+//                    List<String> educations,
+                    String email,
+                    String skype,
+                    String eid,
+                    String document,
+                    String iban) {
     this.name = name;
     this.currentAddress = currentAddress;
     this.permanentAddress = permanentAddress;
     this.phones = phones;
     this.languages = languages;
-    this.educations = educations;
+//    this.educations = educations;
     this.email = email;
     this.skype = skype;
     this.eid = eid;
@@ -57,13 +57,13 @@ public class TranslatorEntity {
   @Override
   public String toString() {
     return "TranslatorEntity{" +
-            "key=" + id +
+            "key=" + translId +
             ", name='" + name + '\'' +
             ", currentAddress='" + currentAddress + '\'' +
             ", permanentAddress='" + permanentAddress + '\'' +
             ", phones='" + phones + '\'' +
             ", languages=" + languages +
-            ", education=" + educations +
+//            ", education=" + educations +
             ", email='" + email + '\'' +
             ", skype='" + skype + '\'' +
             ", eid='" + eid + '\'' +

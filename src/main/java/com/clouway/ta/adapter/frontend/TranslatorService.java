@@ -1,6 +1,6 @@
 package com.clouway.ta.adapter.frontend;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by Panayot Kulchev on 15-10-19.
@@ -9,10 +9,10 @@ import java.util.Set;
  */
 public interface TranslatorService {
 
-  void add(TranslatorDo translator);
+  void add(Translator translator);
 
-  Set<TranslatorDo> getAll();
+  List<Translator> getAll();
 
-  Set<TranslatorDo> getByLanguages(Set<String> languages);
+  List<Translator> getByLanguages(List<String> languages);
 
 }
