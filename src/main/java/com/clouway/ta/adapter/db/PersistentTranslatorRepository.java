@@ -23,8 +23,8 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
   }
 
   @Override
-  public String add(Translator translator) {
-    return String.valueOf(datastore.store(translator).getName());
+  public void add(Translator translator) {
+    datastore.store(translator, translator.email);
   }
 
   @Override

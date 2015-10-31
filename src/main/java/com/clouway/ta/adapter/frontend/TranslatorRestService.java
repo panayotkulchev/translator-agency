@@ -40,9 +40,10 @@ public class TranslatorRestService {
   @Get
   public Reply<?> get(Request request) {
 
-//    languageRepository.add("english");
+    languageRepository.add("english");
+    languageRepository.mapUserId("english","dimitar");
+    languageRepository.mapUserId("english","petar");
 //    languageRepository.add("bulgarian");
-    languageRepository.mapUserId("english","pepo");
     return Reply.saying().ok();
   }
 

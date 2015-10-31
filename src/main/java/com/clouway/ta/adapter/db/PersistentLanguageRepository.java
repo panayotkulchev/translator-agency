@@ -2,7 +2,6 @@ package com.clouway.ta.adapter.db;
 
 import com.clouway.ta.adapter.frontend.Language;
 import com.google.api.client.util.Lists;
-import com.google.appengine.api.datastore.Key;
 import com.google.inject.Inject;
 import com.vercer.engine.persist.ObjectDatastore;
 
@@ -35,7 +34,7 @@ public class PersistentLanguageRepository implements LanguageRepository {
   public void mapUserId(String langId, String userId) {
 
     Language entity = datastore.load(Language.class, langId);
-
+    System.out.println(entity);
     entity.translatorIds.add(userId);
 
     datastore.update(entity);
@@ -45,11 +44,11 @@ public class PersistentLanguageRepository implements LanguageRepository {
   @Override
   public void mapUserId(List<String> languages, String userId) {
 
-    for (String each : languages){
+    for (String each : languages) {
       Language language = datastore.load(Language.class, each);
       System.out.println(language);
-      if (language.translatorIds==null){
-        language.translatorIds=Lists.newArrayList();
+      if (language.translatorIds == null) {
+        language.translatorIds = Lists.newArrayList();
       }
       language.translatorIds.add(userId);
       datastore.update(language);
@@ -70,7 +69,6 @@ public class PersistentLanguageRepository implements LanguageRepository {
     List result = Lists.newArrayList();
 
 
-
-      return result;
+    return result;
   }
 }

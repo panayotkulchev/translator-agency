@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface TranslatorRepository {
 
-  String add(Translator translator);
+  void add(Translator translator);
 
   Translator getById(String translatorId);
 

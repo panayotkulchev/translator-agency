@@ -24,6 +24,14 @@ public class Language {
     translatorIds = Lists.newArrayList();
   }
 
+  public void setLangId(String langId) {
+    this.langId = langId;
+  }
+
+  public void setTranslatorIds(List<String> translatorIds) {
+    this.translatorIds = translatorIds;
+  }
+
   @Override
   public String toString() {
     return "LanguageEntity{" +

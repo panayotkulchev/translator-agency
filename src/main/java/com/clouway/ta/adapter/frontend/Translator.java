@@ -11,16 +11,17 @@ import java.util.Set;
  * happy codding ...
  */
 public class Translator {
-  @Key
-  public String translId;
+//  @Key
+//  public String translId;
 
+  //  public List<String> educations;
+  @Key
+  public String email;
   public String name;
   public String currentAddress;
   public String permanentAddress;
   public String phones;
   public List<String> languages;
-//  public List<String> educations;
-  public String email;
   public String skype;
   public String eid;
   public String document;
@@ -57,7 +58,7 @@ public class Translator {
   @Override
   public String toString() {
     return "TranslatorEntity{" +
-            "key=" + translId +
+//            "key=" + translId +
             ", name='" + name + '\'' +
             ", currentAddress='" + currentAddress + '\'' +
             ", permanentAddress='" + permanentAddress + '\'' +
