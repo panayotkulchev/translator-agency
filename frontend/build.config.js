@@ -69,11 +69,13 @@ module.exports = {
       'vendor/angular-ui-utils/modules/route/route.js',
       'vendor/nya-bootstrap-select/dist/js/nya-bs-select.js',
       'vendor/angular-animate/angular-animate.js',
-      'vendor/angular-translate/angular-translate.min.js'
+      'vendor/angular-translate/angular-translate.min.js',
+      'vendor/angular-loading-bar/src/loading-bar.js'
     ],
     css: [
       'vendor/nya-bootstrap-select/dist/css/nya-bs-select.min.css',
-      'vendor/angular-growl-v2/build/angular-growl.min.css'
+      'vendor/angular-growl-v2/build/angular-growl.min.css',
+      'vendor/angular-loading-bar/src/loading-bar.css'
     ],
     fonts: [
       'vendor/components-font-awesome/fonts/*',

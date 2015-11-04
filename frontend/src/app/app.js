@@ -6,7 +6,9 @@ angular.module('ta.core', [
   'ta.home',
   'ta.translators',
   'i18n',
-  'ui.router'
+  'ui.router',
+  'angular-loading-bar',
+  'ngAnimate'
 ])
         .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider) {
           $urlRouterProvider.otherwise('/translators');

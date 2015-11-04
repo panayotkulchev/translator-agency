@@ -36,9 +36,6 @@ public class TranslatorRestService {
 
   @Get
   public Reply<?> get(Request request) {
-//    languageRepository.add("english");
-//    languageRepository.add("bulgarian");
-//    return Reply.saying().ok();
 
     List<String> languages = Lists.newArrayList("bulgarian","english");
 
@@ -51,10 +48,14 @@ public class TranslatorRestService {
   @At("/getByLanguages")
   @Post
   public Reply<?> getByLanguages(Request request) {
+    try {
+      Thread.sleep(2000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    List languages = request.read(List.class).as(Json.class);
 
-//    List languages = request.read(List.class).as(Json.class);
-
-    List<String> languages = Lists.newArrayList("bulgarian","english");
+//    List<String> languages = Lists.newArrayList("bulgarian","english");
 
     List<Translator> translators = service.getByLanguages(languages);
 

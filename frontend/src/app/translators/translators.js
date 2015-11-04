@@ -34,7 +34,7 @@ angular.module('ta.translators', [
               return httpRequest.post('r/translators/add', translatorDto);
             },
             deleteById: function (id) {
-              return httpRequest.del('/r/nomenclature/translators', {id: id});
+              return httpRequest.del('/r/translators', {id: id});
             }
           };
         })
@@ -59,7 +59,7 @@ angular.module('ta.translators', [
           };
 
           $scope.getByLanguages = function (selectedLanguages) {
-            selectedLanguages=['english'];
+            selectedLanguages=['bulgarian'];
             translatorsGateway.getByLanguages(selectedLanguages).then(
 
                     function onSuccess(data) {

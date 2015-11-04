@@ -25,5 +25,8 @@
   },
   "resolutions": {
     "angular": "~1.4"
+  },
+  "dependencies": {
+    "angular-loading-bar": "~0.8.0"
   }
 }
