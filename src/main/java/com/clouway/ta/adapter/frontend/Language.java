@@ -1,7 +1,8 @@
 package com.clouway.ta.adapter.frontend;
 
-import com.google.common.collect.Lists;
-import com.vercer.engine.persist.annotation.Key;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,25 +12,20 @@ import java.util.List;
  * e-mail: panayotkulchev@gmail.com
  * happy codding ...
  */
+@Entity
 public class Language {
 
-  @Key
+  @Id
   public String langId;
-  public List<String> translatorIds = Lists.newArrayList();
+  @Index
+  public List<String> translatorIds = new ArrayList<>();
 
   @SuppressWarnings("unchecked")
   public Language() {
-    System.out.println("constructor language");
-    System.out.println(translatorIds);
-    translatorIds = Lists.newArrayList();
   }
 
   public void setLangId(String langId) {
     this.langId = langId;
-  }
-
-  public void setTranslatorIds(List<String> translatorIds) {
-    this.translatorIds = translatorIds;
   }
 
   @Override
@@ -38,27 +34,6 @@ public class Language {
             "lang_id='" + langId + '\'' +
             ", translatorIds=" + translatorIds +
             '}';
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    Language language = (Language) o;
-
-    if (langId != null ? !langId.equals(language.langId) : language.langId != null) return false;
-    if (translatorIds != null ? !translatorIds.equals(language.translatorIds) : language.translatorIds != null)
-      return false;
-
-    return true;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = langId != null ? langId.hashCode() : 0;
-    result = 31 * result + (translatorIds != null ? translatorIds.hashCode() : 0);
-    return result;
   }
 }
 

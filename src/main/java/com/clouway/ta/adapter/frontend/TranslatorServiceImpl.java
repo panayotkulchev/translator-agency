@@ -3,9 +3,11 @@ package com.clouway.ta.adapter.frontend;
 import com.clouway.ta.adapter.db.LanguageRepository;
 import com.clouway.ta.adapter.db.TranslatorRepository;
 import com.google.api.client.util.Lists;
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Panayot Kulchev on 15-10-19.
@@ -30,7 +32,9 @@ public class TranslatorServiceImpl implements TranslatorService {
 
     translatorRepository.add(translator);
 
-    languageRepository.mapUserId(translator.languages, translator.email);
+    List<String> languages = translator.languages;
+    String email = translator.email;
+    languageRepository.mapUserId(languages, email);
   }
 
   @Override
@@ -39,9 +43,13 @@ public class TranslatorServiceImpl implements TranslatorService {
   }
 
   @Override
-  public List<Translator> getByLanguages(List<String> langIds) {
+  public List<Translator> getByLanguages(List<String> languages) {
 
-    List<Translator> result = Lists.newArrayList();
+    List<String> translatorIds = languageRepository.getUserIds(languages);
+    Set<String> uniqueUserIds = Sets.newHashSet(translatorIds);
+    translatorIds = Lists.newArrayList(uniqueUserIds);
+
+    List<Translator> result = translatorRepository.getById(translatorIds);
 
     return result;
   }

@@ -1,35 +1,36 @@
 package com.clouway.ta.adapter.frontend;
 
-import com.vercer.engine.persist.annotation.Key;
+
+import com.google.api.client.util.Lists;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Panayot Kulchev on 15-10-14.
  * e-mail: panayotkulchev@gmail.com
  * happy codding ...
  */
-public class Translator {
-//  @Key
-//  public String translId;
 
-  //  public List<String> educations;
-  @Key
+@Entity
+public class Translator {
+
+  @Id
   public String email;
   public String name;
   public String currentAddress;
   public String permanentAddress;
   public String phones;
-  public List<String> languages;
+  public List<String> languages = Lists.newArrayList();
   public String skype;
   public String eid;
   public String document;
   public String iban;
 
   @SuppressWarnings("unchecked")
-    public Translator() {
-    }
+  public Translator() {
+  }
 
   public Translator(String name,
                     String currentAddress,

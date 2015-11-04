@@ -82,11 +82,18 @@
     </dependency>
 
     <!--Twig-->
+    <!--<dependency>-->
+      <!--<groupId>com.vercer.engine.persist</groupId>-->
+      <!--<artifactId>twig-persist</artifactId>-->
+      <!--<version>1.0.4</version>-->
+    <!--</dependency>-->
+
     <dependency>
-      <groupId>com.vercer.engine.persist</groupId>
-      <artifactId>twig-persist</artifactId>
-      <version>1.0.4</version>
+      <groupId>com.googlecode.objectify</groupId>
+      <artifactId>objectify</artifactId>
+      <version>5.1.8</version>
     </dependency>
+
 
     <!--Guava-->
     <dependency>
