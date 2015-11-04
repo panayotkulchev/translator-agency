@@ -9,11 +9,11 @@ import com.google.sitebricks.client.transport.Json;
 import com.google.sitebricks.headless.Reply;
 import com.google.sitebricks.headless.Request;
 import com.google.sitebricks.headless.Service;
+import com.google.sitebricks.http.Delete;
 import com.google.sitebricks.http.Get;
 import com.google.sitebricks.http.Post;
 
 import java.util.List;
-
 
 /**
  * Created by Panayot Kulchev on 15-10-14.
@@ -35,7 +35,7 @@ public class TranslatorRestService {
   }
 
   @Get
-  public Reply<?> get(Request request) {
+  public Reply<?> test(Request request) {
 
     List<String> languages = Lists.newArrayList("bulgarian","english");
 
@@ -48,14 +48,8 @@ public class TranslatorRestService {
   @At("/getByLanguages")
   @Post
   public Reply<?> getByLanguages(Request request) {
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    List languages = request.read(List.class).as(Json.class);
 
-//    List<String> languages = Lists.newArrayList("bulgarian","english");
+    List languages = request.read(List.class).as(Json.class);
 
     List<Translator> translators = service.getByLanguages(languages);
 
@@ -69,6 +63,17 @@ public class TranslatorRestService {
     Translator translator = request.read(Translator.class).as(Json.class);
 
     service.add(translator);
+
+    return Reply.saying().ok();
+  }
+
+  @At("/delete")
+  @Delete
+  public Reply<?> delete(Request request) {
+
+    String translatorId = request.param("id");
+
+    service.delete(translatorId);
 
     return Reply.saying().ok();
   }

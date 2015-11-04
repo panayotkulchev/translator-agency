@@ -34,7 +34,7 @@ angular.module('ta.translators', [
               return httpRequest.post('r/translators/add', translatorDto);
             },
             deleteById: function (id) {
-              return httpRequest.del('/r/translators', {id: id});
+              return httpRequest.del('/r/translators/delete', {id: id});
             }
           };
         })
@@ -72,7 +72,7 @@ angular.module('ta.translators', [
             );
           };
 
-          $scope.deleteById = function (id) {
+          $scope.deleteById = function (id) { alert("del: " + id);
             translatorsGateway.deleteById(id).then(
                     function onSuccess() {
                       var position = $scope.translators.map(function (e) {

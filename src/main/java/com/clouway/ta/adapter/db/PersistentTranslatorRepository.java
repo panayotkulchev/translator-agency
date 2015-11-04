@@ -41,7 +41,7 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
   @Override
   public void deleteById(String translatorId) {
 
-//    datastore.delete(datastore.load(Translator.class, translatorId));
-
+  ofy().delete().type(Translator.class).id(translatorId).now();
   }
+
 }

@@ -15,4 +15,6 @@ public interface TranslatorService {
 
   List<Translator> getByLanguages(List<String> languages);
 
+  void delete(String translatorId);
+
 }
