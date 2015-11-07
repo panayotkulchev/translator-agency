@@ -42,8 +42,8 @@ public class PersistentLanguageRepository implements LanguageRepository {
   }
 
   @Override
-  public void delete(String langId) {
-
+  public void delete(String id) {
+    ofy().delete().type(Language.class).id(id).now();
   }
 
   @Override
@@ -66,7 +66,7 @@ public class PersistentLanguageRepository implements LanguageRepository {
     List<String> result = Lists.newArrayList();
 
     List<Language> langs = ofy().load().type(Language.class).list();
-    System.out.println(langs);
+
     for (Language each : langs){
         result.add(each.langId);
     }

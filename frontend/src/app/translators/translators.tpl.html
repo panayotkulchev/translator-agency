@@ -139,7 +139,7 @@
                                             data-size="5" data-live-search="true">
                                             <li nya-bs-option="option in languageOptions">
                                                 <a>
-                                                    {{ option.name }}
+                                                    <span translate>{{'LANG_NOMENCLATURE.'+option}}</span>
                                                     <span class="glyphicon glyphicon-ok check-mark"></span>
                                                 </a>
                                             </li>
@@ -179,7 +179,7 @@
 
 
                         <!--<div class="table-responsive">-->
-                        <table class="table table-hover">
+                        <table class="table table-hover table-vert-align-middle" ng-if="translators.length!==0">
                             <thead>
                             <tr>
                                 <th class="text-center text-primary" style="width: 15px">
@@ -271,6 +271,10 @@
                             </tr>
                             </tbody>
                         </table>
+
+                        <div ng-if="translators.length===0" class="alert alert-warning text-center col-md-offset-2 col-md-8" style="margin-top: 15px">
+                            {{'TRANSLATORS.NO_RESULT_MESSAGE'|translate}}
+                        </div>
                         <!--</div>-->
                     </div>
                     <!--END TRANSLATOR LIST-->
@@ -290,29 +294,29 @@
 
                                             <!--NAMES-->
                                             <div class="form-group form-group-sm">
-                                                <label for="names" class="col-sm-2 control-label">Име: </label>
+                                                <label for="names" class="col-sm-2 control-label">ИМЕ</label>
 
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="names"
                                                            placeholder="Име..."
-                                                           ng-model="translator.name">
+                                                           ng-model="translator.name" uppercased="">
                                                 </div>
                                             </div>
 
                                             <!--EGN-->
                                             <div class="form-group form-group-sm">
-                                                <label for="eid" class="col-sm-2 control-label">ЕГН: </label>
+                                                <label for="eid" class="col-sm-2 control-label">ЕГН</label>
 
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="eid"
                                                            placeholder="ЕГН..."
-                                                           ng-model="translator.eid">
+                                                           ng-model="translator.eid" numeric-only>
                                                 </div>
                                             </div>
 
                                             <!--LANGUAGES-->
                                             <div class="form-group">
-                                                <label for="langs" class="col-sm-2 control-label">Езици: </label>
+                                                <label for="langs" class="col-sm-2 control-label" style="font-size: 12px">ЕЗИЦИ</label>
 
                                                 <div class="col-sm-10">
                                                     <ol id="langs" class="nya-bs-select form-control"
@@ -320,7 +324,8 @@
                                                         data-size="5" data-live-search="true">
                                                         <li nya-bs-option="option in languageOptions">
                                                             <a>
-                                                                {{ option.name }}
+                                                                <span translate>{{'LANG_NOMENCLATURE.'+option}}</span>
+
                                                                 <span class="glyphicon glyphicon-ok check-mark"></span>
                                                             </a>
                                                         </li>
@@ -363,7 +368,7 @@
                                         <!--PHONES-->
                                         <form class="form-horizontal">
                                             <div class="form-group form-group-sm">
-                                                <label for="phones" class="col-sm-2 control-label">Телефон: </label>
+                                                <label for="phones" class="col-sm-2 control-label">ТЕЛЕФОНИ: </label>
 
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="phones"
@@ -374,7 +379,7 @@
 
                                             <!--EMAIL-->
                                             <div class="form-group form-group-sm">
-                                                <label for="email" class="col-sm-2 control-label">e-mail: </label>
+                                                <label for="email" class="col-sm-2 control-label">E-MAIL: </label>
 
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="email"
@@ -385,7 +390,7 @@
 
                                             <!--SKYPE-->
                                             <div class="form-group form-group-sm">
-                                                <label for="skype" class="col-sm-2 control-label">Skype: </label>
+                                                <label for="skype" class="col-sm-2 control-label">SKYPE: </label>
 
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="skype"
@@ -414,49 +419,47 @@
                                     <div class="panel-body">
                                         <form class="form-horizontal">
                                             <div class="form-group form-group-sm">
-                                                <label for="currentAddress" class="col-sm-2 control-label">Настоящ
-                                                    адрес: </label>
+                                                <label for="currentAddress" class="col-sm-2 control-label">НАСТ. АДРЕС</label>
 
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="currentAddress"
                                                            placeholder="Настоящ адрес:..."
-                                                           ng-model="translator.currentAddress">
+                                                           ng-model="translator.currentAddress" uppercased="">
                                                 </div>
                                             </div>
 
                                             <div class="form-group form-group-sm">
-                                                <label for="permanentAddress" class="col-sm-2 control-label">Постоянен
-                                                    адрес: </label>
+                                                <label for="permanentAddress" class="col-sm-2 control-label">ПОСТ. АДРЕС</label>
 
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="permanentAddress"
                                                            placeholder="Постоянен адрес..."
-                                                           ng-model="translator.permanentAddress">
+                                                           ng-model="translator.permanentAddress" uppercased="">
                                                 </div>
                                             </div>
 
 
                                             <div class="form-group form-group-sm">
-                                                <label for="eid" class="col-sm-2 control-label">Лична карта: </label>
+                                                <label for="eid" class="col-sm-2 control-label">ЛИЧНА КАРТА</label>
 
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="lk"
                                                            placeholder="Лична карта..."
-                                                           ng-model="translator.document">
+                                                           ng-model="translator.document" uppercased="">
                                                 </div>
                                             </div>
                                             <div class="form-group form-group-sm">
-                                                <label for="iban" class="col-sm-2 control-label">IBAN: </label>
+                                                <label for="iban" class="col-sm-2 control-label">IBAN</label>
 
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="iban"
                                                            placeholder="IBAN..."
-                                                           ng-model="translator.iban">
+                                                           ng-model="translator.iban" uppercased="">
                                                 </div>
                                             </div>
 
                                             <div class="form-group form-group-sm">
-                                                <label for="comment" class="col-sm-2 control-label">Коментар:</label>
+                                                <label for="comment" class="col-sm-2 control-label">КОМЕНТАР</label>
 
                                                 <div class="col-sm-10">
                                                 <textarea class="form-control" rows="2" id="comment"

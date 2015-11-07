@@ -15,7 +15,7 @@ public interface LanguageRepository {
 
   void mapUserId(List<String> languages, String userId);
 
-  void delete(String langId);
+  void delete(String id);
 
   List<String> getUserIds(List<String> langId);
 

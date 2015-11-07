@@ -24,11 +24,15 @@ angular.module('ta.languages', [
 
         .service('languagesGateway', function (httpRequest) {
           return {
-            add: function (lang) { console.log(lang);
-              return httpRequest.post('/r/languages?lang='+ lang);
+            add: function (lang) {
+              console.log(lang);
+              return httpRequest.post('/r/languages?lang=' + lang);
             },
-            all: function() {
+            all: function () {
               return httpRequest.get('/r/languages');
+            },
+            del: function (id) {
+              return httpRequest.del('/r/languages', {id: id});
             }
           };
         })
@@ -40,6 +44,7 @@ angular.module('ta.languages', [
                     function onSuccess() {
                       $scope.langs.push(lang);
                       growl.success(lang + " е добавен!");
+                      $scope.lang = "";
                     }
             );
           };
@@ -47,11 +52,25 @@ angular.module('ta.languages', [
           var allLangs = function () {
             languagesGateway.all().then(
                     function onSuccess(data) {
-                      $scope.langs = data; console.log(data);
+                      $scope.langs = data;
+                      console.log(data);
                     }
             );
           };
 
           allLangs();
 
+          $scope.del = function (id) {
+            languagesGateway.del(id).then(
+                    function onSuccess() {
+
+                      growl.success(id + " е изтрит!");
+
+                      var index = $scope.langs.indexOf(id);
+                      if (index !== -1) {
+                        $scope.langs.splice(index, 1);
+                      }
+                    }
+            );
+          };
         });

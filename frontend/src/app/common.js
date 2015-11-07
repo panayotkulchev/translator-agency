@@ -625,4 +625,35 @@ angular.module('common', ['ui.bootstrap'])
       }
     };
   })
+
+        .directive('uppercased', function() {
+          return {
+            require: 'ngModel',
+            link: function (scope, element, attrs, modelCtrl) {
+              modelCtrl.$parsers.push(function (input) {
+                return input ? input.toUpperCase() : "";
+              });
+              element.css("text-transform", "uppercase");
+            }
+          };
+        })
+
+.directive('numericOnly', function(){
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, modelCtrl) {
+
+      modelCtrl.$parsers.push(function (inputValue) {
+        var transformedInput = inputValue ? inputValue.replace(/[^\d.-]/g,'') : null;
+
+        if (transformedInput!=inputValue) {
+          modelCtrl.$setViewValue(transformedInput);
+          modelCtrl.$render();
+        }
+
+        return transformedInput;
+      });
+    }
+  };
+})
 ;

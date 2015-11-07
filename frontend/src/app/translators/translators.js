@@ -115,7 +115,7 @@ angular.module('ta.translators', [
           var extractLanguages = function (languages) {
             var result = [];
             angular.forEach(languages, function (language) {
-              result.push(language.key);
+              result.push(language);
             });
             return result;
           };
@@ -123,20 +123,12 @@ angular.module('ta.translators', [
           var extractEducations = function (educations) {
             var result = [];
             angular.forEach(educations, function (education) {
-              result.push(education.name);
+              result.push(education);
             });
             return result;
           };
 
-          $scope.languageOptions = [
-            {name: 'Английски', key: "english" },
-            {name: 'Български' , key: "bulgarian"},
-            {name: 'Руски', key: "russian"},
-            {name: 'Френски', key: "french"},
-            {name: 'Испански', key: "spanish"},
-            {name: 'Полски', key: "polish"},
-            {name: 'Холандски', key: "netherlands"}
-          ];
+          $scope.languageOptions = ["ENGLISH","BULGARIAN"];
 
           $scope.educationOptions = [
             {name: 'Ез. Гимназия'},

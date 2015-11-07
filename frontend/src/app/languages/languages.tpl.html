@@ -1,10 +1,11 @@
 <div class="panel">
     <div class="panel-body" style="min-height: 600px;">
+        <hr/>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-8">
                 <form class="form-inline" role="form">
 
-                    <input class="form-control" type="text" ng-model="lang"/>
+                    <input class="form-control" type="text" ng-model="lang" uppercased/>
 
                     <button type="submit" class="btn btn-success btn-sm"
                             tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
@@ -17,7 +18,7 @@
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
 
-                <table class="table table-hover table-condensed">
+                <table class="table table-hover table-condensed table-vert-align-middle">
                     <thead>
                     <tr>
                         <th class="text-center text-primary">
@@ -26,9 +27,8 @@
                         <th class="text-center text-primary">
                             <h6><strong translate>LANGUAGES.LANG</strong></h6>
                         </th>
-                        <th>
-                            <h6><strong translate>LANGUAGES.DELETE
-                            </strong></h6>
+                        <th class="text-center text-primary">
+                            <h6><strong translate>LANGUAGES.DELETE</strong></h6>
                         </th>
                     </tr>
                     </thead>
@@ -36,6 +36,15 @@
                     <tr ng-repeat="row in langs">
                         <td class="text-center" style="width: 30px">{{$index}}</td>
                         <td class="text-center">{{row}}</td>
+                        <td class="text-center" width="30">
+
+                            <confirm-modal
+                                    message="Сигурни ли сте, че искате да изтриете ''{{row}}''?"
+                                    ok-pressed="del(row)">
+                                <button type="button" class="btn btn-default btn-xs"
+                                        tooltip="{{'LANGUAGES.DELETE'| translate}}">
+                                    <i class="fa fa-trash"></i></button></confirm-modal>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

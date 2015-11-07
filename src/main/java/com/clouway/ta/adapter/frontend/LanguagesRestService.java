@@ -7,6 +7,7 @@ import com.google.sitebricks.client.transport.Json;
 import com.google.sitebricks.headless.Reply;
 import com.google.sitebricks.headless.Request;
 import com.google.sitebricks.headless.Service;
+import com.google.sitebricks.http.Delete;
 import com.google.sitebricks.http.Get;
 import com.google.sitebricks.http.Post;
 
@@ -44,4 +45,12 @@ public class LanguagesRestService {
     return Reply.saying().ok();
   }
 
+  @Delete
+  Reply<?> delete (Request request){
+
+    String id = request.param("id");
+    repository.delete(id);
+
+    return Reply.saying().ok();
+  }
 }

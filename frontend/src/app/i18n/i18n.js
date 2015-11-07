@@ -42,15 +42,20 @@ angular.module('i18n', [
                       "SEARCH_TOOLTIP": "Намерете всички преводачи за съотвения език",
                       "RESULTS": "Резултати: ",
                       "TOOLTIP_LEGAL": "заклет",
-                      "TOOLTIP_FAVORITE": "любим"
+                      "TOOLTIP_FAVORITE": "любим",
+                      "NO_RESULT_MESSAGE": "Няма намерени резултати!"
                     },
 
                     LANGUAGES : {
                       ADD: "Добави",
-                      LANG: "Език"
+                      LANG: "Език",
+                      DELETE: "Изтриване"
                     },
 
-                    HEADLINE: 'Hey, das ist meine großartige App!',
-                    INTRO_TEXT: 'Und sie untersützt mehrere Sprachen!'
+                    LANG_NOMENCLATURE:{
+                      ENGLISH: 'Английски',
+                      BULGARIAN: 'Български'
+                    }
+
                   });
         });
