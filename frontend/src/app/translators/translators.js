@@ -5,7 +5,7 @@ angular.module('ta.translators', [
   'ui.router',
   'ui.bootstrap',
   'ta.http',
-        'ngAnimate',
+  'ngAnimate',
   'common'
 ])
         .config(function config($stateProvider) {
@@ -58,11 +58,16 @@ angular.module('ta.translators', [
             );
           };
 
-          $scope.getByLanguages = function (selectedLanguages) {
-            selectedLanguages=['bulgarian'];
-            translatorsGateway.getByLanguages(selectedLanguages).then(
+          $scope.getByLanguages = function (selectedLanguages) { console.log(selectedLanguages);
+
+            var extracted = [];
+            angular.forEach(selectedLanguages, function(lang) {
+              extracted.push(lang.key);
+            });
+            translatorsGateway.getByLanguages(extracted).then(
 
                     function onSuccess(data) {
+                      console.log(data);
                       $scope.translators = data;
                     },
                     function onError() {

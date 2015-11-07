@@ -8,7 +8,8 @@ angular.module('ta.core', [
   'i18n',
   'ui.router',
   'angular-loading-bar',
-  'ngAnimate'
+  'ngAnimate',
+        'ta.languages'
 ])
         .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider) {
           $urlRouterProvider.otherwise('/translators');
@@ -30,34 +31,3 @@ angular.module('ta.core', [
             }
           });
         });
-
-        //.service('httpRequest', ['$http', '$q', '$rootScope', function ($http, $q, $rootScope) {
-        //
-        //  this.get = function (url, data) {
-        //    return this.send('GET', url, data);
-        //  };
-        //
-        //  this.post = function (url, data) {
-        //    return this.send('POST', url, data);
-        //  };
-        //
-        //  this.put = function (url, data) {
-        //    return this.send('PUT', url, data);
-        //  };
-        //
-        //  this.send = function (method, url, data) {
-        //    var deferred = $q.defer();
-        //
-        //    $http({method: method, url: url, data: data})
-        //            .success(function (data) {
-        //              deferred.resolve(data);
-        //            })
-        //            .error(function (data) {
-        //              deferred.reject(data);
-        //            });
-        //
-        //    $rootScope.loadingInProgress = true;
-        //
-        //    return deferred.promise;
-        //  };
-        //}]);

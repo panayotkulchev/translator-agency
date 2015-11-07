@@ -1,6 +1,6 @@
 angular.module('ta.http', [])
 
-        .service('httpRequest', ['$http', '$q', '$rootScope', '$locale',  function ($http, $q, $rootScope, $locale) {
+        .service('httpRequest', ['$http', '$q', '$rootScope', '$locale', '$translate', 'growl',  function ($http, $q, $rootScope, $locale, $translate, growl) {
 
           var count = 0;
 
@@ -36,7 +36,7 @@ angular.module('ta.http', [])
 
                     .error(function (data, status) {
                       emitErrorMessages(data, status);
-
+                      growl.warning("Opps!");
                       deferred.reject(data);
                       count--;
 

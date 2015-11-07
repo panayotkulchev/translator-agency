@@ -18,4 +18,6 @@ public interface LanguageRepository {
   void delete(String langId);
 
   List<String> getUserIds(List<String> langId);
+
+  List<String> getAll();
 }

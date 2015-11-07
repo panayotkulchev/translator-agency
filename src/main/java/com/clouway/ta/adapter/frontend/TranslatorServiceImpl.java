@@ -38,11 +38,11 @@ public class TranslatorServiceImpl implements TranslatorService {
 
   @Override
   public List<Translator> getByLanguages(List<String> languages) {
-
+    System.out.println(languages);
     List<String> translatorIds = languageRepository.getUserIds(languages);
-
+    System.out.println("users ids: "+ translatorIds);
     List<Translator> result = translatorRepository.getById(translatorIds);
-
+    System.out.println(result);
     return result;
   }
 

@@ -1,6 +1,7 @@
 package com.clouway.ta;
 
 import com.clouway.ta.adapter.db.PersistenceModule;
+import com.clouway.ta.adapter.frontend.LanguagesRestService;
 import com.clouway.ta.adapter.frontend.TranslatorRestService;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -28,6 +29,7 @@ public class AppConfig extends GuiceServletContextListener {
               @Override
               protected void configureSitebricks() {
                 at("/r/translators").serve(TranslatorRestService.class);
+                at("/r/languages").serve(LanguagesRestService.class);
               }
             }
     );

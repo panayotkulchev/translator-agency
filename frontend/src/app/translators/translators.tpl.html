@@ -93,20 +93,43 @@
     /*.ng-leave-stagger {*/
     /*transition-delay: 0.1s;*/
     /*}*/
+
+    /*.modal {*/
+        /*text-align: center;*/
+    /*}*/
+
+    /*@media screen and (min-width: 768px) {*/
+        /*.modal:before {*/
+            /*display: inline-block;*/
+            /*vertical-align: middle;*/
+            /*content: " ";*/
+            /*height: 100%;*/
+        /*}*/
+    /*}*/
+
+    /*.modal-dialog {*/
+        /*display: inline-block;*/
+        /*text-align: left;*/
+        /*vertical-align: middle;*/
+    /*}*/
 </style>
 <div class="panel">
-    <div class="panel-body">
+    <div class="panel-body" style="min-height: 600px;">
         <div class="row">
             <div class="col-sm-offset-1 col-sm-10">
-                <ul class="nav nav-tabs" ng-init="this.invoicemode=false">
+
+                <!--TWO TABS-->
+                <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#listTranslator" translate>TRANSLATORS.LISTS</a></li>
-                    <li><a data-toggle="tab" href="#addTranslators" translate>TRANSLATORS.ADD</a>
-                    </li>
+                    <li><a data-toggle="tab" href="#addTranslators" translate>TRANSLATORS.ADD</a></li>
                 </ul>
+
                 <div class="row tab-content top-buffer" style="margin-top: 20px">
+
+                    <!--TAB LIST-->
                     <div id="listTranslator" class="tab-pane fade in active">
                         <div class="row">
-                            <div class="col-md-offset-1 col-md-8">
+                            <div class="col-md-offset-2 col-md-8 text-center">
                                 <form class="form-inline" role="form">
                                     <div class="form-group form-group-sm">
                                         <label for="filter">Филтър: </label>
@@ -123,27 +146,30 @@
                                         </ol>
 
                                     </div>
-                                    <div class="checkbox">
-                                        <label><input type="checkbox">{{'TRANSLATORS.ONLY_LEGALS' | translate}}</label>
-                                    </div>
+
+                                    <!--todo is it needed-->
+                                    <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox">{{'TRANSLATORS.ONLY_LEGALS' | translate}}</label>-->
+                                    <!--</div>-->
                                     <button type="submit" class="btn btn-success btn-sm"
                                             tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
-                                            ng-click="getByLanguages()" translate>
+                                            ng-click="getByLanguages(translator.filteredLanguages)" translate>
                                         TRANSLATORS.SEARCH
                                     </button>
                                 </form>
                             </div>
-                            <div class="col-sm-3 text-right">
-                                <h5 class="text-muted">{{'TRANSLATORS.RESULTS'| translate}} {{translators.length}}</h5>
-                            </div>
+                            <!--NUMBER OF RESULTS TBD-->
+                            <!--<div class="col-sm-0 text-md-2 text-right">-->
+                                <!--<h5 class="text-muted">{{'TRANSLATORS.RESULTS'| translate}} {{translators.length}}</h5>-->
+                            <!--</div>-->
                         </div>
 
 
-                        <div class="row top-buffered">
-                            <div class="col-sm-offset-1 col-sm-10 input-group" style="margin: 10px auto">
+                        <div class="row top-buffered" ng-if="translators.length!==0">
+                            <div class="col-md-offset-2 col-md-8 input-group" style="margin: 10px auto">
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
                                 <input class="form-control" type="text" ng-model="search" placeholder="Търси в резултатите..."/>
-                            </div>
+                            </div>{{translators.length}}
                             <!--<div class="col-sm-12">-->
                                 <!--<input type="text" ng-model="search" class="form-control">-->
                                 <!--<button type="submit" class="btn">Search</button>-->

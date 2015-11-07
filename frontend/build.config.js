@@ -73,9 +73,11 @@ module.exports = {
       'vendor/angular-loading-bar/src/loading-bar.js'
     ],
     css: [
+      'vendor/boostrap/dist/css/boostrap.css',
       'vendor/nya-bootstrap-select/dist/css/nya-bs-select.min.css',
       'vendor/angular-growl-v2/build/angular-growl.min.css',
-      'vendor/angular-loading-bar/src/loading-bar.css'
+      'vendor/angular-loading-bar/src/loading-bar.css',
+      'app/common.less'
     ],
     fonts: [
       'vendor/components-font-awesome/fonts/*',

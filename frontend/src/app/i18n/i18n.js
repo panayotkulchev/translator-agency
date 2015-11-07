@@ -3,7 +3,8 @@ angular.module('i18n', [
 ])
 
         .config(function i18nConfig($translateProvider) {
-
+          $translateProvider.preferredLanguage('bg');
+          $translateProvider.useSanitizeValueStrategy(null);
           $translateProvider
                   .translations('en', {
                     TRANSLATORS:{
@@ -44,9 +45,12 @@ angular.module('i18n', [
                       "TOOLTIP_FAVORITE": "любим"
                     },
 
+                    LANGUAGES : {
+                      ADD: "Добави",
+                      LANG: "Език"
+                    },
+
                     HEADLINE: 'Hey, das ist meine großartige App!',
                     INTRO_TEXT: 'Und sie untersützt mehrere Sprachen!'
                   });
-          $translateProvider.preferredLanguage('bg');
-          $translateProvider.useSanitizeValueStrategy(null);
         });
