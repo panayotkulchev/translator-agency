@@ -185,7 +185,7 @@
                                 <th class="text-center text-primary" style="width: 15px">
                                     <h6><strong>#</strong></h6>
                                 </th>
-                                <th class="text-center text-primary" style="width: 20px">
+                                <th class="text-center text-primary">
                                     <h6><strong translate>TRANSLATORS.LEGAL_SIGN</strong></h6>
                                 </th>
                                 <th class="text-center text-primary" style="width: 200px">
@@ -212,15 +212,15 @@
                                 <td class="text-center" style="width: 15px">
                                     <small>{{$index+1}}</small>
                                 </td>
-                                <td class="text-center" width="20px">
+                                <td class="text-center" style="width: 50px">
                                     <small>
-                                            <span ng-if="row.registered==true">
-                                                <i class="fa fa-star-o"
-                                                   uib-tooltip="{{'TRANSLATORS.TOOLTIP_LEGAL'| translate}}"></i>
-                                            </span>
                                             <span ng-if="row.favorite==true">
                                                 <i class="fa fa-heart-o"
-                                                   uib-tooltip="{{'TRANSLATORS.TOOLTIP_FAVORITE'| translate}}"></i>
+                                                   tooltip="{{'TRANSLATORS.TOOLTIP_FAVORITE'| translate}}"></i>
+                                            </span>
+                                            <span ng-if="row.registered==true">
+                                                <i class="fa fa-star-o"
+                                                   tooltip="{{'TRANSLATORS.TOOLTIP_LEGAL'| translate}}"></i>
                                             </span>
                                     </small>
 

@@ -20,4 +20,6 @@ public interface LanguageRepository {
   List<String> getUserIds(List<String> langId);
 
   List<String> getAll();
+
+  void unMap(String each, String translatorId);
 }

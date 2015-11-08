@@ -49,6 +49,10 @@ public class TranslatorServiceImpl implements TranslatorService {
   @Override
   public void delete(String translatorId) {
 
+    Translator translator = translatorRepository.getById(translatorId);
+    for(String each: translator.languages){
+      languageRepository.unMap(each,translatorId);
+    }
     translatorRepository.deleteById(translatorId);
   }
 }

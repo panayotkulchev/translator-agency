@@ -15,7 +15,7 @@ public interface TranslatorRepository {
 
   Translator getById(String translatorId);
 
-  List<Translator> getById (List<String> ids);
+  List<Translator> getById(List<String> ids);
 
   void deleteById(String translatorId);
 }

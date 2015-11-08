@@ -74,4 +74,14 @@ public class PersistentLanguageRepository implements LanguageRepository {
     return result;
   }
 
+  @Override
+  public void unMap(String language, String translatorId) {
+    Language entity = ofy().load().type(Language.class).id(language).now();
+    int index = entity.translatorIds.indexOf(translatorId);
+    if (index!=-1){
+      entity.translatorIds.remove(index);
+      ofy().save().entity(entity).now();
+    }
+  }
+
 }

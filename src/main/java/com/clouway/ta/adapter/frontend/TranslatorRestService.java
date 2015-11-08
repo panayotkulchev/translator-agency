@@ -1,7 +1,6 @@
 package com.clouway.ta.adapter.frontend;
 
 import com.clouway.ta.adapter.db.LanguageRepository;
-import com.clouway.ta.adapter.db.TranslatorRepository;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.sitebricks.At;
@@ -37,7 +36,7 @@ public class TranslatorRestService {
   @Get
   public Reply<?> test(Request request) {
 
-    List<String> languages = Lists.newArrayList("bulgarian","english");
+    List<String> languages = Lists.newArrayList("bulgarian", "english");
 
     List<Translator> translators = service.getByLanguages(languages);
 

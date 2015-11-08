@@ -49,7 +49,7 @@ angular.module('ta.translators', [
 
             translatorsGateway.add(translatorDto).then(
                     function onSuccess() {
-                      growl.success($scope.translator.name + " was added!");
+                      growl.success($scope.translator.name + " беше добавен!");
                       $scope.translator = {};
                     },
                     function onError() {
@@ -58,16 +58,11 @@ angular.module('ta.translators', [
             );
           };
 
-          $scope.getByLanguages = function (selectedLanguages) { console.log(selectedLanguages);
+          $scope.getByLanguages = function (selectedLanguages) {
 
-            var extracted = [];
-            angular.forEach(selectedLanguages, function(lang) {
-              extracted.push(lang.key);
-            });
-            translatorsGateway.getByLanguages(extracted).then(
+            translatorsGateway.getByLanguages(selectedLanguages).then(
 
                     function onSuccess(data) {
-                      console.log(data);
                       $scope.translators = data;
                     },
                     function onError() {
@@ -77,18 +72,16 @@ angular.module('ta.translators', [
             );
           };
 
-          $scope.deleteById = function (id) { alert("del: " + id);
+          $scope.deleteById = function (id) {
             translatorsGateway.deleteById(id).then(
                     function onSuccess() {
-                      var position = $scope.translators.map(function (e) {
-                        return e.id;
-                      }).indexOf(id);
+                      var position = $scope.translators.map(function (e) {return e.email;}).indexOf(id);
                       if (position !== -1) {
                         $scope.translators.splice(position, 1);
                       }
                     },
                     function onError() {
-                      growl.warning("Unexpected system error!");
+                      growl.warning("Системна грешка!");
                     }
             );
           };
@@ -123,12 +116,20 @@ angular.module('ta.translators', [
           var extractEducations = function (educations) {
             var result = [];
             angular.forEach(educations, function (education) {
-              result.push(education);
+              result.push(education.name);
             });
             return result;
           };
 
-          $scope.languageOptions = ["ENGLISH","BULGARIAN"];
+          $scope.getLangLine = function (langs) { console.log(langs);
+            var line = '';
+            angular.forEach(langs, function (lang) {
+
+            });
+            //return line;
+          };
+
+          $scope.languageOptions = [ "ENGLISH","BULGARIAN"];
 
           $scope.educationOptions = [
             {name: 'Ез. Гимназия'},

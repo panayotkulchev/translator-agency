@@ -32,7 +32,9 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
 
     for (String each : ids){
       Translator entity = ofy().load().type(Translator.class).id(each).now();
-      result.add(entity);
+      if (entity!=null){
+        result.add(entity);
+      }
     }
 
     return result;
