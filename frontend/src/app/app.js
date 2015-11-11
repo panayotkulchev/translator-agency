@@ -1,9 +1,9 @@
 angular.module('ta.core', [
   'templates-app',
   'templates-common',
+  'ta.home',
   'angular-growl',
   'nya.bootstrap.select',
-  'ta.home',
   'ta.translators',
   'i18n',
   'ui.router',

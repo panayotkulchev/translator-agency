@@ -1,23 +1,23 @@
 /**
- * @ngdoc module
- * @name bss.common
- * @description
- *
- * The `bss.common` module provides all common classes which need to be re-used between all modules of the BSS app.
- *
- * <div doc-module-components="ngAnimate"></div>
- */
+* @ngdoc module
+* @name bss.common
+* @description
+*
+* The `bss.common` module provides all common classes which need to be re-used between all modules of the BSS app.
+*
+* <div doc-module-components="ngAnimate"></div>
+*/
 
 /**
- * @ngdoc service
- * @name eventBus
- * @kind object
- *
- * @description
- * The eventBus service documentation.
- *
- * Click here {@link bss.common eventBus to learn more about it}.
- */
+* @ngdoc service
+* @name eventBus
+* @kind object
+*
+* @description
+* The eventBus service documentation.
+*
+* Click here {@link bss.common eventBus to learn more about it}.
+*/
 angular.module('common', ['ui.bootstrap'])
 
   .directive('datetimepicker', function () {
@@ -81,15 +81,15 @@ angular.module('common', ['ui.bootstrap'])
   })
 
 /**
- * Provides for search functionality
- *
- * When input value 'query' is changed it is set as state param by changeState().
- * Watcher listen for changes in the $stateParams.query .
- * and fires submitQuery() .
- * queryChanged() is called from submitQuery and uses query as value param,
- * and triggers parent scope's search(). The las one must be implemented.
- * Watcher also adds client's back button and refresh page functionality .
- */
+* Provides for search functionality
+*
+* When input value 'query' is changed it is set as state param by changeState().
+* Watcher listen for changes in the $stateParams.query .
+* and fires submitQuery() .
+* queryChanged() is called from submitQuery and uses query as value param,
+* and triggers parent scope's search(). The las one must be implemented.
+* Watcher also adds client's back button and refresh page functionality .
+*/
   .directive('searchBox', function () {
 
     var directive = {
@@ -138,41 +138,41 @@ angular.module('common', ['ui.bootstrap'])
   })
 
 /**
- * @ngdoc directive
- *
- * Example usages:
- * <pre>
- * <form name="exampleForm">
- *   // NOTE: the form must have a name. Otherwise validation will not work.
- *
- *   // Automatic field detection
- *   <validation-box>
- *     <input name="fieldName" />
- *     // NOTE: it must contain an input field with a name. Otherwise validation will not work.
- *   </validation-box>
- *
- *
- *   // Explicit field assignment
- *   // Useful if there are more than one inputs (ex.: when the input is a complex directive)
- *   <validation-box field="fieldName">
- *     <input name="fieldName" />
- *   </validation-box>
- *
- *   // Column layout of label and field
- *   <validation-box label="Field label" label-class="col-md-2" field-class="col-md-5">
- *     <input name="fieldName" />
- *   </validation-box>
- *
- * </form>
- * </pre>
- *
- * @param {string} field name of the form field to be validated. If not specified, the name of the first input field is used.
- * @param {string} label label text of the field. Can be omitted if no label is desired.
- * @param {string} error-messages template file for validation error messages. If not specified, a default is used.
- * @param {string} label-class css class for styling the label. Useful for customizing the form layout.
- * @param {string} panel-class css class for styling the input field. Useful for customizing the form layout.
- *
- */
+* @ngdoc directive
+*
+* Example usages:
+* <pre>
+* <form name="exampleForm">
+*   // NOTE: the form must have a name. Otherwise validation will not work.
+*
+*   // Automatic field detection
+*   <validation-box>
+*     <input name="fieldName" />
+*     // NOTE: it must contain an input field with a name. Otherwise validation will not work.
+*   </validation-box>
+*
+*
+*   // Explicit field assignment
+*   // Useful if there are more than one inputs (ex.: when the input is a complex directive)
+*   <validation-box field="fieldName">
+*     <input name="fieldName" />
+*   </validation-box>
+*
+*   // Column layout of label and field
+*   <validation-box label="Field label" label-class="col-md-2" field-class="col-md-5">
+*     <input name="fieldName" />
+*   </validation-box>
+*
+* </form>
+* </pre>
+*
+* @param {string} field name of the form field to be validated. If not specified, the name of the first input field is used.
+* @param {string} label label text of the field. Can be omitted if no label is desired.
+* @param {string} error-messages template file for validation error messages. If not specified, a default is used.
+* @param {string} label-class css class for styling the label. Useful for customizing the form layout.
+* @param {string} panel-class css class for styling the input field. Useful for customizing the form layout.
+*
+*/
   .directive('validationBox', function () {
     return {
       restrict: 'E',
@@ -220,19 +220,19 @@ angular.module('common', ['ui.bootstrap'])
   })
 
 /**
- * Provide pagination functionality.
- * Used as element.
- * When page is changed search is called with offset and count params
- * onPageChange() must be implemented in parent scope
- *
- * Scope's nextPage() and previousPage() and hasNext() are used
- * in the pager template
- *
- * Pager is an object used for exchange data outside isolated scope
- * pager.accept takes care of hasNext page on base of data.length
- * pager.rollback is used in case of error response
- * pager.reset resets all values
- */
+* Provide pagination functionality.
+* Used as element.
+* When page is changed search is called with offset and count params
+* onPageChange() must be implemented in parent scope
+*
+* Scope's nextPage() and previousPage() and hasNext() are used
+* in the pager template
+*
+* Pager is an object used for exchange data outside isolated scope
+* pager.accept takes care of hasNext page on base of data.length
+* pager.rollback is used in case of error response
+* pager.reset resets all values
+*/
   .directive('simplePager', function () {
 
     var directive = {
@@ -559,13 +559,13 @@ angular.module('common', ['ui.bootstrap'])
   }])
 
 /**
- * Highlights the tokens in searched text
- *
- * Use as: <span highlight="string">text</span>
- * The example finds matches between 'string' in the 'text'
- * Results are put in span tag like: <span class="highlightedFilteredText">some match</span>
- * with highlightedFilteredText class
- */
+* Highlights the tokens in searched text
+*
+* Use as: <span highlight="string">text</span>
+* The example finds matches between 'string' in the 'text'
+* Results are put in span tag like: <span class="highlightedFilteredText">some match</span>
+* with highlightedFilteredText class
+*/
   .directive('highlight', function ($parse) {
 
     return {

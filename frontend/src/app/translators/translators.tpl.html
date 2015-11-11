@@ -1,219 +1,122 @@
-<style>
-    .slide-animation.ng-enter, .slide-animation.ng-leave {
-        -webkit-transition: 0.5s linear all;
-        -moz-transition: 0.5s linear all;
-        -o-transition: 0.5s linear all;
-        transition: 0.5s linear all;
-        position: relative;
-        height: 1000px;
-    }
+        <div class="panel panel-default">
 
-    .slide-animation.ng-enter {
-        z-index: 100;
-        left: 100px;
-        opacity: 0;
-    }
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>Преводачи <span class="text-muted">номенклатура</span></h5>
+                    </div>
 
-    .slide-animation.ng-enter.ng-enter-active {
-        left: 0;
-        opacity: 1;
-    }
+                </div>
+            </div>
 
-    .slide-animation.ng-leave {
-        z-index: 101;
-        opacity: 1;
-        left: 0;
-    }
+            <div class="panel-body" style="min-height: 600px;">
+                <div class="row">
+                    <div class="col-xs-offset-1 col-xs-10">
 
-    .slide-animation.ng-leave.ng-leave-active {
-        left: -100px;
-        opacity: 0;
-    }
+                        <!--TWO TABS-->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#listTranslator"
+                                                  translate>TRANSLATORS.LISTS</a></li>
+                            <li><a data-toggle="tab" href="#addTranslators" translate>TRANSLATORS.ADD</a></li>
+                        </ul>
 
-    .repeat-animation.ng-enter,
-    .repeat-animation.ng-leave,
-    .repeat-animation.ng-move {
-        -webkit-transition: 0.5s linear all;
-        -moz-transition: 0.5s linear all;
-        -o-transition: 0.5s linear all;
-        transition: 0.5s linear all;
-        position: relative;
-    }
+                        <div class="row tab-content top-buffer">
 
-    .repeat-animation.ng-enter {
-        left: 10px;
-        opacity: 0;
-    }
+                            <!--TAB LIST-->
+                            <div id="listTranslator" class="tab-pane fade in active">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <form class="form-inline" role="form">
+                                            <div class="form-group form-group-sm">
+                                                <label for="filter">Филтър: </label>
 
-    .repeat-animation.ng-enter.ng-enter-active {
-        left: 0;
-        opacity: 1;
-    }
+                                                <ol id="filter" class="nya-bs-select btn-sm" title="Изберете език..."
+                                                    ng-model="translator.filteredLanguages" multiple
+                                                    data-size="5" data-live-search="true">
+                                                    <li nya-bs-option="option in languageOptions">
+                                                        <a>
+                                                            <span translate>{{'LANG_NOMENCLATURE.'+option}}</span>
+                                                            <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                        </a>
+                                                    </li>
+                                                </ol>
 
-    .repeat-animation.ng-leave {
-        left: 10px;
-        opacity: 1;
-    }
+                                            </div>
 
-    .repeat-animation.ng-leave.ng-leave-active {
-        left: -10px;
-        opacity: 0;
-    }
-
-    .repeat-animation.ng-move {
-        opacity: 0.5;
-    }
-
-    .repeat-animation.ng-move.ng-move-active {
-        opacity: 1;
-    }
-
-    .ng-enter {
-        transition: 0.75s;
-        opacity: 0;
-    }
-
-    .ng-enter-active {
-        opacity: 1;
-    }
-
-    .ng-enter-stagger {
-        transition-delay: 0.1s;
-    }
-
-    .ng-leave {
-        transition: 0.5s;
-        opacity: 1;
-    }
-
-    .ng-leave-active {
-        opacity: 0;
-    }
-
-    /*.ng-leave-stagger {*/
-    /*transition-delay: 0.1s;*/
-    /*}*/
-
-    /*.modal {*/
-        /*text-align: center;*/
-    /*}*/
-
-    /*@media screen and (min-width: 768px) {*/
-        /*.modal:before {*/
-            /*display: inline-block;*/
-            /*vertical-align: middle;*/
-            /*content: " ";*/
-            /*height: 100%;*/
-        /*}*/
-    /*}*/
-
-    /*.modal-dialog {*/
-        /*display: inline-block;*/
-        /*text-align: left;*/
-        /*vertical-align: middle;*/
-    /*}*/
-</style>
-<div class="panel">
-    <div class="panel-body" style="min-height: 600px;">
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-10">
-
-                <!--TWO TABS-->
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#listTranslator" translate>TRANSLATORS.LISTS</a></li>
-                    <li><a data-toggle="tab" href="#addTranslators" translate>TRANSLATORS.ADD</a></li>
-                </ul>
-
-                <div class="row tab-content top-buffer" style="margin-top: 20px">
-
-                    <!--TAB LIST-->
-                    <div id="listTranslator" class="tab-pane fade in active">
-                        <div class="row">
-                            <div class="col-md-offset-2 col-md-8 text-center">
-                                <form class="form-inline" role="form">
-                                    <div class="form-group form-group-sm">
-                                        <label for="filter">Филтър: </label>
-
-                                        <ol id="filter" class="nya-bs-select btn-sm"
-                                            ng-model="translator.filteredLanguages" multiple
-                                            data-size="5" data-live-search="true">
-                                            <li nya-bs-option="option in languageOptions">
-                                                <a>
-                                                    <span translate>{{'LANG_NOMENCLATURE.'+option}}</span>
-                                                    <span class="glyphicon glyphicon-ok check-mark"></span>
-                                                </a>
-                                            </li>
-                                        </ol>
-
+                                            <!--todo is it needed-->
+                                            <!--<div class="checkbox">-->
+                                            <!--<label><input type="checkbox">{{'TRANSLATORS.ONLY_LEGALS' | translate}}</label>-->
+                                            <!--</div>-->
+                                            <button type="submit" class="btn btn-success btn-sm"
+                                                    tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
+                                                    ng-click="getByLanguages(translator.filteredLanguages)" translate>
+                                                TRANSLATORS.SEARCH
+                                            </button>
+                                        </form>
                                     </div>
-
-                                    <!--todo is it needed-->
-                                    <!--<div class="checkbox">-->
-                                        <!--<label><input type="checkbox">{{'TRANSLATORS.ONLY_LEGALS' | translate}}</label>-->
+                                    <!--NUMBER OF RESULTS TBD-->
+                                    <!--<div class="col-sm-0 text-md-2 text-right">-->
+                                    <!--<h5 class="text-muted">{{'TRANSLATORS.RESULTS'| translate}} {{translators.length}}</h5>-->
                                     <!--</div>-->
-                                    <button type="submit" class="btn btn-success btn-sm"
-                                            tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
-                                            ng-click="getByLanguages(translator.filteredLanguages)" translate>
-                                        TRANSLATORS.SEARCH
-                                    </button>
-                                </form>
-                            </div>
-                            <!--NUMBER OF RESULTS TBD-->
-                            <!--<div class="col-sm-0 text-md-2 text-right">-->
-                                <!--<h5 class="text-muted">{{'TRANSLATORS.RESULTS'| translate}} {{translators.length}}</h5>-->
-                            <!--</div>-->
-                        </div>
+                                </div>
 
 
-                        <div class="row top-buffered" ng-show="translators.length!==0">
-                            <div class="col-md-offset-2 col-md-8 input-group" style="margin: 10px auto">
-                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                <input class="form-control" type="text" ng-model="search" placeholder="Търси в резултатите..."/>
-                            </div> {{search}}
-                            <!--<div class="col-sm-12">-->
-                                <!--<input type="text" ng-model="search" class="form-control">-->
-                                <!--<button type="submit" class="btn">Search</button>-->
-                            <!--</div>-->
+                                <div class="row top-buffer" ng-show="translators.length!==0">
+                                    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-10 col-md-offset-3 col-md-6 input-group" style="margin: 10px auto">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input class="form-control" type="text" ng-model="search"
+                                               placeholder="Търси в резултатите..."/>
+                                    </div>
+                                    <!--<div class="col-sm-12">-->
+                                    <!--<input type="text" ng-model="search" class="form-control">-->
+                                    <!--<button type="submit" class="btn">Search</button>-->
+                                    <!--</div>-->
 
-                        </div>
+                                </div>
 
+                                <div ng-show="translators.length===0"
+                                     class="alert alert-warning text-center col-md-offset-2 col-md-8"
+                                     style="margin-top: 15px">
+                                    {{'TRANSLATORS.NO_RESULT_MESSAGE'|translate}}
+                                </div>
 
-                        <!--<div class="table-responsive">-->
-                        <table class="table table-hover table-vert-align-middle" ng-if="translators.length!==0">
-                            <thead>
-                            <tr>
-                                <th class="text-center text-primary" style="width: 15px">
-                                    <h6><strong>#</strong></h6>
-                                </th>
-                                <th class="text-center text-primary">
-                                    <h6><strong translate>TRANSLATORS.LEGAL_SIGN</strong></h6>
-                                </th>
-                                <th class="text-center text-primary" style="width: 200px">
-                                    <h6><strong translate>TRANSLATORS.NAME</strong></h6>
-                                </th>
-                                <th class="text-center text-primary" style="width: 100px">
-                                    <h6><strong translate>TRANSLATORS.LANGUAGES_EDUCATION</strong></h6>
-                                </th>
-                                <th class="text-center text-primary" style="width: 150px">
-                                    <h6><strong translate>TRANSLATORS.EMAIL</strong></h6>
-                                </th>
-                                <th class="text-center text-primary" style="width: 200px">
-                                    <h6><strong translate>TRANSLATORS.PHONES</strong></h6>
-                                </th>
-                                <th class="text-center text-primary" style="width: 80px">
-                                    <h6><strong translate>TRANSLATORS.OPTIONS</strong></h6>
-                                </th>
-                            </tr>
-                            </thead>
+                                <div class="top-buffer">
+                                    <table class="table table-hover table-striped table-vert-align-middle"
+                                           ng-show="translators.length!==0">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center text-primary" style="width: 15px">
+                                                <h6><strong>#</strong></h6>
+                                            </th>
+                                            <th class="text-center text-primary">
+                                                <h6><strong translate>TRANSLATORS.LEGAL_SIGN</strong></h6>
+                                            </th>
+                                            <th class="text-center text-primary" style="width: 200px">
+                                                <h6><strong translate>TRANSLATORS.NAME</strong></h6>
+                                            </th>
+                                            <th class="text-center text-primary" style="width: 100px">
+                                                <h6><strong translate>TRANSLATORS.LANGUAGES_EDUCATION</strong></h6>
+                                            </th>
+                                            <th class="text-center text-primary" style="width: 150px">
+                                                <h6><strong translate>TRANSLATORS.EMAIL</strong></h6>
+                                            </th>
+                                            <th class="text-center text-primary" style="width: 200px">
+                                                <h6><strong translate>TRANSLATORS.PHONES</strong></h6>
+                                            </th>
+                                            <th class="text-center text-primary" style="width: 80px">
+                                                <h6><strong translate>TRANSLATORS.OPTIONS</strong></h6>
+                                            </th>
+                                        </tr>
+                                        </thead>
 
-                            <tbody>
-                            <tr ng-repeat="row in translators  | filter:search | orderBy: name"
-                                class="repeat-animation">
-                                <td class="text-center" style="width: 15px">
-                                    <small>{{$index+1}}</small>
-                                </td>
-                                <td class="text-center" style="width: 50px">
-                                    <small>
+                                        <tbody>
+                                        <tr ng-repeat="row in translators  | filter:search | orderBy: name"
+                                            class="repeat-animation">
+                                            <td class="text-center" style="width: 15px">
+                                                <small>{{$index+1}}</small>
+                                            </td>
+                                            <td class="text-center" style="width: 50px">
+                                                <small>
                                             <span ng-if="row.favorite==true">
                                                 <i class="fa fa-heart-o"
                                                    tooltip="{{'TRANSLATORS.TOOLTIP_FAVORITE'| translate}}"></i>
@@ -222,28 +125,28 @@
                                                 <i class="fa fa-star-o"
                                                    tooltip="{{'TRANSLATORS.TOOLTIP_LEGAL'| translate}}"></i>
                                             </span>
-                                    </small>
+                                                </small>
 
-                                </td>
-                                <td class="text-center">
-                                    <small>{{row.name}}
-                                    </small>
-                                </td>
-                                <td class="text-center">
-                                    <small>
-                                        {{row.languages}}
-                                    </small>
-                                </td>
-                                <td class="text-center">
-                                    <small> {{row.email}}
-                                    </small>
-                                </td>
-                                <td class="text-center">
-                                    <small>{{row.phones}}</small>
-                                </td>
-                                <td class="text-center" width="80px">
+                                            </td>
+                                            <td class="text-center">
+                                                <small>{{row.name}}
+                                                </small>
+                                            </td>
+                                            <td class="text-center">
+                                                <small>
+                                                    {{row.languages}}
+                                                </small>
+                                            </td>
+                                            <td class="text-center">
+                                                <small> {{row.email}}
+                                                </small>
+                                            </td>
+                                            <td class="text-center">
+                                                <small>{{row.phones}}</small>
+                                            </td>
+                                            <td width="80px">
 
-                                    <div class="row text-center btn-group" align="center">
+                                                <div class="row text-center btn-group" align="center">
                                                 <span>
                                                                <button type="button" class="btn btn-success btn-xs"
                                                                        ng-click="openModal()"
@@ -258,232 +161,244 @@
                                                               <i class="fa fa-pencil"></i></button>
                                                 </span>
 
-                                        <confirm-modal
-                                                message="Сигурни ли сте, че искате да изтриете {{row.name}}?"
-                                                ok-pressed="deleteById(row.email)">
-                                            <button type="button" class="btn btn-danger btn-xs"
-                                                    tooltip="{{'TRANSLATORS.DELETE'| translate}}">
-                                                <i class="fa fa-trash"></i></button>
-                                        </confirm-modal>
+                                                    <confirm-modal
+                                                            message="Сигурни ли сте, че искате да изтриете {{row.name}}?"
+                                                            ok-pressed="deleteById(row.email)">
+                                                        <button type="button" class="btn btn-danger btn-xs"
+                                                                tooltip="{{'TRANSLATORS.DELETE'| translate}}">
+                                                            <i class="fa fa-trash"></i></button>
+                                                    </confirm-modal>
 
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <div ng-if="translators.length===0" class="alert alert-warning text-center col-md-offset-2 col-md-8" style="margin-top: 15px">
-                            {{'TRANSLATORS.NO_RESULT_MESSAGE'|translate}}
-                        </div>
-                        <!--</div>-->
-                    </div>
-                    <!--END TRANSLATOR LIST-->
-
-                    <!--BEGIN ADD TRANSLATOR-->
-                    <div id="addTranslators" class="tab-pane fade">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="panel panel-default">
-
-                                    <div class="panel-heading">
-                                        ОСНОВНИ ДАННИ:
-                                    </div>
-
-                                    <div class="panel-body">
-                                        <form class="form-horizontal">
-
-                                            <!--NAMES-->
-                                            <div class="form-group form-group-sm">
-                                                <label for="names" class="col-sm-2 control-label">ИМЕ</label>
-
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="names"
-                                                           placeholder="Име..."
-                                                           ng-model="translator.name" uppercased="">
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!--</div>-->
+                            </div>
+                            <!--END TRANSLATOR LIST-->
+
+                            <!--BEGIN ADD TRANSLATOR-->
+                            <div id="addTranslators" class="tab-pane fade">
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="panel panel-default">
+
+                                            <div class="panel-heading panel-heading-sm">
+                                                ОСНОВНИ ДАННИ:
                                             </div>
 
-                                            <!--EGN-->
-                                            <div class="form-group form-group-sm">
-                                                <label for="eid" class="col-sm-2 control-label">ЕГН</label>
+                                            <div class="panel-body">
+                                                <form class="form-horizontal">
 
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="eid"
-                                                           placeholder="ЕГН..."
-                                                           ng-model="translator.eid" numeric-only>
-                                                </div>
-                                            </div>
+                                                    <!--NAMES-->
+                                                    <div class="form-group form-group-sm">
+                                                        <label for="names" class="col-sm-2 control-label">ИМЕ</label>
 
-                                            <!--LANGUAGES-->
-                                            <div class="form-group">
-                                                <label for="langs" class="col-sm-2 control-label" style="font-size: 12px">ЕЗИЦИ</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="names"
+                                                                   placeholder="Име..."
+                                                                   ng-model="translator.name" uppercased="">
+                                                        </div>
+                                                    </div>
 
-                                                <div class="col-sm-10">
-                                                    <ol id="langs" class="nya-bs-select form-control"
-                                                        ng-model="translator.languages" multiple
-                                                        data-size="5" data-live-search="true">
-                                                        <li nya-bs-option="option in languageOptions">
-                                                            <a>
-                                                                <span translate>{{'LANG_NOMENCLATURE.'+option}}</span>
+                                                    <!--EGN-->
+                                                    <div class="form-group form-group-sm">
+                                                        <label for="eid" class="col-sm-2 control-label">ЕГН</label>
 
-                                                                <span class="glyphicon glyphicon-ok check-mark"></span>
-                                                            </a>
-                                                        </li>
-                                                    </ol>
-                                                </div>
-                                            </div>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="eid"
+                                                                   placeholder="ЕГН..."
+                                                                   ng-model="translator.eid" numeric-only>
+                                                        </div>
+                                                    </div>
 
-                                            <!--EDUCATION-->
-                                            <!--<div class="form-group">-->
-                                                <!--<label for="educations" class="col-sm-2 control-label">Обр.: </label>-->
+                                                    <!--LANGUAGES-->
+                                                    <div class="form-group">
+                                                        <label for="langs" class="col-sm-2 control-label"
+                                                               style="font-size: 12px">ЕЗИЦИ</label>
 
-                                                <!--<div class="col-sm-10">-->
+                                                        <div class="col-sm-10">
+                                                            <ol id="langs" class="nya-bs-select form-control"
+                                                                title="Изберете език..."
+                                                                ng-model="translator.languages" multiple
+                                                                data-size="5" data-live-search="true">
+                                                                <li nya-bs-option="option in languageOptions">
+                                                                    <a>
+                                                                        <span translate>{{'LANG_NOMENCLATURE.'+option}}</span>
+
+                                                                        <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                                    </a>
+                                                                </li>
+                                                            </ol>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!--EDUCATION-->
+                                                    <!--<div class="form-group">-->
+                                                    <!--<label for="educations" class="col-sm-2 control-label">Обр.: </label>-->
+
+                                                    <!--<div class="col-sm-10">-->
                                                     <!--<ol id="educations" class="nya-bs-select form-control"-->
-                                                        <!--ng-model="translator.educations"-->
-                                                        <!--multiple-->
-                                                        <!--data-size="5" data-live-search="true">-->
-                                                        <!--<li nya-bs-option="option in educationOptions">-->
-                                                            <!--<a>-->
-                                                                <!--{{ option.name }}-->
-                                                                <!--<span class="glyphicon glyphicon-ok check-mark"></span>-->
-                                                            <!--</a>-->
-                                                        <!--</li>-->
+                                                    <!--ng-model="translator.educations"-->
+                                                    <!--multiple-->
+                                                    <!--data-size="5" data-live-search="true">-->
+                                                    <!--<li nya-bs-option="option in educationOptions">-->
+                                                    <!--<a>-->
+                                                    <!--{{ option.name }}-->
+                                                    <!--<span class="glyphicon glyphicon-ok check-mark"></span>-->
+                                                    <!--</a>-->
+                                                    <!--</li>-->
                                                     <!--</ol>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
+                                                    <!--</div>-->
+                                                    <!--</div>-->
 
-                                        </form>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    <!--CONTACTS FORM-->
+                                    <div class="col-lg-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading panel-heading-sm">
+                                                КОНТАКТИ:
+                                            </div>
+                                            <div class="panel-body">
+
+                                                <!--PHONES-->
+                                                <form class="form-horizontal">
+                                                    <div class="form-group form-group-sm">
+                                                        <label for="phones"
+                                                               class="col-sm-2 control-label">ТЕЛЕФОНИ: </label>
+
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="phones"
+                                                                   placeholder="Телефон..."
+                                                                   ng-model="translator.phones">
+                                                        </div>
+                                                    </div>
+
+                                                    <!--EMAIL-->
+                                                    <div class="form-group form-group-sm">
+                                                        <label for="email"
+                                                               class="col-sm-2 control-label">E-MAIL: </label>
+
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="email"
+                                                                   placeholder="e-mail..."
+                                                                   ng-model="translator.email">
+                                                        </div>
+                                                    </div>
+
+                                                    <!--SKYPE-->
+                                                    <div class="form-group form-group-sm">
+                                                        <label for="skype"
+                                                               class="col-sm-2 control-label">SKYPE: </label>
+
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="skype"
+                                                                   placeholder="Skype..."
+                                                                   ng-model="translator.skype">
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
-                            </div>
 
-                            <!--CONTACTS FORM-->
-                            <div class="col-lg-6">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        КОНТАКТИ:
-                                    </div>
-                                    <div class="panel-body">
-
-                                        <!--PHONES-->
-                                        <form class="form-horizontal">
-                                            <div class="form-group form-group-sm">
-                                                <label for="phones" class="col-sm-2 control-label">ТЕЛЕФОНИ: </label>
-
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="phones"
-                                                           placeholder="Телефон..."
-                                                           ng-model="translator.phones">
-                                                </div>
+                                <!--EXTRA INFORMATION-->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading panel-heading-sm">
+                                                ДОПЪЛНИТЕЛНИ:
                                             </div>
+                                            <div class="panel-body">
+                                                <form class="form-horizontal">
+                                                    <div class="form-group form-group-sm">
+                                                        <label for="currentAddress" class="col-sm-2 control-label">НАСТ.
+                                                            АДРЕС</label>
 
-                                            <!--EMAIL-->
-                                            <div class="form-group form-group-sm">
-                                                <label for="email" class="col-sm-2 control-label">E-MAIL: </label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="currentAddress"
+                                                                   placeholder="Настоящ адрес:..."
+                                                                   ng-model="translator.currentAddress" uppercased="">
+                                                        </div>
+                                                    </div>
 
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="email"
-                                                           placeholder="e-mail..."
-                                                           ng-model="translator.email">
-                                                </div>
-                                            </div>
+                                                    <div class="form-group form-group-sm">
+                                                        <label for="permanentAddress" class="col-sm-2 control-label">ПОСТ.
+                                                            АДРЕС</label>
 
-                                            <!--SKYPE-->
-                                            <div class="form-group form-group-sm">
-                                                <label for="skype" class="col-sm-2 control-label">SKYPE: </label>
-
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="skype"
-                                                           placeholder="Skype..."
-                                                           ng-model="translator.skype">
-                                                </div>
-                                            </div>
-
-                                        </form>
-
-
-                                    </div>
-                                </div>
-                            </div>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control"
+                                                                   id="permanentAddress"
+                                                                   placeholder="Постоянен адрес..."
+                                                                   ng-model="translator.permanentAddress" uppercased="">
+                                                        </div>
+                                                    </div>
 
 
-                        </div>
+                                                    <div class="form-group form-group-sm">
+                                                        <label for="eid" class="col-sm-2 control-label">ЛИЧНА
+                                                            КАРТА</label>
 
-                        <!--EXTRA INFORMATION-->
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        ДОПЪЛНИТЕЛНИ:
-                                    </div>
-                                    <div class="panel-body">
-                                        <form class="form-horizontal">
-                                            <div class="form-group form-group-sm">
-                                                <label for="currentAddress" class="col-sm-2 control-label">НАСТ. АДРЕС</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="lk"
+                                                                   placeholder="Лична карта..."
+                                                                   ng-model="translator.document" uppercased="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-group-sm">
+                                                        <label for="iban" class="col-sm-2 control-label">IBAN</label>
 
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="currentAddress"
-                                                           placeholder="Настоящ адрес:..."
-                                                           ng-model="translator.currentAddress" uppercased="">
-                                                </div>
-                                            </div>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="iban"
+                                                                   placeholder="IBAN..."
+                                                                   ng-model="translator.iban" uppercased="">
+                                                        </div>
+                                                    </div>
 
-                                            <div class="form-group form-group-sm">
-                                                <label for="permanentAddress" class="col-sm-2 control-label">ПОСТ. АДРЕС</label>
+                                                    <div class="form-group form-group-sm">
+                                                        <label for="comment"
+                                                               class="col-sm-2 control-label">КОМЕНТАР</label>
 
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="permanentAddress"
-                                                           placeholder="Постоянен адрес..."
-                                                           ng-model="translator.permanentAddress" uppercased="">
-                                                </div>
-                                            </div>
-
-
-                                            <div class="form-group form-group-sm">
-                                                <label for="eid" class="col-sm-2 control-label">ЛИЧНА КАРТА</label>
-
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="lk"
-                                                           placeholder="Лична карта..."
-                                                           ng-model="translator.document" uppercased="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group form-group-sm">
-                                                <label for="iban" class="col-sm-2 control-label">IBAN</label>
-
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="iban"
-                                                           placeholder="IBAN..."
-                                                           ng-model="translator.iban" uppercased="">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group form-group-sm">
-                                                <label for="comment" class="col-sm-2 control-label">КОМЕНТАР</label>
-
-                                                <div class="col-sm-10">
+                                                        <div class="col-sm-10">
                                                 <textarea class="form-control" rows="2" id="comment"
                                                           ng-model="comment"></textarea>
-                                                </div>
+                                                        </div>
 
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                        </div>
+                                        <button type="button" class="btn btn-success btn-sm pull-right"
+                                                ng-click="add(translator)"
+                                                style="width: 100px;">
+                                            <i class="fa fa-plus"></i> Добави
+                                        </button>
+
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-success btn-sm pull-right"
-                                        ng-click="add(translator)"
-                                        style="width: 100px;">
-                                    <i class="fa fa-plus"></i> Добави
-                                </button>
+
 
                             </div>
                         </div>
-
 
                     </div>
                 </div>
-
             </div>
+
         </div>
-    </div>
-</div>
+
