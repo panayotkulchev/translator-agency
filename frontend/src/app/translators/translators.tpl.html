@@ -165,11 +165,11 @@
                         </div>
 
 
-                        <div class="row top-buffered" ng-if="translators.length!==0">
+                        <div class="row top-buffered" ng-show="translators.length!==0">
                             <div class="col-md-offset-2 col-md-8 input-group" style="margin: 10px auto">
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
                                 <input class="form-control" type="text" ng-model="search" placeholder="Търси в резултатите..."/>
-                            </div>{{translators.length}}
+                            </div> {{search}}
                             <!--<div class="col-sm-12">-->
                                 <!--<input type="text" ng-model="search" class="form-control">-->
                                 <!--<button type="submit" class="btn">Search</button>-->
