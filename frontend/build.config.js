@@ -67,6 +67,7 @@ module.exports = {
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-growl-v2/build/angular-growl.min.js',
       'vendor/angular-ui-utils/modules/route/route.js',
+      'vendor/bootstrap-switch/dist/js/bootstrap-switch.min.js',
       'vendor/nya-bootstrap-select/dist/js/nya-bs-select.js',
       'vendor/angular-animate/angular-animate.js',
       'vendor/angular-translate/angular-translate.min.js',
@@ -76,6 +77,7 @@ module.exports = {
       'vendor/boostrap/dist/css/boostrap.css',
       'vendor/nya-bootstrap-select/dist/css/nya-bs-select.min.css',
       'vendor/angular-growl-v2/build/angular-growl.min.css',
+      'vendor/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
       'vendor/angular-loading-bar/src/loading-bar.css',
       'app/common.less'
     ],

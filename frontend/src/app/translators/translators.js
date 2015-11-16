@@ -2,91 +2,100 @@
  * Created by pepo on 15-10-13.
  */
 angular.module('ta.translators', [
-  'ui.router',
-  'ui.bootstrap',
-  'ta.http',
-  'ngAnimate',
-  'common'
-])
-        .config(function config($stateProvider) {
-          $stateProvider.state('translators', {
+        'ui.router',
+        'ui.bootstrap',
+        'ta.http',
+        'ngAnimate',
+        'common'
+    ])
+    .config(function config($stateProvider) {
+        $stateProvider.state('translators', {
             url: '/translators',
             views: {
-              "main": {
-                controller: 'TranslatorsCtrl',
-                templateUrl: 'translators/translators.tpl.html'
-              }
+                "main": {
+                    controller: 'TranslatorsCtrl',
+                    templateUrl: 'translators/translators.tpl.html'
+                }
             },
             data: {pageTitle: 'Преводачи'}
-          });
-        })
+        });
+    })
 
-        .service('translatorsGateway', function (httpRequest) {
-          return {
+    .service('translatorsGateway', function (httpRequest) {
+        return {
             getAll: function (offset, count, keyword) {
-              return httpRequest.post('/r/translators/getAll',
-                      {offset: offset, count: count, keyword: keyword});
+                return httpRequest.post('/r/translators/getAll',
+                    {offset: offset, count: count, keyword: keyword});
             },
             getByLanguages: function (selectedLanguages) {
-              return httpRequest.post('/r/translators/getByLanguages', selectedLanguages);
+                return httpRequest.post('/r/translators/getByLanguages', selectedLanguages);
             },
             add: function (translatorDto) {
-              return httpRequest.post('r/translators/add', translatorDto);
+                return httpRequest.post('r/translators/add', translatorDto);
             },
             deleteById: function (id) {
-              return httpRequest.del('/r/translators/delete', {id: id});
+                return httpRequest.del('/r/translators/delete', {id: id});
             }
-          };
-        })
+        };
+    })
 
-        .controller('TranslatorsCtrl', function TranslatorsCtrl($scope, translatorsGateway, growl) {
+    .controller('TranslatorsCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl) {
 
-          $scope.translator = {};
+        $scope.translator = {};
 
-          $scope.add = function (translator) {
+        $scope.add = function (translator) {
 
             var translatorDto = toDto(translator);
 
             translatorsGateway.add(translatorDto).then(
-                    function onSuccess() {
-                      growl.success($scope.translator.name + " беше добавен!");
-                      $scope.translator = {};
-                    },
-                    function onError() {
-                      growl.warning("Възникна системна грешка!");
-                    }
+                function onSuccess() {
+                    growl.success($scope.translator.name + " беше добавен!");
+                    $scope.translator = {};
+                },
+                function onError() {
+                    growl.warning("Възникна системна грешка!");
+                }
             );
-          };
+        };
 
-          $scope.getByLanguages = function (selectedLanguages) {
+        $scope.getByLanguages = function (selectedLanguages) {
 
             translatorsGateway.getByLanguages(selectedLanguages).then(
-
-                    function onSuccess(data) {
-                      $scope.translators = data;
-                    },
-                    function onError() {
-                      $scope.translators={};
-                      growl.warning("Възникна системна грешка!");
-                    }
+                function onSuccess(data) {
+                    $scope.translators = data;
+                },
+                function onError() {
+                    $scope.translators = {};
+                    growl.warning("Възникна системна грешка!");
+                }
             );
-          };
+        };
 
-          $scope.deleteById = function (id) {
+        $scope.deleteById = function (id) {
             translatorsGateway.deleteById(id).then(
-                    function onSuccess() {
-                      var position = $scope.translators.map(function (e) {return e.email;}).indexOf(id);
-                      if (position !== -1) {
+                function onSuccess() {
+                    var position = $scope.translators.map(function (e) {
+                        return e.email;
+                    }).indexOf(id);
+                    if (position !== -1) {
                         $scope.translators.splice(position, 1);
-                      }
-                    },
-                    function onError() {
-                      growl.warning("Системна грешка!");
                     }
+                },
+                function onError() {
+                    growl.warning("Системна грешка!");
+                }
             );
-          };
+        };
 
-          var toDto = function (translator) {
+        $scope.findAllLangs = function () {
+          languagesGateway.all().then(
+              function onSuccess(data) {
+                  $scope.languageOptions = data;
+              }
+          );
+        };
+
+        var toDto = function (translator) {
 
             var dto = {};
             dto.name = translator.name;
@@ -100,136 +109,137 @@ angular.module('ta.translators', [
             dto.eid = translator.eid;
             dto.document = translator.document;
             dto.iban = translator.iban;
-            console.log(dto);
+
             return dto;
 
-          };
+        };
 
-          var extractLanguages = function (languages) {
+        var extractLanguages = function (languages) {
             var result = [];
             angular.forEach(languages, function (language) {
-              result.push(language);
+                result.push(language);
             });
             return result;
-          };
+        };
 
-          var extractEducations = function (educations) {
+        var extractEducations = function (educations) {
             var result = [];
             angular.forEach(educations, function (education) {
-              result.push(education.name);
+                result.push(education.name);
             });
             return result;
-          };
+        };
 
-          $scope.getLangLine = function (langs) { console.log(langs);
+        $scope.getLangLine = function (langs) {
+            console.log(langs);
             var line = '';
             angular.forEach(langs, function (lang) {
 
             });
             //return line;
-          };
+        };
 
-          $scope.languageOptions = [ "ENGLISH","BULGARIAN"];
+        //$scope.languageOptions = ["ENGLISH", "BULGARIAN"];
 
-          $scope.educationOptions = [
+        $scope.educationOptions = [
             {name: 'Ез. Гимназия'},
             {name: 'Пр. Лингвистика'}
-          ];
+        ];
 
-          $scope.translators = [
+        $scope.translators = [
             {
-              name: "Иван Игнатов Петров",
-              languages: "Английски, Немски",
-              registered: true,
-              favorite: true,
-              phones: "0883 - 345 - 545",
-              email: 'ivanpetrov1976@gmail.com'
+                name: "Иван Игнатов Петров",
+                languages: "Английски, Немски",
+                registered: true,
+                favorite: true,
+                phones: "0883 - 345 - 545",
+                email: 'ivanpetrov1976@gmail.com'
             },
             {
-              name: "Милен Игнатов Димитров",
-              languages: "Английски",
-              registered: true,
-              phones: "0879 - 698 - 440',' 062-67-88-20",
-              email: "milen_id@abv.bg"
+                name: "Милен Игнатов Димитров",
+                languages: "Английски",
+                registered: true,
+                phones: "0879 - 698 - 440',' 062-67-88-20",
+                email: "milen_id@abv.bg"
             },
             {
-              name: "Радка Петрова Чолакова",
-              languages: "Английски, Руски",
-              registered: false,
-              favorite: true,
-              phones: "0895 - 252 - 545",
-              email: 'radi86@yahoo.com'
+                name: "Радка Петрова Чолакова",
+                languages: "Английски, Руски",
+                registered: false,
+                favorite: true,
+                phones: "0895 - 252 - 545",
+                email: 'radi86@yahoo.com'
             },
             {
-              name: "Емилия Игнатов Ангелова",
-              languages: "Английски",
-              registered: true,
-              phones: "0899 - 882 - 320",
-              email: "emi_angelova@abv.bg"
+                name: "Емилия Игнатов Ангелова",
+                languages: "Английски",
+                registered: true,
+                phones: "0899 - 882 - 320",
+                email: "emi_angelova@abv.bg"
             },
             {
-              name: "Дончо Цанков Димитров",
-              languages: "Английски",
-              registered: false,
-              phones: "0978 - 665 - 423, 062-78-78-34",
-              email: "milen_id@abv.bg"
+                name: "Дончо Цанков Димитров",
+                languages: "Английски",
+                registered: false,
+                phones: "0978 - 665 - 423, 062-78-78-34",
+                email: "milen_id@abv.bg"
             },
             {
-              name: "Изабел Миланова Русева",
-              languages: "Английски, Арабски",
-              registered: false,
-              phones: "0895 - 328 - 646",
-              email: 'izabel_rus1974@yahoo.com'
+                name: "Изабел Миланова Русева",
+                languages: "Английски, Арабски",
+                registered: false,
+                phones: "0895 - 328 - 646",
+                email: 'izabel_rus1974@yahoo.com'
             }
 
-          ];
+        ];
 
-          //$scope.items = ['item1', 'item2', 'item3'];
-          //
-          //$scope.animationsEnabled = true;
-          //
-          //$scope.open = function (size) {
-          //
-          //  var modalInstance = $modal.open({
-          //    animation: $scope.animationsEnabled,
-          //    templateUrl: 'translators/myModalContent.html',
-          //    controller: 'ModalInstanceCtrl',
-          //    size: size,
-          //    resolve: {
-          //      items: function () {
-          //        return $scope.items;
-          //      }
-          //    }
-          //  });
-          //
-          //  modalInstance.result.then(function (selectedItem) {
-          //    $scope.selected = selectedItem;
-          //  }, function () {
-          //    $log.info('Modal dismissed at: ' + new Date());
-          //  });
-          //};
-          //
-          //$scope.toggleAnimation = function () {
-          //  $scope.animationsEnabled = !$scope.animationsEnabled;
-          //};
+        //$scope.items = ['item1', 'item2', 'item3'];
+        //
+        //$scope.animationsEnabled = true;
+        //
+        //$scope.open = function (size) {
+        //
+        //  var modalInstance = $modal.open({
+        //    animation: $scope.animationsEnabled,
+        //    templateUrl: 'translators/myModalContent.html',
+        //    controller: 'ModalInstanceCtrl',
+        //    size: size,
+        //    resolve: {
+        //      items: function () {
+        //        return $scope.items;
+        //      }
+        //    }
+        //  });
+        //
+        //  modalInstance.result.then(function (selectedItem) {
+        //    $scope.selected = selectedItem;
+        //  }, function () {
+        //    $log.info('Modal dismissed at: ' + new Date());
+        //  });
+        //};
+        //
+        //$scope.toggleAnimation = function () {
+        //  $scope.animationsEnabled = !$scope.animationsEnabled;
+        //};
 
-        })
+    })
 
-        .
-        controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-          //
-          //$scope.items = items;
-          //$scope.selected = {
-          //  item: $scope.items[0]
-          //};
-          //
-          //$scope.ok = function () {
-          //  $modalInstance.close($scope.selected.item);
-          //};
-          //
-          //$scope.cancel = function () {
-          //  $modalInstance.dismiss('cancel');
-          //};
-        })
+    .
+    controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+        //
+        //$scope.items = items;
+        //$scope.selected = {
+        //  item: $scope.items[0]
+        //};
+        //
+        //$scope.ok = function () {
+        //  $modalInstance.close($scope.selected.item);
+        //};
+        //
+        //$scope.cancel = function () {
+        //  $modalInstance.dismiss('cancel');
+        //};
+    })
 
 ;

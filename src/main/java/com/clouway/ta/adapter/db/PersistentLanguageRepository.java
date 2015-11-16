@@ -22,6 +22,7 @@ public class PersistentLanguageRepository implements LanguageRepository {
 
     Language language = new Language();
     language.setLangId(id);
+    language.isActive = false;
     ofy().save().entity(language).now();
   }
 
@@ -75,6 +76,13 @@ public class PersistentLanguageRepository implements LanguageRepository {
   }
 
   @Override
+  public List<Language> getAllWithStatus() {
+
+    List<Language> langs = ofy().load().type(Language.class).list();
+    return langs;
+  }
+
+  @Override
   public void unMap(String language, String translatorId) {
     Language entity = ofy().load().type(Language.class).id(language).now();
     int index = entity.translatorIds.indexOf(translatorId);
@@ -82,6 +90,13 @@ public class PersistentLanguageRepository implements LanguageRepository {
       entity.translatorIds.remove(index);
       ofy().save().entity(entity).now();
     }
+  }
+
+  @Override
+  public void changeStatus(String id, Boolean isActive) {
+    Language entity = ofy().load().type(Language.class).id(id).now();
+    entity.isActive = isActive;
+    ofy().save().entity(entity).now();
   }
 
 }

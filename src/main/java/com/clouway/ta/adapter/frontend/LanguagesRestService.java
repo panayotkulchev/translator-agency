@@ -10,6 +10,7 @@ import com.google.sitebricks.headless.Service;
 import com.google.sitebricks.http.Delete;
 import com.google.sitebricks.http.Get;
 import com.google.sitebricks.http.Post;
+import com.google.sitebricks.http.Put;
 
 import java.util.List;
 
@@ -31,13 +32,20 @@ public class LanguagesRestService {
   }
 
   @Get
-  Reply <?> getAll(){
-   List<String> langs =  repository.getAll();
+  public Reply<?> getAll() {
+    List<String> langs = repository.getAll();
+    return Reply.with(langs).as(Json.class);
+  }
+
+  @At("/withStatus")
+  @Get
+  public Reply<?> getAllWithStatus() {
+    List<Language> langs = repository.getAllWithStatus();
     return Reply.with(langs).as(Json.class);
   }
 
   @Post
-  Reply<?> add (Request request){
+  public Reply<?> add(Request request) {
 
     String lang = request.param("lang");
     repository.add(lang);
@@ -45,8 +53,17 @@ public class LanguagesRestService {
     return Reply.saying().ok();
   }
 
+  @Put
+  public Reply<?> edit(Request request) {
+
+    LanguageDto dto = request.read(LanguageDto.class).as(Json.class);
+    repository.changeStatus(dto.id, dto.isActive);
+
+    return Reply.saying().ok();
+  }
+
   @Delete
-  Reply<?> delete (Request request){
+  public Reply<?> delete(Request request) {
 
     String id = request.param("id");
     repository.delete(id);

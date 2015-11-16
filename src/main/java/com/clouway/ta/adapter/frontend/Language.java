@@ -19,6 +19,8 @@ public class Language {
   public String langId;
   @Index
   public List<String> translatorIds = new ArrayList<>();
+  @Index
+  public boolean isActive;
 
   @SuppressWarnings("unchecked")
   public Language() {

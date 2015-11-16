@@ -1,5 +1,7 @@
 package com.clouway.ta.adapter.db;
 
+import com.clouway.ta.adapter.frontend.Language;
+
 import java.util.List;
 
 /**
@@ -21,5 +23,9 @@ public interface LanguageRepository {
 
   List<String> getAll();
 
+  List<Language> getAllWithStatus();
+
   void unMap(String each, String translatorId);
+
+  void changeStatus(String id, Boolean isActive);
 }

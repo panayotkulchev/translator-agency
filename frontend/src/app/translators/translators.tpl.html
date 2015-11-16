@@ -49,7 +49,8 @@
                                             <!--</div>-->
                                             <button type="submit" class="btn btn-success btn-sm"
                                                     tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
-                                                    ng-click="getByLanguages(translator.filteredLanguages)" translate>
+                                                    ng-click="getByLanguages(translator.filteredLanguages)"
+                                                    ng-init="findAllLangs()" translate>
                                                 TRANSLATORS.SEARCH
                                             </button>
                                         </form>
