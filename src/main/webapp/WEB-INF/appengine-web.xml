@@ -3,8 +3,11 @@
     <application>translator-agency</application>
     <version>1</version>
     <threadsafe>true</threadsafe>
-    
-    <system-properties>
+
+  <sessions-enabled>true</sessions-enabled>
+
+
+  <system-properties>
       <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
       <property name= "appengine.orm.disable.duplicate.emf.exception"  value="true" />
       <property name="grails.stringchararrayaccessor.disabled" value="true"/>

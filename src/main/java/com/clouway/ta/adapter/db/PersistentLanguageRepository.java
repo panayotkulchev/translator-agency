@@ -60,7 +60,7 @@ public class PersistentLanguageRepository implements LanguageRepository {
     return Lists.newArrayList(result);
   }
 
-  //todo optimize this with one read operation
+
   @Override
   public List<String> getAll() {
 
