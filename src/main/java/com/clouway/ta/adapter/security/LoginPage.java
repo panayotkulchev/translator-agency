@@ -3,8 +3,9 @@ package com.clouway.ta.adapter.security;
 
 import com.clouway.ta.adapter.db.UserRepository;
 import com.clouway.ta.adapter.http.validator.Validator;
-import com.clouway.ta.core.Session;
+import com.clouway.ta.core.SessionManager;
 import com.clouway.ta.core.Util;
+import com.google.appengine.api.users.UserService;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.sitebricks.At;
@@ -39,26 +40,27 @@ public class LoginPage {
   public String oauthURL;
 
   private final UserRepository userRepository;
-  private final Session userSession;
+  private final SessionManager userSessionManager;
   private final Validator validator;
   private final Provider<HttpServletRequest> requestProvider;
+  private final UserService userService;
 
   @Inject
   public LoginPage(UserRepository userRepository,
-                   Session userSession,
+                   SessionManager userSessionManager,
                    Validator validator,
-                   Provider<HttpServletRequest> requestProvider) {
+                   Provider<HttpServletRequest> requestProvider, UserService userService) {
 
     this.userRepository = userRepository;
-    this.userSession = userSession;
+    this.userSessionManager = userSessionManager;
     this.validator = validator;
     this.requestProvider = requestProvider;
+    this.userService = userService;
   }
 
 
   @Post
   public String login() {
-    System.out.println(email+password);
 
     List<String> errorList = validator.validateRequestParams();
 
@@ -67,14 +69,14 @@ public class LoginPage {
     }
 
     boolean authorizationResult = userRepository.authorize(email, password);
-    System.out.println(authorizationResult);
+
     if (!authorizationResult) {
       return "/login?errorMessage=User do not exist!";
     }
 
-    userSession.create(email);
+    userSessionManager.create(email);
 
-    return "/wallet";
+    return "/#/";
 
   }
 
@@ -94,7 +96,7 @@ public class LoginPage {
 
 //      builder.addParameter("redirect_uri", "http://wallet-angularjs-gae.appspot.com/oauth-callback");
     builder.addParameter("redirect_uri", redirectUrl.toString());
-    System.out.println(redirectUrl.toString());
+//    System.out.println(redirectUrl.toString());
 //      builder.addParameter("client_id", "975229642235-slatste5to3kb3f0gv100qm27ril6jfs.apps.googleusercontent.com");
     builder.addParameter("client_id", "334412481728-odc16ekeohanqdqjiqng1b9finubf8gn.apps.googleusercontent.com");
     builder.addParameter("response_type", "code");
@@ -102,5 +104,6 @@ public class LoginPage {
     builder.addParameter("approval_prompt", "force");
 
     oauthURL = builder.toString();
+    oauthURL = userService.createLoginURL("/#/");
   }
 }

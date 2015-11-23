@@ -1,6 +1,5 @@
 package com.clouway.ta.adapter.http.validator;
 
-import com.clouway.ta.core.ValidationRules;
 import com.google.inject.Inject;
 
 import java.util.ArrayList;

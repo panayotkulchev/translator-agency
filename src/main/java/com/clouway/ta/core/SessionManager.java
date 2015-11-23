@@ -6,7 +6,7 @@ package com.clouway.ta.core;
  * happy codding ...
  */
 
-public interface Session {
+public interface SessionManager {
 
   public void create(String userId);
 

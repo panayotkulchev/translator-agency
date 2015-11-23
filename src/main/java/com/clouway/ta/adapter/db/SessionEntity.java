@@ -11,7 +11,7 @@ import com.googlecode.objectify.annotation.Index;
  */
 
 @Entity
-public class Session {
+public class SessionEntity {
 
   @Id
   public String sid;
@@ -19,10 +19,10 @@ public class Session {
   @Index
   public String userId;
 
-  public Session() {
+  public SessionEntity() {
   }
 
-  public Session(String sid, Long expirationTime, String userId) {
+  public SessionEntity(String sid, Long expirationTime, String userId) {
     this.sid = sid;
     this.expirationTime = expirationTime;
     this.userId = userId;

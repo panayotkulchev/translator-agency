@@ -2,10 +2,6 @@ package com.clouway.ta.adapter.db;
 
 import com.clouway.ta.core.Config;
 import com.clouway.ta.core.SessionRepository;
-import com.google.appengine.api.datastore.Query.FilterOperator;
-import com.google.appengine.api.datastore.QueryResultIterator;
-import com.google.common.collect.Lists;
-import com.google.inject.Inject;
 
 import static com.clouway.ta.adapter.db.OfyService.ofy;
 
@@ -29,15 +25,15 @@ public class PersistentSessionRepository implements SessionRepository {
 
   @Override
   public boolean isExisting(String sid) {
-
+    SessionEntity session = ofy().load().type(SessionEntity.class).id(sid).now();
 //    return (datastore.load(Session.class, sid) != null);
-    return false;
+    return session!=null;
   }
 
   @Override
   public void create(String userId, String sid) {
 
-    Session session = new Session(sid, System.currentTimeMillis() + Config.SESSION_REFRESH_RATE, userId);
+    SessionEntity session = new SessionEntity(sid, System.currentTimeMillis() + Config.SESSION_REFRESH_RATE, userId);
 
     ofy().save().entity(session).now();
 

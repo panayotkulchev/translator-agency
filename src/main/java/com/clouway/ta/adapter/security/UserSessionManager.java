@@ -1,7 +1,7 @@
 package com.clouway.ta.adapter.security;
 
 import com.clouway.ta.core.Config;
-import com.clouway.ta.core.Session;
+import com.clouway.ta.core.SessionManager;
 import com.clouway.ta.core.SessionRepository;
 import com.clouway.ta.core.SidFetcher;
 import com.google.inject.Inject;
@@ -20,7 +20,7 @@ import java.util.UUID;
  * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
-public class UserSession implements Session {
+public class UserSessionManager implements SessionManager {
 
   private String sid;
 
@@ -30,10 +30,10 @@ public class UserSession implements Session {
   private final Provider<HttpServletRequest> requestProvider;
 
   @Inject
-  public UserSession(SessionRepository sessionRepository,
-                     SidFetcher sidFetcher,
-                     Provider<HttpServletResponse> responseProvider,
-                     Provider<HttpServletRequest> requestProvider) {
+  public UserSessionManager(SessionRepository sessionRepository,
+                            SidFetcher sidFetcher,
+                            Provider<HttpServletResponse> responseProvider,
+                            Provider<HttpServletRequest> requestProvider) {
 
     this.sessionRepository = sessionRepository;
     this.sidFetcher = sidFetcher;

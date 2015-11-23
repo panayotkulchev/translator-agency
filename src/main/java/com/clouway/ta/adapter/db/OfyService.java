@@ -18,7 +18,7 @@ public class OfyService {
     ObjectifyService.register(Language.class);
     ObjectifyService.register(Translator.class);
     ObjectifyService.register(UserEntity.class);
-    ObjectifyService.register(Session.class);
+    ObjectifyService.register(SessionEntity.class);
 
   }
 

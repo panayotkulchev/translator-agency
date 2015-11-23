@@ -1,4 +1,4 @@
-package com.clouway.ta.core;
+package com.clouway.ta.adapter.http.validator;
 
 import com.google.inject.BindingAnnotation;
 
