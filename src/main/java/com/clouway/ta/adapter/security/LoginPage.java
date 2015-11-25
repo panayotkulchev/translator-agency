@@ -73,7 +73,7 @@ public class LoginPage {
     if (!authorizationResult) {
       return "/login?errorMessage=User do not exist!";
     }
-
+    System.out.println("creating session");
     userSessionManager.create(email);
 
     return "/#/";

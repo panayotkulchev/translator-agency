@@ -1,6 +1,5 @@
 package com.clouway.ta.adapter.security;
 
-import com.clouway.ta.core.SessionManager;
 import com.clouway.ta.core.SessionRepository;
 import com.clouway.ta.core.SidFetcher;
 import com.google.inject.Inject;
@@ -16,50 +15,53 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created on 15-5-5.
+ * Created on 15-6-4.
  *
  * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
 @Singleton
-public class LoginFilter implements Filter {
+public class MainPageSecurityFilter implements Filter {
 
   private final SessionRepository sessionRepository;
   private final SidFetcher sidFetcher;
-  private final SessionManager sessionManager;
+  private final UserSessionManager userSession;
 
   @Inject
-  public LoginFilter(SessionRepository sessionRepository, SidFetcher sidFetcher, SessionManager sessionManager) {
+  public MainPageSecurityFilter(SessionRepository sessionRepository,
+                                SidFetcher sidFetcher,
+                                UserSessionManager userSession) {
+
     this.sessionRepository = sessionRepository;
     this.sidFetcher = sidFetcher;
-    this.sessionManager = sessionManager;
+    this.userSession = userSession;
   }
 
   public void init(FilterConfig config) throws ServletException {
   }
 
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-    System.out.println("login filter");
-    HttpServletResponse response = (HttpServletResponse) resp;
 
+    sessionRepository.cleanExpired();
+
+    HttpServletResponse response = (HttpServletResponse) resp;
     String sid = sidFetcher.fetch();
 
+
     if (sid == null) {
-      chain.doFilter(req, resp);
+      response.sendRedirect("/login");
       return;
     }
 
     if (!sessionRepository.isExisting(sid)) {
-      chain.doFilter(req, resp);
+      response.sendRedirect("/login");
       return;
     }
 
-    sessionManager.refresh();
-    response.sendRedirect("/#/");
-
+    userSession.refresh();
+    chain.doFilter(req, resp);
   }
 
   public void destroy() {
   }
-
 }

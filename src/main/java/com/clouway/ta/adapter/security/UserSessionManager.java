@@ -69,7 +69,7 @@ public class UserSessionManager implements SessionManager {
   }
 
   public void delete() {
-
+    System.out.println("deleting session");
     String sid = sidFetcher.fetch();
 
     if (sid != null) {

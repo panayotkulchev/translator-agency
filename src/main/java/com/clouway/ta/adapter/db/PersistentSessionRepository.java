@@ -18,6 +18,9 @@ public class PersistentSessionRepository implements SessionRepository {
   @Override
   public void refresh(String sid, Long expirationTime) {
 
+    SessionEntity session = ofy().load().type(SessionEntity.class).id(sid).now();
+    session.expirationTime = expirationTime;
+    ofy().save().entity(session);
 //    Session session = datastore.load(Session.class,sid);
 //    session.expirationTime=expirationTime;
 //    datastore.update(session);
@@ -54,7 +57,7 @@ public class PersistentSessionRepository implements SessionRepository {
 
   @Override
   public void delete(String sid) {
-
+      ofy().delete().type(SessionEntity.class).id(sid).now();
 //    datastore.delete(datastore.load(Session.class, sid));
   }
 

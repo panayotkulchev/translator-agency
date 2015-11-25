@@ -1,6 +1,9 @@
 package com.clouway.ta.adapter.security;
 
 import com.clouway.ta.adapter.db.UserRepository;
+import com.clouway.ta.core.SessionManager;
+import com.clouway.ta.core.SessionRepository;
+import com.clouway.ta.core.SidFetcher;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.inject.Inject;
@@ -26,11 +29,22 @@ public class SecurityFilter implements Filter {
 
   private UserService userService;
   private UserRepository userRepository;
+  private final SessionRepository sessionRepository;
+  private final SidFetcher sidFetcher;
+  private SessionManager userSession;
 
   @Inject
-  public SecurityFilter(UserService userService, UserRepository userRepository) {
+  public SecurityFilter(UserService userService,
+                        UserRepository userRepository,
+                        SessionRepository sessionRepository,
+                        SidFetcher sidFetcher,
+                        SessionManager userSession) {
+
     this.userService = userService;
     this.userRepository = userRepository;
+    this.sessionRepository = sessionRepository;
+    this.sidFetcher = sidFetcher;
+    this.userSession = userSession;
   }
 
   @Override
@@ -41,24 +55,24 @@ public class SecurityFilter implements Filter {
   @Override
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
 
-    HttpServletRequest req1 = (HttpServletRequest) req;
-
-    String thisURL =req1.getRequestURI();
-
-    resp.setContentType("text/html");
-    if (req1.getUserPrincipal() != null) {
-      resp.getWriter().println("<p>Hello, " +
-              req1.getUserPrincipal().getName() +
-              "!  You can <a href=\"" +
-              userService.createLogoutURL("/google.com") +
-              "\">sign out</a>.</p>");
-      System.out.println(userService.getCurrentUser().getEmail());
-    } else {
-      resp.getWriter().println("<p>Please <a href=\"" +
-              userService.createLoginURL("http://google.com") +
-              "\">sign in</a>.</p>");
-    }
-
+//    HttpServletRequest req1 = (HttpServletRequest) req;
+//
+//    String thisURL =req1.getRequestURI();
+//
+//    resp.setContentType("text/html");
+//    if (req1.getUserPrincipal() != null) {
+//      resp.getWriter().println("<p>Hello, " +
+//              req1.getUserPrincipal().getName() +
+//              "!  You can <a href=\"" +
+//              userService.createLogoutURL("/google.com") +
+//              "\">sign out</a>.</p>");
+//      System.out.println(userService.getCurrentUser().getEmail());
+//    } else {
+//      resp.getWriter().println("<p>Please <a href=\"" +
+//              userService.createLoginURL("/#/") +
+//              "\">sign in</a>.</p>");
+//    }
+//----------------------------------------------------------------------------------
 //    System.out.println("Filter");
 //    User currentUser = userService.getCurrentUser();
 //
@@ -71,6 +85,27 @@ public class SecurityFilter implements Filter {
 //    }
 //
 //    chain.doFilter(req, resp);
+//  }
+//    ------------------------------------------------------------------------------
+    //todo session clean should not be here
+    System.out.println("Security filter");
+    sessionRepository.cleanExpired();
+
+    HttpServletResponse response = (HttpServletResponse) resp;
+    String sid = sidFetcher.fetch();
+    System.out.println("SID is:" + sid);
+    if (sid == null) {
+      response.sendError(response.SC_UNAUTHORIZED, "you are not authorized");
+      return;
+    }
+
+    if (!sessionRepository.isExisting(sid)) {
+      response.sendError(response.SC_UNAUTHORIZED, "you are not authorized");
+      return;
+    }
+    System.out.println("--- SecurityFilter --- ALL IS OK");
+//    userSession.refresh();
+    chain.doFilter(req, resp);
   }
 
   @Override

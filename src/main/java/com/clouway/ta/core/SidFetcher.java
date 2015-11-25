@@ -30,6 +30,7 @@ public class SidFetcher {
         }
 
         for (Cookie each : cookies) {
+          System.out.println(each.getName());
             if (each.getName().equalsIgnoreCase("sid")) {
                 return each.getValue();
             }

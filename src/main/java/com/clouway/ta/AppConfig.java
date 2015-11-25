@@ -6,7 +6,9 @@ import com.clouway.ta.adapter.frontend.TranslatorRestService;
 import com.clouway.ta.adapter.security.LoginFilter;
 import com.clouway.ta.adapter.security.LoginPage;
 import com.clouway.ta.adapter.security.LogoutPage;
+import com.clouway.ta.adapter.security.MainPageSecurityFilter;
 import com.clouway.ta.adapter.security.RegisterPage;
+import com.clouway.ta.adapter.security.SecurityFilter;
 import com.clouway.ta.adapter.security.SecurityModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -26,6 +28,8 @@ public class AppConfig extends GuiceServletContextListener {
               protected void configureServlets() {
                 filter("/*").through(ObjectifyFilter.class);
                 filter("/login").through(LoginFilter.class);
+                filter("/aaa").through(MainPageSecurityFilter.class);
+                filter("/r/*").through(SecurityFilter.class);
 
 //                filter("/*").through(SecurityFilter.class);
               }
