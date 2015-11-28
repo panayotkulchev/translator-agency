@@ -42,7 +42,7 @@
                     <tbody>
                     <tr ng-repeat="row in langs">
                         <td class="text-center" style="width: 30px">{{$index}}</td>
-                        <td class="text-center" translate>{{'LANG_NOMENCLATURE.'+row.langId}}</td>
+                        <td class="text-center" >{{row.langId}}</td>
                         <td class="text-center">
                             <input simple-switch type="checkbox" ng-model="row.isActive" width="30"
                                    on-text="LANGUAGES.YES" off-text="LANGUAGES.NO" ng-change="changeStatus(row)">
@@ -50,7 +50,7 @@
                         <td class="text-center" width="30">
 
                             <confirm-modal
-                                    message="Сигурни ли сте, че искате да изтриете ''{{row}}''?"
+                                    message="Сигурни ли сте, че искате да изтриете ''{{row.langId}}''?"
                                     ok-pressed="del(row)">
                                 <button type="button" class="btn btn-default btn-xs"
                                         tooltip="{{'LANGUAGES.DELETE'| translate}}">

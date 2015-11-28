@@ -1,6 +1,7 @@
 package com.clouway.ta.adapter.frontend;
 
 import com.clouway.ta.adapter.db.LanguageRepository;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.sitebricks.At;
 import com.google.sitebricks.client.transport.Json;
@@ -44,6 +45,22 @@ public class LanguagesRestService {
     return Reply.with(langs).as(Json.class);
   }
 
+  @At("/active")
+  @Get
+  public Reply<?> getAllActive() {
+    List<Language> langs = repository.getAllWithStatus();
+    List<String> actives = Lists.newArrayList();
+    for (Language each : langs){
+      if (each.isActive){
+        actives.add(each.langId);
+      }
+    }
+    return Reply.with(actives).as(Json.class);
+  }
+
+
+
+
   @Post
   public Reply<?> add(Request request) {
 
@@ -67,6 +84,7 @@ public class LanguagesRestService {
 
     String id = request.param("id");
     repository.delete(id);
+    System.out.println(id);
 
     return Reply.saying().ok();
   }

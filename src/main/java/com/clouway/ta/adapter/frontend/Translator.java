@@ -23,10 +23,13 @@ public class Translator {
   public String permanentAddress;
   public String phones;
   public List<String> languages = Lists.newArrayList();
+  public String languagesLine;
   public String skype;
   public String eid;
   public String document;
   public String iban;
+  public boolean favorite;
+  public boolean signed;
 
   @SuppressWarnings("unchecked")
   public Translator() {
@@ -54,6 +57,14 @@ public class Translator {
     this.eid = eid;
     this.document = document;
     this.iban = iban;
+  }
+
+  public void createLanguageLine(){
+    String languagesLine="";
+    for (String each : languages){
+      languagesLine+=each+", ";
+    }
+    this.languagesLine=languagesLine;
   }
 
   @Override

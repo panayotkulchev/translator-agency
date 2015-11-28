@@ -51,6 +51,11 @@ public class TranslatorRestService {
     List languages = request.read(List.class).as(Json.class);
 
     List<Translator> translators = service.getByLanguages(languages);
+    //todo fix this
+
+    for (Translator each: translators){
+      each.createLanguageLine();
+    }
 
     return Reply.with(translators).as(Json.class);
   }
