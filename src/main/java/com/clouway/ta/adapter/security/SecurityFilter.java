@@ -54,7 +54,7 @@ public class SecurityFilter implements Filter {
 
   @Override
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
-
+    System.out.println("Security Filter");
 //    HttpServletRequest req1 = (HttpServletRequest) req;
 //
 //    String thisURL =req1.getRequestURI();
@@ -93,7 +93,7 @@ public class SecurityFilter implements Filter {
 
     HttpServletResponse response = (HttpServletResponse) resp;
     String sid = sidFetcher.fetch();
-    System.out.println("SID is:" + sid);
+
     if (sid == null) {
       response.sendError(response.SC_UNAUTHORIZED, "you are not authorized");
       return;
@@ -103,7 +103,6 @@ public class SecurityFilter implements Filter {
       response.sendError(response.SC_UNAUTHORIZED, "you are not authorized");
       return;
     }
-    System.out.println("--- SecurityFilter --- ALL IS OK");
 //    userSession.refresh();
     chain.doFilter(req, resp);
   }

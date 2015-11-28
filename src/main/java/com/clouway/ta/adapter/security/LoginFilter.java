@@ -40,6 +40,7 @@ public class LoginFilter implements Filter {
 
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
     System.out.println("login filter");
+
     HttpServletResponse response = (HttpServletResponse) resp;
 
     String sid = sidFetcher.fetch();

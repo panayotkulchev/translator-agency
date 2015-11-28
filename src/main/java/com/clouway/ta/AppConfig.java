@@ -3,13 +3,7 @@ package com.clouway.ta;
 import com.clouway.ta.adapter.db.PersistenceModule;
 import com.clouway.ta.adapter.frontend.LanguagesRestService;
 import com.clouway.ta.adapter.frontend.TranslatorRestService;
-import com.clouway.ta.adapter.security.LoginFilter;
-import com.clouway.ta.adapter.security.LoginPage;
-import com.clouway.ta.adapter.security.LogoutPage;
-import com.clouway.ta.adapter.security.MainPageSecurityFilter;
-import com.clouway.ta.adapter.security.RegisterPage;
-import com.clouway.ta.adapter.security.SecurityFilter;
-import com.clouway.ta.adapter.security.SecurityModule;
+import com.clouway.ta.adapter.security.*;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
@@ -26,12 +20,13 @@ public class AppConfig extends GuiceServletContextListener {
             new ServletModule() {
               @Override
               protected void configureServlets() {
+
+                filter("/*").through(EncodingFilter.class);
                 filter("/*").through(ObjectifyFilter.class);
                 filter("/login").through(LoginFilter.class);
-                filter("/aaa").through(MainPageSecurityFilter.class);
+                filter("/app").through(MainPageSecurityFilter.class);
                 filter("/r/*").through(SecurityFilter.class);
 
-//                filter("/*").through(SecurityFilter.class);
               }
             },
 
@@ -50,6 +45,7 @@ public class AppConfig extends GuiceServletContextListener {
 //                at("/rest").serve(Services.class);
 //                at("/wallet").show(Wallet.class);
 //                at("/oauth-callback").show(OAuthCallback.class);
+                at("/app").show(App.class);
               }
             }
 
