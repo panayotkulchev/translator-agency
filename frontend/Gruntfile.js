@@ -153,11 +153,6 @@ module.exports = function (grunt) {
                     src: ["**"],
                     dest: '../src/main/webapp',
                     expand: true
-                }, {
-                    src: ['**'],
-                    dest: '../src/main/webapp/fonts',
-                    cwd: '<%= vendor_dir %>/bootstrap/fonts',
-                    expand: true
                 }]
             },
 

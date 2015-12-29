@@ -29,59 +29,52 @@ public class Translator {
   public String document;
   public String iban;
   public boolean favorite;
-  public boolean signed;
+  public boolean registered;
 
   @SuppressWarnings("unchecked")
   public Translator() {
   }
 
-  public Translator(String name,
-                    String currentAddress,
-                    String permanentAddress,
-                    String phones,
-                    List<String> languages,
-//                    List<String> educations,
-                    String email,
-                    String skype,
-                    String eid,
-                    String document,
-                    String iban) {
+  public Translator(String email, String name, String currentAddress, String permanentAddress, String phones, List<String> languages, String languagesLine, String skype, String eid, String document, String iban, boolean favorite, boolean registered) {
+    this.email = email;
     this.name = name;
     this.currentAddress = currentAddress;
     this.permanentAddress = permanentAddress;
     this.phones = phones;
     this.languages = languages;
-//    this.educations = educations;
-    this.email = email;
+    this.languagesLine = languagesLine;
     this.skype = skype;
     this.eid = eid;
     this.document = document;
     this.iban = iban;
+    this.favorite = favorite;
+    this.registered = registered;
   }
 
-  public void createLanguageLine(){
-    String languagesLine="";
-    for (String each : languages){
-      languagesLine+=each+", ";
+  public void createLanguageLine() {
+    String languagesLine = "";
+    for (String each : languages) {
+      languagesLine += each + ", ";
     }
-    this.languagesLine=languagesLine;
+    this.languagesLine = languagesLine;
   }
 
   @Override
   public String toString() {
-    return "TranslatorEntity{" +
-//            "key=" + translId +
+    return "Translator{" +
+            "email='" + email + '\'' +
             ", name='" + name + '\'' +
             ", currentAddress='" + currentAddress + '\'' +
             ", permanentAddress='" + permanentAddress + '\'' +
             ", phones='" + phones + '\'' +
             ", languages=" + languages +
-//            ", education=" + educations +
-            ", email='" + email + '\'' +
+            ", languagesLine='" + languagesLine + '\'' +
             ", skype='" + skype + '\'' +
             ", eid='" + eid + '\'' +
             ", document='" + document + '\'' +
             ", iban='" + iban + '\'' +
+            ", favorite=" + favorite +
+            ", registered=" + registered +
             '}';
   }
 }

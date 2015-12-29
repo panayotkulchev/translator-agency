@@ -1,0 +1,203 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5>Преводачи <span class="text-muted">номенклатура</span></h5>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="panel-body" style="min-height: 700px;">
+        <div class="row">
+            <div class="col-xs-offset-1 col-xs-10">
+
+                <div class="row">
+                    <div class="col-xs-12 top-buffer">
+                        <button type="button" class="btn btn-success btn-sm pull-right"
+                                ng-click="goToTranslatorEditor()">
+                            <i class="fa fa-plus"></i> Нов преводач
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 top-buffer text-center">
+
+                        <form class="form-inline" role="form">
+                            <div class="form-group form-group-sm">
+                                <label for="filter">Филтър: </label>
+
+                                <ol id="filter" class="nya-bs-select btn-sm" title="Изберете език..."
+                                    ng-model="translator.filteredLanguages" multiple
+                                    data-size="5" data-live-search="true">
+                                    <li nya-bs-option="option in languageOptions">
+                                        <a>
+                                            <span>{{option}}</span>
+                                            <span class="glyphicon glyphicon-ok check-mark"></span>
+                                        </a>
+                                    </li>
+                                </ol>
+
+                            </div>
+
+                            <!--todo is it needed-->
+                            <!--<div class="checkbox">-->
+                            <!--<label><input type="checkbox">{{'TRANSLATORS.ONLY_LEGALS' | translate}}</label>-->
+                            <!--</div>-->
+                            <button type="submit" class="btn btn-primary btn-sm"
+                                    tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
+                                    ng-click="getByLanguages(translator.filteredLanguages)"
+                                    ng-init="findAllLangs()" translate>
+                                TRANSLATORS.SEARCH
+                            </button>
+                        </form>
+                    </div>
+                    <!--NUMBER OF RESULTS TBD-->
+                    <!--<div class="col-sm-0 text-md-2 text-right">-->
+                    <!--<h5 class="text-muted">{{'TRANSLATORS.RESULTS'| translate}} {{translators.length}}</h5>-->
+                    <!--</div>-->
+                </div>
+
+
+                <div class="row top-buffer" ng-show="translators.length>20">
+                    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-10 col-md-offset-3 col-md-6 input-group"
+                         style="margin: 10px auto">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input class="form-control" type="text" ng-model="search"
+                               placeholder="Търси в резултатите..."/>
+                    </div>
+                </div>
+
+                <div ng-show="showNoResultsMsg"
+                     class="alert alert-warning text-center col-md-offset-2 col-md-8"
+                     style="margin-top: 15px">
+                    {{'TRANSLATORS.NO_RESULT_MESSAGE'|translate}}
+                </div>
+
+                <div class="top-buffer">
+                    <table class="table table-hover table-striped table-vert-align-middle"
+                           ng-show="translators.length!==0">
+                        <thead>
+                        <tr>
+                            <th class="text-center text-primary" style="width: 15px">
+                                <h6><strong>#</strong></h6>
+                            </th>
+                            <th class="text-center text-primary">
+                                <h6><strong translate>TRANSLATORS.LEGAL_SIGN</strong></h6>
+                            </th>
+                            <th class="text-center text-primary" style="width: 200px">
+                                <h6><strong translate>TRANSLATORS.NAME</strong></h6>
+                            </th>
+                            <th class="text-center text-primary" style="width: 100px">
+                                <h6><strong translate>TRANSLATORS.LANGUAGES_EDUCATION</strong></h6>
+                            </th>
+                            <th class="text-center text-primary hidden-sm hidden-xs" style="width: 150px">
+                                <h6><strong translate>TRANSLATORS.EMAIL</strong></h6>
+                            </th>
+                            <th class="text-center text-primary hidden-sm hidden-xs" style="width: 200px">
+                                <h6><strong translate>TRANSLATORS.PHONES</strong></h6>
+                            </th>
+                            <th class="text-center text-primary" style="width: 80px">
+                                <h6><strong translate>TRANSLATORS.OPTIONS</strong></h6>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat="row in translators  | filter:search | orderBy: name"
+                            class="repeat-animation">
+                            <td class="text-center" style="width: 15px">
+                                <small>{{$index+1}}</small>
+                            </td>
+                            <td class="text-center" style="width: 50px">
+                                <small>
+                                            <span ng-if="row.favorite==true">
+                                                <i class="fa fa-heart-o"
+                                                   tooltip="{{'TRANSLATORS.TOOLTIP_FAVORITE'| translate}}"></i>
+                                            </span>
+                                            <span ng-if="row.registered==true">
+                                                <i class="fa fa-star-o"
+                                                   tooltip="{{'TRANSLATORS.TOOLTIP_LEGAL'| translate}}"></i>
+                                            </span>
+                                </small>
+
+                            </td>
+                            <td class="text-center">
+                                <small>{{row.name}}
+                                </small>
+                            </td>
+                            <td class="text-center">
+                                <small>
+                                    {{row.languagesLine}}
+                                </small>
+                            </td>
+                            <td class="text-center hidden-sm hidden-xs">
+                                <small> {{row.email}}
+                                </small>
+                            </td>
+                            <td class="text-center hidden-sm hidden-xs">
+                                <small>{{row.phones}}</small>
+                            </td>
+
+                            <td class="text-center">
+
+                                <button type="button" class="btn btn-info btn-xs"
+                                ng-click="editTranslator(row.email)"
+                                tooltip="{{'TRANSLATORS.EDIT'| translate}}">
+                                <i class="fa fa-pencil"></i></button>
+
+                                <confirm-modal
+                                message="Сигурни ли сте, че искате да изтриете {{row.name}}?"
+                                ok-pressed="deleteById(row.email)">
+                                <button type="button" class="btn btn-danger btn-xs"
+                                tooltip="{{'TRANSLATORS.DELETE'| translate}}">
+                                <i class="fa fa-trash"></i></button>
+                                </confirm-modal>
+
+                            </td>
+
+                            <!--<td width="80px">-->
+
+                                <!--<div class="row text-center btn-group" align="center">-->
+                                    <!--&lt;!&ndash;<span>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<button type="button" class="btn btn-success btn-xs"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;ng-click="openModal()"&ndash;&gt;-->
+                                    <!--&lt;!&ndash;tooltip="{{'TRANSLATORS.FULL_INFO'| translate}}">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<i class="fa fa-info-circle"></i>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                                                <!--<span>-->
+                                                          <!--<button type="button" class="btn btn-info btn-xs"-->
+                                                                  <!--ng-click="openModal()"-->
+                                                                  <!--tooltip="{{'TRANSLATORS.EDIT'| translate}}">-->
+                                                              <!--<i class="fa fa-pencil"></i></button>-->
+                                                <!--</span>-->
+
+                                    <!--<confirm-modal-->
+                                            <!--message="Сигурни ли сте, че искате да изтриете {{row.name}}?"-->
+                                            <!--ok-pressed="deleteById(row.email)">-->
+                                        <!--<button type="button" class="btn btn-danger btn-xs"-->
+                                                <!--tooltip="{{'TRANSLATORS.DELETE'| translate}}">-->
+                                            <!--<i class="fa fa-trash"></i></button>-->
+                                    <!--</confirm-modal>-->
+
+                                <!--</div>-->
+                            <!--</td>-->
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--END TRANSLATOR LIST-->
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>

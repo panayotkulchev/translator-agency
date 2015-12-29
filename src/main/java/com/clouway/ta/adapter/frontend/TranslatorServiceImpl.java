@@ -55,4 +55,12 @@ public class TranslatorServiceImpl implements TranslatorService {
     }
     translatorRepository.deleteById(translatorId);
   }
+
+  @Override
+  public Translator getByEmail(String email) {
+
+
+
+    return null;
+  }
 }

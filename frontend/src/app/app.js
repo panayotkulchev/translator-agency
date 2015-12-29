@@ -1,18 +1,18 @@
 angular.module('ta.core', [
     'templates-app',
     'templates-common',
-    'ta.home',
     'angular-growl',
     'nya.bootstrap.select',
-    'ta.translators',
     'i18n',
     'ui.router',
     'angular-loading-bar',
     'ngAnimate',
+    'ta.home',
+    'ta.translators',
     'ta.languages'
   ])
   .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider) {
-    $urlRouterProvider.otherwise('/translators');
+    $urlRouterProvider.otherwise('/home');
 
     growlProvider.onlyUniqueMessages(false);
     growlProvider.globalDisableCountDown(true);

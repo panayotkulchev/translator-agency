@@ -1,6 +1,7 @@
 package com.clouway.ta.adapter.frontend;
 
 import com.clouway.ta.adapter.db.LanguageRepository;
+import com.clouway.ta.adapter.db.TranslatorRepository;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.sitebricks.At;
@@ -25,22 +26,24 @@ import java.util.List;
 public class TranslatorRestService {
 
   private final TranslatorService service;
+  private final TranslatorRepository translatorRepository;
   private final LanguageRepository languageRepository;
 
   @Inject
-  public TranslatorRestService(TranslatorService service, LanguageRepository languageRepository) {
+  public TranslatorRestService(TranslatorService service, TranslatorRepository translatorRepository, LanguageRepository languageRepository) {
     this.service = service;
+    this.translatorRepository = translatorRepository;
     this.languageRepository = languageRepository;
   }
 
   @Get
-  public Reply<?> test(Request request) {
+  public Reply<?> getByEmail(Request request) {
 
-    List<String> languages = Lists.newArrayList("bulgarian", "english");
+    String email = request.param("email");
 
-    List<Translator> translators = service.getByLanguages(languages);
-
-    return Reply.with(translators).as(Json.class);
+    Translator translator = translatorRepository.getById(email);
+    System.out.println(translator);
+    return Reply.with(translator).as(Json.class);
 
   }
 
@@ -51,8 +54,8 @@ public class TranslatorRestService {
     List languages = request.read(List.class).as(Json.class);
 
     List<Translator> translators = service.getByLanguages(languages);
-    //todo fix this
 
+    //todo fix this
     for (Translator each: translators){
       each.createLanguageLine();
     }

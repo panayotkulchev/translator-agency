@@ -17,4 +17,5 @@ public interface TranslatorService {
 
   void delete(String translatorId);
 
+  Translator getByEmail(String email);
 }

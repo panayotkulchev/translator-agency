@@ -23,9 +23,9 @@ public class AppConfig extends GuiceServletContextListener {
 
                 filter("/*").through(EncodingFilter.class);
                 filter("/*").through(ObjectifyFilter.class);
-                filter("/login").through(LoginFilter.class);
-                filter("/app").through(MainPageSecurityFilter.class);
-                filter("/r/*").through(SecurityFilter.class);
+//                filter("/login").through(LoginFilter.class);
+//                filter("/app").through(MainPageSecurityFilter.class);
+//                filter("/r/*").through(SecurityFilter.class);
 
               }
             },
