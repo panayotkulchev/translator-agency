@@ -1838,9 +1838,9 @@ angular.module('common', ['ui.bootstrap'])
         cancelPressed: '&'
       },
       link: function (scope, element, attrs) {
-
+        //var opened = false;
         scope.open = function () {
-
+          //if(opened) {return;}
           var modalInstance = $modal.open({
             animation: true,
             templateUrl: 'confirm-modal.tpl.html',
@@ -1856,7 +1856,7 @@ angular.module('common', ['ui.bootstrap'])
             }
 
           });
-
+          //opened = true;
           modalInstance.result.then(function () {
             scope.okPressed();
           }, function () {

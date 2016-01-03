@@ -117,7 +117,7 @@ angular.module('ta.translators', [
 
   })
 
-  .controller('TranslatorsListCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state) {
+  .controller('TranslatorsListCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state, $modal) {
 
     $scope.getByLanguages = function (selectedLanguages) {
 
@@ -167,7 +167,31 @@ angular.module('ta.translators', [
 
     $scope.translators = [];
 
-  });
+    $scope.open = function (translator) {
+
+      var modalInstance = $modal.open({
+        animation: true,
+        templateUrl: 'translators/myModalContent.tpl.html',
+        controller: 'TranslatorInfoCtrl',
+        resolve: {
+          data: function () {
+            return translator;
+          }
+        }
+      });
+
+    };
+
+  })
+
+  .controller('TranslatorInfoCtrl', function ($scope, $modalInstance, data) {
+    $scope.translator = data;
+    $scope.ok = function () {
+      $modalInstance.close();
+    };
+  })
+
+;
 
 function compare(a, b) {
 
@@ -179,49 +203,3 @@ function compare(a, b) {
   }
   return 0;
 }
-
-
-//{
-//  name: "Иван Игнатов Петров",
-//    languages: "Английски, Немски",
-//  registered: true,
-//  favorite: true,
-//  phones: "0883 - 345 - 545",
-//  email: 'ivanpetrov1976@gmail.com'
-//},
-//{
-//  name: "Милен Игнатов Димитров",
-//    languages: "Английски",
-//  registered: true,
-//  phones: "0879 - 698 - 440',' 062-67-88-20",
-//  email: "milen_id@abv.bg"
-//},
-//{
-//  name: "Радка Петрова Чолакова",
-//    languages: "Английски, Руски",
-//  registered: false,
-//  favorite: true,
-//  phones: "0895 - 252 - 545",
-//  email: 'radi86@yahoo.com'
-//},
-//{
-//  name: "Емилия Игнатов Ангелова",
-//    languages: "Английски",
-//  registered: true,
-//  phones: "0899 - 882 - 320",
-//  email: "emi_angelova@abv.bg"
-//},
-//{
-//  name: "Дончо Цанков Димитров",
-//    languages: "Английски",
-//  registered: false,
-//  phones: "0978 - 665 - 423, 062-78-78-34",
-//  email: "milen_id@abv.bg"
-//},
-//{
-//  name: "Изабел Миланова Русева",
-//    languages: "Английски, Арабски",
-//  registered: false,
-//  phones: "0895 - 328 - 646",
-//  email: 'izabel_rus1974@yahoo.com'
-//}

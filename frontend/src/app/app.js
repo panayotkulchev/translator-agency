@@ -40,8 +40,12 @@ angular.module('ta.core', [
   .run(function run() {
   })
 
-  .controller('AppCtrl', function AppCtrl($scope) {
+  .controller('AppCtrl', function AppCtrl($rootScope,$scope) {
+
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+
+      window.scrollTo(0, 0);
+
       if (angular.isDefined(toState.data.pageTitle)) {
         $scope.pageTitle = toState.data.pageTitle;
       }

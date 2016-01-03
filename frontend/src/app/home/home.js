@@ -13,33 +13,40 @@
  * specified, as shown below.
  */
 angular.module('ta.home', [
-  'ui.router'
+    'ui.router'
 
-])
+  ])
 
-/**
- * Each section or module of the site can also have its own routes. AngularJS
- * will handle ensuring they are all available at run-time, but splitting it
- * this way makes each module more "self-contained".
- */
-        .config(function config($stateProvider) {
-          $stateProvider.state('home', {
-            url: '/home',
-            views: {
-              "main": {
-                controller: 'HomeCtrl',
-                templateUrl: 'home/home.tpl.html'
-              }
-            },
-            data: {pageTitle: 'Home'}
-          });
-        })
+  /**
+   * Each section or module of the site can also have its own routes. AngularJS
+   * will handle ensuring they are all available at run-time, but splitting it
+   * this way makes each module more "self-contained".
+   */
+  .config(function config($stateProvider) {
+    $stateProvider.state('home', {
+      url: '/home',
+      views: {
+        "main": {
+          controller: 'HomeCtrl',
+          templateUrl: 'home/home.tpl.html'
+        }
+      },
+      data: {pageTitle: 'Home'}
+    });
+  })
 
-/**
- * And of course we define a controller for our route.
- */
-        .controller('HomeCtrl', function HomeController($scope) {
-        })
+  /**
+   * And of course we define a controller for our route.
+   */
+  .controller('HomeCtrl', function HomeController($scope, $modal, $log) {
+    $scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.animationsEnabled = true;
+
+    $scope.toggleAnimation = function () {
+      $scope.animationsEnabled = !$scope.animationsEnabled;
+    };
+  })
 
 ;
 

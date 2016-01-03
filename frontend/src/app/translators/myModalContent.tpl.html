@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{translator.name}}</h3>
+</div>
+<div class="modal-body">
+
+    <p ng-class="{'text-muted' : !translator.eid}"><strong>ЕГН:</strong> {{translator.eid}}</p>
+    <p><strong>ЕЗИЦИ: </strong> {{translator.languagesLine}}</p>
+    <hr>
+    <p ng-class="{'text-muted' : !translator.phones}"><strong>ТЕЛЕФОН:</strong> {{translator.phones}}</p>
+    <p ng-class="{'text-muted' : !translator.email}"><strong>MAIL:</strong> {{translator.email}}</p>
+    <p ng-class="{'text-muted' : !translator.skype}"><strong>SKYPE:</strong> {{translator.skype}}</p>
+    <hr>
+    <p ng-class="{'text-muted' : !translator.currentAddress}"><strong>НАСТ. АДР:</strong> {{translator.currentAddress}}</p>
+    <p ng-class="{'text-muted' : !translator.permanentAddress}"><strong>ПОСТ. АДР:</strong> {{translator.permanentAddress}}</p>
+    <p ng-class="{'text-muted' : !translator.document}"><strong>ЛК: </strong>{{translator.document}}</p>
+    <p ng-class="{'text-muted' : !translator.iban}"><strong>IBAN: </strong>{{translator.iban}}</p>
+    <p ng-class="{'text-muted' : !translator.comment}"><strong>КОМЕНТАР: </strong>{{translator.comment}}</p>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success btn-sm" type="button" ng-click="ok()">OK</button>
+</div>

@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="top-buffer">
-                    <table class="table table-hover table-striped table-vert-align-middle"
+                    <table class="table table-hover table-striped table-vert-align-middle table-row-pointer"
                            ng-show="translators.length!==0">
                         <thead>
                         <tr>
@@ -108,11 +108,12 @@
 
                         <tbody>
                         <tr ng-repeat="row in translators  | filter:search | orderBy: name"
+
                             class="repeat-animation">
-                            <td class="text-center" style="width: 15px">
+                            <td class="text-center" style="width: 15px" ng-click="open(row)">
                                 <small>{{$index+1}}</small>
                             </td>
-                            <td class="text-center" style="width: 50px">
+                            <td class="text-center" style="width: 50px" ng-click="open(row)">
                                 <small>
                                             <span ng-if="row.favorite==true">
                                                 <i class="fa fa-heart-o"
@@ -125,20 +126,20 @@
                                 </small>
 
                             </td>
-                            <td class="text-center">
+                            <td class="text-center" ng-click="open(row)">
                                 <small>{{row.name}}
                                 </small>
                             </td>
-                            <td class="text-center">
+                            <td class="text-center" ng-click="open(row)">
                                 <small>
                                     {{row.languagesLine}}
                                 </small>
                             </td>
-                            <td class="text-center hidden-sm hidden-xs">
+                            <td class="text-center hidden-sm hidden-xs" ng-click="open(row)">
                                 <small> {{row.email}}
                                 </small>
                             </td>
-                            <td class="text-center hidden-sm hidden-xs">
+                            <td class="text-center hidden-sm hidden-xs" ng-click="open(row)">
                                 <small>{{row.phones}}</small>
                             </td>
 

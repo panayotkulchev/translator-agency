@@ -80,7 +80,7 @@ public class TranslatorRestService {
 
     Translator translator = request.read(Translator.class).as(Json.class);
 
-    service.add(translator);
+    translatorRepository.edit(translator);
 
     return Reply.saying().ok();
   }
