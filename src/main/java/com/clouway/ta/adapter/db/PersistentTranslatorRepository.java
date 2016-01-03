@@ -20,6 +20,11 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
   }
 
   @Override
+  public void edit(Translator translator) {
+    ofy().save().entity(translator).now();
+  }
+
+  @Override
   public Translator getById(String translatorId) {
     Translator result = ofy().load().type(Translator.class).id(translatorId).now();
     return result;

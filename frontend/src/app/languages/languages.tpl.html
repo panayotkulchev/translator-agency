@@ -2,22 +2,28 @@
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-12">
-                <h5>Езици <span class="text-muted">номенклатура</span></h5> </div> </div> </div>
+                <h5>Езици <span class="text-muted">номенклатура</span></h5></div>
+        </div>
+    </div>
 
     <div class="panel-body" style="min-height: 600px;">
         <div class="row">
-            <div class="col-xs-offset-0 col-xs-12 col-md-offset-2 col-md-8">
+            <div class="col-md-offset-2 col-md-8">
                 <form class="form-inline" role="form">
+                    <div class="form-group form-group-sm">
 
-                    <input class="form-control" type="text" ng-model="lang" uppercased/>
+                        <input class="form-control" type="text" ng-model="lang" uppercased/>
 
-                    <button type="submit" class="btn btn-success btn-sm"
-                            tooltip="Добавяне на нов език"
-                            ng-click="addLanguage(lang)" translate>
-                        LANGUAGES.ADD
-                    </button>
+                        <button type="submit" class="btn btn-success btn-sm"
+                                tooltip="Добавяне на нов език"
+                                ng-click="addLanguage(lang)" translate>
+                            <i class="fa fa-plus"></i> LANGUAGES.ADD
+                        </button>
+
+                    </div>
                 </form>
             </div>
+
         </div>
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
@@ -42,7 +48,7 @@
                     <tbody>
                     <tr ng-repeat="row in langs">
                         <td class="text-center" style="width: 30px">{{$index}}</td>
-                        <td class="text-center" >{{row.langId}}</td>
+                        <td class="text-center">{{row.langId}}</td>
                         <td class="text-center">
                             <input simple-switch type="checkbox" ng-model="row.isActive" width="30"
                                    on-text="LANGUAGES.YES" off-text="LANGUAGES.NO" ng-change="changeStatus(row)">
@@ -54,7 +60,8 @@
                                     ok-pressed="del(row)">
                                 <button type="button" class="btn btn-default btn-xs"
                                         tooltip="{{'LANGUAGES.DELETE'| translate}}">
-                                    <i class="fa fa-trash"></i></button></confirm-modal>
+                                    <i class="fa fa-trash"></i></button>
+                            </confirm-modal>
                         </td>
                     </tr>
                     </tbody>

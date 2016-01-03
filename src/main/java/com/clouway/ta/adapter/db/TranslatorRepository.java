@@ -13,6 +13,8 @@ public interface TranslatorRepository {
 
   void add(Translator translator);
 
+  void edit(Translator translator);
+
   Translator getById(String translatorId);
 
   List<Translator> getById(List<String> ids);

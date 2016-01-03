@@ -39,10 +39,10 @@ public class TranslatorRestService {
   @Get
   public Reply<?> getByEmail(Request request) {
 
-    String email = request.param("email");
+    final String email = request.param("email");
 
     Translator translator = translatorRepository.getById(email);
-    System.out.println(translator);
+
     return Reply.with(translator).as(Json.class);
 
   }
@@ -66,6 +66,17 @@ public class TranslatorRestService {
   @At("/add")
   @Post
   public Reply<?> add(Request request) {
+
+    Translator translator = request.read(Translator.class).as(Json.class);
+
+    service.add(translator);
+
+    return Reply.saying().ok();
+  }
+
+  @At("/edit")
+  @Post
+  public Reply<?> edit(Request request) {
 
     Translator translator = request.read(Translator.class).as(Json.class);
 

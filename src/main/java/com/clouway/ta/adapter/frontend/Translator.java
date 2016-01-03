@@ -30,12 +30,13 @@ public class Translator {
   public String iban;
   public boolean favorite;
   public boolean registered;
+  public String comment;
 
   @SuppressWarnings("unchecked")
   public Translator() {
   }
 
-  public Translator(String email, String name, String currentAddress, String permanentAddress, String phones, List<String> languages, String languagesLine, String skype, String eid, String document, String iban, boolean favorite, boolean registered) {
+  public Translator(String email, String name, String currentAddress, String permanentAddress, String phones, List<String> languages, String languagesLine, String skype, String eid, String document, String iban, boolean favorite, boolean registered, String comment) {
     this.email = email;
     this.name = name;
     this.currentAddress = currentAddress;
@@ -49,6 +50,7 @@ public class Translator {
     this.iban = iban;
     this.favorite = favorite;
     this.registered = registered;
+    this.comment = comment;
   }
 
   public void createLanguageLine() {

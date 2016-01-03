@@ -28,7 +28,7 @@
 
                         <form class="form-inline" role="form">
                             <div class="form-group form-group-sm">
-                                <label for="filter">Филтър: </label>
+                                <label for="filter" class="hidden-xs">Филтър: </label>
 
                                 <ol id="filter" class="nya-bs-select btn-sm" title="Изберете език..."
                                     ng-model="translator.filteredLanguages" multiple
@@ -40,19 +40,19 @@
                                         </a>
                                     </li>
                                 </ol>
-
+                                <button type="submit" class="btn btn-primary btn-sm"
+                                        tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
+                                        ng-click="getByLanguages(translator.filteredLanguages)"
+                                        ng-init="findAllLangs()" translate>
+                                    TRANSLATORS.SEARCH
+                                </button>
                             </div>
 
                             <!--todo is it needed-->
                             <!--<div class="checkbox">-->
                             <!--<label><input type="checkbox">{{'TRANSLATORS.ONLY_LEGALS' | translate}}</label>-->
                             <!--</div>-->
-                            <button type="submit" class="btn btn-primary btn-sm"
-                                    tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
-                                    ng-click="getByLanguages(translator.filteredLanguages)"
-                                    ng-init="findAllLangs()" translate>
-                                TRANSLATORS.SEARCH
-                            </button>
+
                         </form>
                     </div>
                     <!--NUMBER OF RESULTS TBD-->

@@ -45,8 +45,11 @@ angular.module('ta.translators', [
       getByLanguages: function (selectedLanguages) {
         return httpRequest.post('/r/translators/getByLanguages', selectedLanguages);
       },
-      add: function (translatorDto) {
-        return httpRequest.post('r/translators/add', translatorDto);
+      add: function (translator) {
+        return httpRequest.post('r/translators/add', translator);
+      },
+      edit: function (translator) {
+        return httpRequest.post('r/translators/edit', translator);
       },
       deleteById: function (id) {
         return httpRequest.del('/r/translators/delete', {id: id});
@@ -65,10 +68,22 @@ angular.module('ta.translators', [
 
     $scope.add = function (translator) {
 
-      translatorsGateway.add($scope.translator).then(
+      translatorsGateway.add(translator).then(
         function onSuccess() {
           growl.success($scope.translator.name + " беше добавен!");
           $scope.translator = {};
+        },
+        function onError() {
+          growl.warning("Възникна системна грешка!");
+        }
+      );
+    };
+
+    $scope.edit = function (translator) {
+
+      translatorsGateway.edit(translator).then(
+        function onSuccess() {
+          growl.success($scope.translator.name + " беше редактиран!");
         },
         function onError() {
           growl.warning("Възникна системна грешка!");
@@ -87,7 +102,7 @@ angular.module('ta.translators', [
       if ($scope.inEditMode) {
 
         translatorsGateway.getByEmail(email).then(
-          function onSuccess(data) {
+          function onSuccess(data) { console.log(data);
             $scope.translator = data;
           });
 
