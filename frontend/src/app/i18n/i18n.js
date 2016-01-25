@@ -11,9 +11,7 @@ angular.module('i18n', [
                     NAME: "Name",
                     PERMANENT_ADDRESS: "Permanent address",
                     "CURRENT_ADDRESS": "Current address"
-                },
-                HEADLINE: 'Hello there, This is my awesome app!',
-                INTRO_TEXT: 'And it has i18n support!'
+                }
             })
             .translations('bg', {
                 TRANSLATORS: {
@@ -44,15 +42,6 @@ angular.module('i18n', [
                     "TOOLTIP_LEGAL": "заклет",
                     "TOOLTIP_FAVORITE": "любим",
                     "NO_RESULT_MESSAGE": "Няма намерени резултати!"
-                },
-
-                LANGUAGES: {
-                    ADD: "Добави",
-                    LANG: "Език",
-                    DELETE: "Изтриване",
-                    YES: 'Да',
-                    NO: 'Не',
-                    ACTIVE: 'Активен'
                 },
 
                 LANG_NOMENCLATURE: {

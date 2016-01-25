@@ -117,7 +117,7 @@ angular.module('ta.translators', [
 
   })
 
-  .controller('TranslatorsListCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state, $modal) {
+  .controller('TranslatorsListCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state, $modal, $translate) {
 
     $scope.getByLanguages = function (selectedLanguages) {
 

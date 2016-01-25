@@ -37,17 +37,52 @@ angular.module('ta.core', [
     });
   })
 
+  .config(function i18n($translateProvider) {
+    $translateProvider
+      .translations('bg', {
+        MENU: {
+          HOME: "НАЧАЛО",
+          TRANSLATORS: "ПРЕВОДАЧИ",
+          LANGUAGES: "ЕЗИЦИ",
+          LOGOUT: "Изход"
+        }
+      })
+      .translations('en', {
+        MENU: {
+          HOME: "HOME",
+          TRANSLATORS: "TRANSLATORS",
+          LANGUAGES: "LANGUAGES",
+          LOGOUT: "Log out"
+        }
+      });
+  })
+
   .run(function run() {
   })
 
-  .controller('AppCtrl', function AppCtrl($rootScope,$scope) {
+  .controller('AppCtrl', function AppCtrl($rootScope,$scope, $translate) {
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
+      // set page to top
       window.scrollTo(0, 0);
-
+      // change page title
       if (angular.isDefined(toState.data.pageTitle)) {
         $scope.pageTitle = toState.data.pageTitle;
       }
     });
+
+    // SET UP PROFFERED LANGUAGE
+    $scope.defaultLanguageIsBg = true;
+
+    $scope.changeAppLanguage = function () {
+
+      $scope.defaultLanguageIsBg = !$scope.defaultLanguageIsBg;
+
+      if ($scope.defaultLanguageIsBg) {
+        $translate.use('bg');
+        return;
+      }
+
+      $translate.use('en');
+    };
   });

@@ -35,24 +35,28 @@
                       <li ui-sref-active="active">
                           <a href ui-sref="home">
                               <i class="fa fa-home"></i>
-                              НАЧАЛО
+                              <span translate>MENU.HOME</span>
                           </a>
                       </li>
                       <li ui-sref-active="active">
                           <a href ui-sref="translatorsList">
                               <i class="fa fa-users"></i>
-                              ПРЕВОДАЧИ
+                              <span translate>MENU.TRANSLATORS</span>
                           </a>
                       </li>
                       <li ui-sref-active="active">
                           <a href ui-sref="languages">
                               <i class="fa fa-flag-checkered"></i>
-                              ЕЗИЦИ
+                              <span translate>MENU.LANGUAGES</span>
                           </a>
                       </li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
-                      <a href="/logout" class="btn btn-default" style="margin-top: 10px;margin-right: 15px; margin-left: 15px">Изход</a>
+                      <a ng-show="defaultLanguageIsBg" ng-click="changeAppLanguage()" class="btn btn-default" style="margin-top: 10px;margin-right: 15px; margin-left: 15px">
+                          <span class="lang-sm" lang="en"></span> </a>
+                      <a ng-hide="defaultLanguageIsBg" ng-click="changeAppLanguage()" class="btn btn-default" style="margin-top: 10px;margin-right: 15px; margin-left: 15px">
+                          <span class="lang-sm" lang="bg"></span> </a>
+                      <a href="/logout" class="btn btn-default" style="margin-top: 10px;margin-right: 15px; margin-left: 15px" translate>MENU.LOGOUT</a>
                   </ul>
               </div>
           </div>

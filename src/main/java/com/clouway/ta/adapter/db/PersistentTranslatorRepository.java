@@ -3,6 +3,7 @@ package com.clouway.ta.adapter.db;
 import com.clouway.ta.adapter.frontend.Translator;
 import com.google.api.client.util.Lists;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.clouway.ta.adapter.db.OfyService.ofy;

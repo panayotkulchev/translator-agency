@@ -21,6 +21,34 @@ angular.module('ta.languages', [
       data: {pageTitle: 'Езици'}
     });
   })
+  .config(function i18n($translateProvider) {
+    $translateProvider
+      .translations('bg', {
+        LANGUAGES: {
+          ADD: "Добави",
+          LANG: "Език",
+          DELETE: "Изтриване",
+          YES: 'Да',
+          NO: 'Не',
+          ACTIVE: 'Активен',
+          LANGUAGES: 'Езици',
+          NOMENCLATURE: 'номенклатура'
+        }
+      })
+      .translations('en', {
+        LANGUAGES: {
+          ADD: "Add",
+          LANG: "Language",
+          DELETE: "Delete",
+          YES: 'Yes',
+          NO: 'No',
+          ACTIVE: 'Active',
+          LANGUAGES: 'Languages',
+          NOMENCLATURE: 'nomenclature'
+        }
+      });
+
+  })
 
   .service('languagesGateway', function (httpRequest) {
     return {

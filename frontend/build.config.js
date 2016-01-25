@@ -79,12 +79,15 @@ module.exports = {
       'vendor/angular-growl-v2/build/angular-growl.min.css',
       'vendor/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
       'vendor/angular-loading-bar/src/loading-bar.css',
+      'vendor/bootstrap-language/languages.css',
       'app/common.less'
     ],
     fonts: [
       'vendor/components-font-awesome/fonts/*',
       'vendor/bootstrap/fonts/*'
     ],
-    assets: []
+    assets: [
+      'vendor/bootstrap-language/languages.png'
+    ]
   }
 };

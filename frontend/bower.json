@@ -21,7 +21,8 @@
     "components-font-awesome": "~4.1.0",
     "smalot-bootstrap-datetimepicker": "2.3.1",
     "angular-ui-utils": "keypress-0.1.0",
-    "nya-bootstrap-select": "~2.0.10"
+    "nya-bootstrap-select": "~2.0.10",
+    "bootstrap-language": "*"
   },
   "resolutions": {
     "angular": "~1.4"
