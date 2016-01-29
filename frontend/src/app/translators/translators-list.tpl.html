@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-
+<span ng-init="initialLoad()"></span>
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-12">
@@ -14,13 +14,15 @@
 
     <div class="panel-body" style="min-height: 700px;">
         <div class="row">
-            <div class="col-xs-offset-1 col-xs-10">
+            <div class="col-sm-offset-1 col-sm-10">
 
                 <div class="row">
                     <div class="col-xs-12 top-buffer">
-                        <button type="button" class="btn btn-success btn-sm pull-right"
+                        <button type="button"
+                                class="btn btn-success btn-sm pull-right"
                                 ng-click="goToTranslatorEditor()">
-                            <i class="fa fa-plus"></i> Нов преводач
+                            <i class="fa fa-plus"></i>
+                            <span translate>TRANSLATORS.NEW</span>
                         </button>
                     </div>
 
@@ -33,7 +35,7 @@
                             <div class="form-group form-group-sm">
                                 <label for="filter" class="hidden-xs">Филтър: </label>
 
-                                <ol id="filter" class="nya-bs-select btn-sm" title="Изберете език..."
+                                <ol id="filter" class="nya-bs-select btn-sm" title="{{'TRANSLATORS.CHOOSE_LANGUAGE' | translate}}"
                                     ng-model="translator.filteredLanguages" multiple
                                     data-size="5" data-live-search="true">
                                     <li nya-bs-option="option in languageOptions">
@@ -44,6 +46,7 @@
                                     </li>
                                 </ol>
                                 <button type="submit" class="btn btn-primary btn-sm"
+                                        style="width: 100px"
                                         tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
                                         ng-click="getByLanguages(translator.filteredLanguages)"
                                         ng-init="findAllLangs()" translate>
@@ -59,9 +62,10 @@
                         </form>
                     </div>
                     <!--NUMBER OF RESULTS TBD-->
-                    <!--<div class="col-sm-0 text-md-2 text-right">-->
-                    <!--<h5 class="text-muted">{{'TRANSLATORS.RESULTS'| translate}} {{translators.length}}</h5>-->
-                    <!--</div>-->
+                    <div class="text-right">
+                    <h5 class="text-muted" style="margin-right: 15px">
+                        {{'TRANSLATORS.RESULTS'| translate}} {{translators.length}}</h5>
+                    </div>
                 </div>
 
 
@@ -95,7 +99,7 @@
                                 <h6><strong translate>TRANSLATORS.NAME</strong></h6>
                             </th>
                             <th class="text-center text-primary" style="width: 100px">
-                                <h6><strong translate>TRANSLATORS.LANGUAGES_EDUCATION</strong></h6>
+                                <h6><strong translate>TRANSLATORS.LANGUAGES</strong></h6>
                             </th>
                             <th class="text-center text-primary hidden-sm hidden-xs" style="width: 150px">
                                 <h6><strong translate>TRANSLATORS.EMAIL</strong></h6>

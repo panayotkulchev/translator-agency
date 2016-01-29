@@ -37,6 +37,8 @@ angular.module('ta.translators', [
     $translateProvider
       .translations('bg', {
         TRANSLATORS: {
+          CHOOSE_LANGUAGE: "Изберете език...",
+          NEW: "Нов преводач",
           "TRANSLATORS": "Преводачи",
           "NOMENCLATURE": "номенклатура",
           "LISTS": "Списъци",
@@ -70,6 +72,8 @@ angular.module('ta.translators', [
       })
       .translations('en', {
         TRANSLATORS: {
+          CHOOSE_LANGUAGE: "Choose language...",
+          NEW: "New translator",
           "TRANSLATORS": "Translators",
           "NOMENCLATURE": "nomenclature",
           "LISTS": "Lists",
@@ -109,6 +113,9 @@ angular.module('ta.translators', [
       getAll: function (offset, count, keyword) {
         return httpRequest.post('/r/translators/getAll',
           {offset: offset, count: count, keyword: keyword});
+      },
+      getFavorites: function () {
+        return httpRequest.get('/r/translators/favorites');
       },
       getByEmail: function (email) {
         return httpRequest.get('/r/translators', {email: email});
@@ -223,6 +230,12 @@ angular.module('ta.translators', [
           $scope.languageOptions = data.sort(compare);
         }
       );
+    };
+
+    $scope.initialLoad = function () {
+      translatorsGateway.getFavorites().then(function (data) {
+        $scope.translators = data;
+      });
     };
 
     $scope.goToTranslatorEditor = function () {

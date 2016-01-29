@@ -20,4 +20,6 @@ public interface TranslatorRepository {
   List<Translator> getById(List<String> ids);
 
   void deleteById(String translatorId);
+
+  List<Translator> getFavorites();
 }

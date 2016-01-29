@@ -4,6 +4,7 @@ package com.clouway.ta.adapter.frontend;
 import com.google.api.client.util.Lists;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Translator {
   public String eid;
   public String document;
   public String iban;
+  @Index
   public boolean favorite;
   public boolean registered;
   public String comment;

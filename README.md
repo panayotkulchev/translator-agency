@@ -1,4 +1,4 @@
-Translator Agency
+Translator Agency v1.1
 =============================
 
 Software for managing translator agencies.

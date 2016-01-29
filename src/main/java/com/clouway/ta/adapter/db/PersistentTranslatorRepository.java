@@ -106,4 +106,9 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
     ofy().delete().type(Translator.class).id(translatorId).now();
   }
 
+  @Override
+  public List<Translator> getFavorites() {
+   return ofy().load().type(Translator.class).filter("favorite", true).limit(20).list();
+  }
+
 }

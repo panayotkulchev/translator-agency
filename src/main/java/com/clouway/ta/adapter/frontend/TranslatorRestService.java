@@ -45,6 +45,16 @@ public class TranslatorRestService {
 
   }
 
+  @At("/favorites")
+  @Get
+  public Reply<?> getFavorites(Request request) {
+
+    List<Translator> translators = translatorRepository.getFavorites();
+
+    return Reply.with(translators).as(Json.class);
+
+  }
+
   @At("/getByLanguages")
   @Post
   public Reply<?> getByLanguages(Request request) {
