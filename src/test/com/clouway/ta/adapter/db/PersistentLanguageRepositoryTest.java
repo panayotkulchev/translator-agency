@@ -43,7 +43,7 @@
 //    List<Language> all = findAll();
 //
 //    assertThat(all.size(), is(1));
-//    assertThat(all.get(0).langId, is("english"));
+//    assertThat(all.get(0).id, is("english"));
 //
 //  }
 //
@@ -55,7 +55,7 @@
 //    List<Language> all = findAll();
 //
 //    assertThat(all.size(), is(1));
-//    assertThat(all.get(0).langId, is("bulgarian"));
+//    assertThat(all.get(0).id, is("bulgarian"));
 //
 //  }
 //
@@ -68,8 +68,8 @@
 //    List<Language> all = findAll();
 //
 //    assertThat(all.size(), is(2));
-//    assertThat(all.get(0).langId, is("bulgarian"));
-//    assertThat(all.get(1).langId, is("english"));
+//    assertThat(all.get(0).id, is("bulgarian"));
+//    assertThat(all.get(1).id, is("english"));
 //
 //  }
 //
@@ -128,7 +128,7 @@
 //  private void storeLanguage(String languageId) {
 //
 //    Language language = new Language();
-//    language.langId = languageId;
+//    language.id = languageId;
 //
 //    datastore.store(language, languageId);
 //  }

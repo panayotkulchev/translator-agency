@@ -21,25 +21,9 @@ public class PersistentLanguageRepository implements LanguageRepository {
   public void add(String id) {
 
     Language language = new Language();
-    language.setLangId(id);
+    language.setId(id);
     language.isActive = false;
     ofy().save().entity(language).now();
-  }
-
-  @Override
-  public void mapUserId(String language, String userId) {
-    Language entity = ofy().load().type(Language.class).id(language).now();
-    entity.translatorIds.add(userId);
-    ofy().save().entity(entity).now();
-  }
-
-  @Override
-  public void mapUserId(List<String> languages, String userId) {
-    for (String each : languages){
-      Language entity = ofy().load().type(Language.class).id(each).now();
-      entity.translatorIds.add(userId);
-      ofy().save().entity(entity).now();
-    }
   }
 
   @Override
@@ -60,36 +44,10 @@ public class PersistentLanguageRepository implements LanguageRepository {
     return Lists.newArrayList(result);
   }
 
-
   @Override
-  public List<String> getAll() {
+  public List<Language> getAll() {
 
-    List<String> result = Lists.newArrayList();
-
-    List<Language> langs = ofy().load().type(Language.class).list();
-
-    for (Language each : langs){
-        result.add(each.langId);
-    }
-
-    return result;
-  }
-
-  @Override
-  public List<Language> getAllWithStatus() {
-
-    List<Language> langs = ofy().load().type(Language.class).list();
-    return langs;
-  }
-
-  @Override
-  public void unMap(String language, String translatorId) {
-    Language entity = ofy().load().type(Language.class).id(language).now();
-    int index = entity.translatorIds.indexOf(translatorId);
-    if (index!=-1){
-      entity.translatorIds.remove(index);
-      ofy().save().entity(entity).now();
-    }
+    return ofy().load().type(Language.class).list();
   }
 
   @Override

@@ -25,13 +25,11 @@ import java.util.List;
 @Service
 public class TranslatorRestService {
 
-  private final TranslatorService service;
   private final TranslatorRepository translatorRepository;
   private final LanguageRepository languageRepository;
 
   @Inject
-  public TranslatorRestService(TranslatorService service, TranslatorRepository translatorRepository, LanguageRepository languageRepository) {
-    this.service = service;
+  public TranslatorRestService(TranslatorRepository translatorRepository, LanguageRepository languageRepository) {
     this.translatorRepository = translatorRepository;
     this.languageRepository = languageRepository;
   }
@@ -53,9 +51,10 @@ public class TranslatorRestService {
 
     List languages = request.read(List.class).as(Json.class);
 
-    List<Translator> translators = service.getByLanguages(languages);
+    List<String> translatorIds = languageRepository.getUserIds(languages);
 
-    //todo fix this
+    List<Translator> translators = translatorRepository.getById(translatorIds);
+
     for (Translator each: translators){
       each.createLanguageLine();
     }
@@ -69,7 +68,7 @@ public class TranslatorRestService {
 
     Translator translator = request.read(Translator.class).as(Json.class);
 
-    service.add(translator);
+    translatorRepository.add(translator);
 
     return Reply.saying().ok();
   }
@@ -91,7 +90,7 @@ public class TranslatorRestService {
 
     String translatorId = request.param("id");
 
-    service.delete(translatorId);
+    translatorRepository.deleteById(translatorId);
 
     return Reply.saying().ok();
   }

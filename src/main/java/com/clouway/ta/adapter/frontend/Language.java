@@ -16,7 +16,7 @@ import java.util.List;
 public class Language {
 
   @Id
-  public String langId;
+  public String id;
   @Index
   public List<String> translatorIds = new ArrayList<>();
   @Index
@@ -26,14 +26,14 @@ public class Language {
   public Language() {
   }
 
-  public void setLangId(String langId) {
-    this.langId = langId;
+  public void setId(String id) {
+    this.id = id;
   }
 
   @Override
   public String toString() {
     return "LanguageEntity{" +
-            "lang_id='" + langId + '\'' +
+            "lang_id='" + id + '\'' +
             ", translatorIds=" + translatorIds +
             '}';
   }

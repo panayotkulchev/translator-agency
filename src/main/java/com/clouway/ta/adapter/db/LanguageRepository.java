@@ -13,19 +13,11 @@ public interface LanguageRepository {
 
   void add(String id);
 
-  void mapUserId(String language, String userId);
-
-  void mapUserId(List<String> languages, String userId);
-
   void delete(String id);
 
   List<String> getUserIds(List<String> langId);
 
-  List<String> getAll();
-
-  List<Language> getAllWithStatus();
-
-  void unMap(String each, String translatorId);
+  List<Language> getAll();
 
   void changeStatus(String id, Boolean isActive);
 }

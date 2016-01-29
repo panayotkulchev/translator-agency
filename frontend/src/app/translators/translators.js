@@ -33,6 +33,77 @@ angular.module('ta.translators', [
     ;
   })
 
+  .config(function i18n($translateProvider) {
+    $translateProvider
+      .translations('bg', {
+        TRANSLATORS: {
+          "TRANSLATORS": "Преводачи",
+          "NOMENCLATURE": "номенклатура",
+          "LISTS": "Списъци",
+          "ADD": "Добавяне",
+          NAME: "Име: ",
+          PERMANENT_ADDRESS: "Постоянен адрес: ",
+          "CURRENT_ADDRESS": "Настоящ адрес",
+          "PHONES": "Телефон: ",
+          "LANGUAGES": "Езици: ",
+          "EDUCATION": "Образование",
+          "LANGUAGES_EDUCATION": "Езици",
+          "EMAIL": "Е-мейл: ",
+          "SKYPE": "Скайп: ",
+          "EID": "ЕГН: ",
+          "DOCUMENTS": "Данни лична карта:",
+          "IBAN": "Банкова сметка",
+          "OPTIONS": "Опции",
+          "FULL_INFO": "Подробно",
+          "EDIT": "Редакция",
+          "DELETE": "Изтриване",
+          "LEGAL_SIGN": "Таг",
+          "FILTER": "Филтър: ",
+          "ONLY_LEGALS": "само заклети",
+          "SEARCH": "Търсене",
+          "SEARCH_TOOLTIP": "Намерете всички преводачи за съотвения език",
+          "RESULTS": "Резултати: ",
+          "TOOLTIP_LEGAL": "заклет",
+          "TOOLTIP_FAVORITE": "любим",
+          "NO_RESULT_MESSAGE": "Няма намерени резултати!"
+        }
+      })
+      .translations('en', {
+        TRANSLATORS: {
+          "TRANSLATORS": "Translators",
+          "NOMENCLATURE": "nomenclature",
+          "LISTS": "Lists",
+          "ADD": "Add",
+          NAME: "Name: ",
+          PERMANENT_ADDRESS: "Permanent addr: ",
+          "CURRENT_ADDRESS": "Current addr",
+          "PHONES": "Phones: ",
+          "LANGUAGES": "Languages: ",
+          "EDUCATION": "Education",
+          "LANGUAGES_EDUCATION": "Езици",
+          "EMAIL": "E-mail: ",
+          "SKYPE": "Skype: ",
+          "EID": "EGN: ",
+          "DOCUMENTS": "ID card:",
+          "IBAN": "Bank account",
+          "OPTIONS": "Options",
+          "FULL_INFO": "Full info",
+          "EDIT": "Edit",
+          "DELETE": "Delete",
+          "LEGAL_SIGN": "Tag",
+          "FILTER": "Filter: ",
+          "ONLY_LEGALS": "Only signed",
+          "SEARCH": "Search",
+          "SEARCH_TOOLTIP": "Search for translators with selected languages",
+          "RESULTS": "Results: ",
+          "TOOLTIP_LEGAL": "signed",
+          "TOOLTIP_FAVORITE": "favorite",
+          "NO_RESULT_MESSAGE": "No results are found!"
+        }
+      });
+
+  })
+
   .service('translatorsGateway', function (httpRequest) {
     return {
       getAll: function (offset, count, keyword) {
@@ -42,8 +113,8 @@ angular.module('ta.translators', [
       getByEmail: function (email) {
         return httpRequest.get('/r/translators', {email: email});
       },
-      getByLanguages: function (selectedLanguages) {
-        return httpRequest.post('/r/translators/getByLanguages', selectedLanguages);
+      getByLanguages: function (languages) {
+        return httpRequest.post('/r/translators/getByLanguages', languages);
       },
       add: function (translator) {
         return httpRequest.post('r/translators/add', translator);
@@ -93,7 +164,7 @@ angular.module('ta.translators', [
 
     $scope.initForm = function () {
 
-      languagesGateway.allActive().then(
+      languagesGateway.getActive().then(
         function onSuccess(data) {
           $scope.languageOptions = data.sort(compare);
         }
@@ -102,13 +173,10 @@ angular.module('ta.translators', [
       if ($scope.inEditMode) {
 
         translatorsGateway.getByEmail(email).then(
-          function onSuccess(data) { console.log(data);
+          function onSuccess(data) {
             $scope.translator = data;
           });
-
       }
-
-
     };
 
     $scope.cancel = function () {
@@ -150,7 +218,7 @@ angular.module('ta.translators', [
     };
 
     $scope.findAllLangs = function () {
-      languagesGateway.allActive().then(
+      languagesGateway.getActive().then(
         function onSuccess(data) {
           $scope.languageOptions = data.sort(compare);
         }

@@ -34,32 +34,26 @@ public class LanguagesRestService {
 
   @Get
   public Reply<?> getAll() {
-    List<String> langs = repository.getAll();
-    return Reply.with(langs).as(Json.class);
-  }
 
-  @At("/withStatus")
-  @Get
-  public Reply<?> getAllWithStatus() {
-    List<Language> langs = repository.getAllWithStatus();
-    return Reply.with(langs).as(Json.class);
+    List<Language> languages = repository.getAll();
+
+    return Reply.with(languages).as(Json.class);
   }
 
   @At("/active")
   @Get
-  public Reply<?> getAllActive() {
-    List<Language> langs = repository.getAllWithStatus();
-    List<String> actives = Lists.newArrayList();
-    for (Language each : langs){
+  public Reply<?> getActive() {
+
+    List<Language> languages = repository.getAll();
+
+    List<String> result = Lists.newArrayList();
+    for (Language each : languages){
       if (each.isActive){
-        actives.add(each.langId);
+        result.add(each.id);
       }
     }
-    return Reply.with(actives).as(Json.class);
+    return Reply.with(result).as(Json.class);
   }
-
-
-
 
   @Post
   public Reply<?> add(Request request) {
@@ -84,7 +78,6 @@ public class LanguagesRestService {
 
     String id = request.param("id");
     repository.delete(id);
-    System.out.println(id);
 
     return Reply.saying().ok();
   }

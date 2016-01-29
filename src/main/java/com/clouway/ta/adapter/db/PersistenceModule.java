@@ -1,7 +1,5 @@
 package com.clouway.ta.adapter.db;
 
-import com.clouway.ta.adapter.frontend.TranslatorService;
-import com.clouway.ta.adapter.frontend.TranslatorServiceImpl;
 import com.clouway.ta.core.SessionRepository;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
@@ -17,7 +15,6 @@ public class PersistenceModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(TranslatorRepository.class).to(PersistentTranslatorRepository.class);
-    bind(TranslatorService.class).to(TranslatorServiceImpl.class);
     bind(LanguageRepository.class).to(PersistentLanguageRepository.class);
     bind(SessionRepository.class).to(PersistentSessionRepository.class);
     bind(UserRepository.class).to(PersistentUserRepository.class);

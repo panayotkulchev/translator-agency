@@ -55,14 +55,11 @@ angular.module('ta.languages', [
       add: function (lang) {
         return httpRequest.post('/r/languages?lang=' + lang);
       },
-      all: function () {
+      getAll: function () {
         return httpRequest.get('/r/languages');
       },
-      allActive: function () {
+      getActive: function () {
         return httpRequest.get('/r/languages/active');
-      },
-      allWithStatus: function () {
-        return httpRequest.get('/r/languages/withStatus');
       },
       del: function (id) {
         return httpRequest.del('/r/languages', {id: id});
@@ -78,39 +75,37 @@ angular.module('ta.languages', [
     $scope.addLanguage = function (lang) {
       languagesGateway.add(lang).then(
         function onSuccess() {
-          growl.success(lang + " е добавен!");
-
           $scope.lang = "";
-          $scope.langs.push({langId: lang, isActive: false});
+          $scope.langs.push({id: lang, isActive: false});
+          $scope.langs.sort(compare);
+          growl.success(lang + " е добавен!");
         }
       );
     };
 
-    var allLangs = function () {
-      languagesGateway.allWithStatus().then(
-        function onSuccess(data) {
+    $scope.loadInitialData = function () {
+      languagesGateway.getAll().then(
+        function onSuccess(data) { console.log(data);
           data.sort(compare);
           $scope.langs = data;
         }
       );
     };
 
-    allLangs();
-
     $scope.changeStatus = function (lang) {
-      languagesGateway.changeStatus(lang.langId, lang.isActive).then(
+      languagesGateway.changeStatus(lang.id, lang.isActive).then(
         function onSuccess() {
-          growl.success("Статусът на " + lang.langId + " е редактиран!");
+          growl.success("Статусът на " + lang.id + " е редактиран!");
         }
       );
     };
 
     $scope.del = function (row) {
-      console.log(row.langId);
-      languagesGateway.del(row.langId).then(
+      console.log(row.id);
+      languagesGateway.del(row.id).then(
         function onSuccess() {
 
-          growl.success(row.langId + " е изтрит!");
+          growl.success(row.id + " е изтрит!");
 
           var index = $scope.langs.indexOf(row);
           if (index !== -1) {
@@ -121,10 +116,10 @@ angular.module('ta.languages', [
     };
 
     function compare(a,b) {
-      if (a.langId < b.langId){
+      if (a.id < b.id){
         return -1;
       }
-      if (a.langId > b.langId){
+      if (a.id > b.id){
         return 1;
       }
       return 0;

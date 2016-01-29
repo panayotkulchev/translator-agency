@@ -1,10 +1,12 @@
 package com.clouway.ta.adapter.db;
 
+import com.clouway.ta.adapter.frontend.Language;
 import com.clouway.ta.adapter.frontend.Translator;
-import com.google.api.client.util.Lists;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static com.clouway.ta.adapter.db.OfyService.ofy;
 
@@ -17,12 +19,53 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
 
   @Override
   public void add(Translator translator) {
+
     ofy().save().entity(translator).now();
+
+    for (String each : translator.languages) {
+      Language entity = ofy().load().type(Language.class).id(each).now();
+      entity.translatorIds.add(translator.email);
+      ofy().save().entity(entity).now();
+    }
+
   }
 
   @Override
-  public void edit(Translator translator) {
-    ofy().save().entity(translator).now();
+  public void edit(Translator newTranslator) {
+
+    Translator oldTranslator = ofy().load().type(Translator.class).id(newTranslator.email).now();
+
+    Set<String> languages = Sets.newHashSet(newTranslator.languages);
+    languages.addAll(oldTranslator.languages);
+
+    for (String each : languages){
+      Language language  = ofy().load().type(Language.class).id(each).now();
+
+      if (newTranslator.languages.contains(language.id)){
+        if (!language.translatorIds.contains(newTranslator.email)){
+          language.translatorIds.add(newTranslator.email);
+        }
+      }
+      else{
+        language.translatorIds.remove(language.translatorIds.indexOf(newTranslator.email));
+      }
+      ofy().save().entity(language).now();
+    }
+
+    oldTranslator.name = newTranslator.name;
+    oldTranslator.currentAddress = newTranslator.currentAddress;
+    oldTranslator.permanentAddress = newTranslator.permanentAddress;
+    oldTranslator.phones = newTranslator.phones;
+    oldTranslator.languages = newTranslator.languages;
+    oldTranslator.skype = newTranslator.skype;
+    oldTranslator.eid = newTranslator.eid;
+    oldTranslator.document = newTranslator.document;
+    oldTranslator.iban = newTranslator.iban;
+    oldTranslator.favorite = newTranslator.favorite;
+    oldTranslator.registered = newTranslator.registered;
+    oldTranslator.comment = newTranslator.comment;
+
+    ofy().save().entity(oldTranslator).now();
   }
 
   @Override
@@ -36,9 +79,9 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
 
     List<Translator> result = Lists.newArrayList();
 
-    for (String each : ids){
+    for (String each : ids) {
       Translator entity = ofy().load().type(Translator.class).id(each).now();
-      if (entity!=null){
+      if (entity != null) {
         result.add(entity);
       }
     }
@@ -49,7 +92,18 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
   @Override
   public void deleteById(String translatorId) {
 
-  ofy().delete().type(Translator.class).id(translatorId).now();
+    Translator translator = ofy().load().type(Translator.class).id(translatorId).now();
+
+    for (String languageId : translator.languages) {
+      Language entity = ofy().load().type(Language.class).id(languageId).now();
+      int index = entity.translatorIds.indexOf(translatorId);
+      if (index != -1) {
+        entity.translatorIds.remove(index);
+        ofy().save().entity(entity).now();
+      }
+    }
+
+    ofy().delete().type(Translator.class).id(translatorId).now();
   }
 
 }
