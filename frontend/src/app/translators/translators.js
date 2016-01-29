@@ -72,6 +72,27 @@ angular.module('ta.translators', [
           "TOOLTIP_LEGAL": "заклет",
           "TOOLTIP_FAVORITE": "любим",
           "NO_RESULT_MESSAGE": "Няма намерени резултати!"
+        },
+        TRANSLATOR_EDITOR: {
+          TRANSLATORS: "Преводачи",
+          ADD: "добавяне",
+          BASIC_INFO: "ОСНОВНИ ДАННИ:",
+          NAME: "ИМЕ",
+          EGN: "ЕГН",
+          LANGS: "ЕЗИЦИ",
+          CHOOSE_LANGS: "Избери езици...",
+          CONTACTS: "КОНТАКТИ",
+          TELEPHONE: "ТЕЛ",
+          MAIL: "MAIL",
+          SKYPE: "SKYPE",
+          EXTRA_INFO: "ДОПЪЛНИТЕЛНИ:",
+          CURRENT_ADDRESS: "НСТ АДРЕС",
+          PERMANENT_ADDRESS: "ПСТ АДРЕС",
+          ID_CARD: "Л КАРТА",
+          IBAN: "IBAN",
+          FAVORITE: "ЛЮБИМ",
+          SIGNED: "ЗАКЛЕТ",
+          MEMO: "БЕЛЕЖКА"
         }
       })
       .translations('en', {
@@ -111,6 +132,27 @@ angular.module('ta.translators', [
           "TOOLTIP_LEGAL": "signed",
           "TOOLTIP_FAVORITE": "favorite",
           "NO_RESULT_MESSAGE": "No results are found!"
+        },
+        TRANSLATOR_EDITOR: {
+          TRANSLATORS: "Translators",
+          ADD: "registration",
+          BASIC_INFO: "BASIC INFO",
+          NAME: "NAME",
+          EGN: "EID",
+          LANGS: "LANGS",
+          CHOOSE_LANGS: "Choose languages...",
+          CONTACTS: "CONTACTS",
+          TELEPHONE: "TEL",
+          MAIL: "MAIL",
+          SKYPE: "SKYPE",
+          EXTRA_INFO: "EXTRA INFORMATION",
+          CURRENT_ADDRESS: "CR ADDRS",
+          PERMANENT_ADDRESS: "PRM ADDRS",
+          ID_CARD: "LK",
+          IBAN: "IBAN",
+          FAVORITE: "FAVORITE",
+          SIGNED: "SIGNED",
+          MEMO: "MEMO"
         }
       });
 

@@ -91,7 +91,7 @@ angular.module('ta.languages', [
 
     $scope.loadInitialData = function () {
       languagesGateway.getAll().then(
-        function onSuccess(data) { console.log(data);
+        function onSuccess(data) {
           data.sort(compare);
           $scope.langs = data;
         }

@@ -3,7 +3,9 @@
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-12">
-                <h5>Преводачи <span class="text-muted">добавяне</span></h5>
+                <h5>
+                    <span translate>TRANSLATOR_EDITOR.TRANSLATORS</span>
+                     <span class="text-muted" translate>TRANSLATOR_EDITOR.ADD</span></h5>
             </div>
 
         </div>
@@ -17,8 +19,8 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
 
-                            <div class="panel-heading panel-heading-sm">
-                                ОСНОВНИ ДАННИ:
+                            <div class="panel-heading panel-heading-sm" translate>
+                                TRANSLATOR_EDITOR.BASIC_INFO
                             </div>
 
                             <div class="panel-body">
@@ -26,22 +28,22 @@
 
                                     <!--NAMES-->
                                     <div class="form-group form-group-sm">
-                                        <label for="names" class="col-sm-2 control-label">ИМЕ</label>
+                                        <label for="names" class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.NAME</label>
 
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="names"
-                                                   placeholder="Име..."
                                                    ng-model="translator.name" uppercased="" required>
                                         </div>
                                     </div>
 
                                     <!--EGN-->
                                     <div class="form-group form-group-sm">
-                                        <label for="eid" class="col-sm-2 control-label">ЕГН</label>
+                                        <label for="eid" class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.EGN</label>
 
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="eid"
-                                                   placeholder="ЕГН..."
                                                    ng-model="translator.eid" numeric-only>
                                         </div>
                                     </div>
@@ -49,11 +51,12 @@
                                     <!--LANGUAGES-->
                                     <div class="form-group">
                                         <label for="langs" class="col-sm-2 control-label"
-                                               style="font-size: 12px">ЕЗИЦИ</label>
+                                               style="font-size: 12px" translate>
+                                            TRANSLATOR_EDITOR.LANGS</label>
 
                                         <div class="col-sm-10">
                                             <ol id="langs" class="nya-bs-select form-control"
-                                                title="Изберете език..."
+                                                title="{{'TRANSLATOR_EDITOR.CHOOSE_LANGS' | translate}}"
                                                 ng-model="translator.languages" multiple
                                                 data-size="5" data-live-search="true">
                                                 <li nya-bs-option="option in languageOptions">
@@ -74,8 +77,8 @@
                     <!--CONTACTS FORM-->
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading panel-heading-sm">
-                                КОНТАКТИ:
+                            <div class="panel-heading panel-heading-sm" translate>
+                                TRANSLATOR_EDITOR.CONTACTS
                             </div>
                             <div class="panel-body">
 
@@ -83,11 +86,11 @@
                                 <form class="form-horizontal">
                                     <div class="form-group form-group-sm">
                                         <label for="phones"
-                                               class="col-sm-2 control-label">ТЕЛ </label>
+                                               class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.TELEPHONE</label>
 
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="phones"
-                                                   placeholder="Телефон..."
                                                    ng-model="translator.phones">
                                         </div>
                                     </div>
@@ -95,11 +98,11 @@
                                     <!--EMAIL-->
                                     <div class="form-group form-group-sm">
                                         <label for="email"
-                                               class="col-sm-2 control-label">MAIL</label>
+                                               class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.MAIL</label>
 
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="email"
-                                                   placeholder="e-mail..."
                                                    ng-disabled="inEditMode"
                                                    ng-model="translator.email">
                                         </div>
@@ -108,11 +111,11 @@
                                     <!--SKYPE-->
                                     <div class="form-group form-group-sm">
                                         <label for="skype"
-                                               class="col-sm-2 control-label">SKYPE </label>
+                                               class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.SKYPE </label>
 
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="skype"
-                                                   placeholder="Skype..."
                                                    ng-model="translator.skype">
                                         </div>
                                     </div>
@@ -128,51 +131,51 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading panel-heading-sm">
-                                ДОПЪЛНИТЕЛНИ:
+                            <div class="panel-heading panel-heading-sm" translate>
+                                TRANSLATOR_EDITOR.EXTRA_INFO
                             </div>
                             <div class="panel-body">
                                 <form class="form-horizontal">
                                     <div class="form-group form-group-sm">
-                                        <label for="currentAddress" class="col-sm-2 control-label">НАСТ.
-                                            АДРЕС</label>
+                                        <label for="currentAddress" class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.CURRENT_ADDRESS
+                                        </label>
 
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="currentAddress"
-                                                   placeholder="Настоящ адрес:..."
                                                    ng-model="translator.currentAddress" uppercased="">
                                         </div>
                                     </div>
 
                                     <div class="form-group form-group-sm">
-                                        <label for="permanentAddress" class="col-sm-2 control-label">ПОСТ.
-                                            АДРЕС</label>
+                                        <label for="permanentAddress" class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.PERMANENT_ADDRESS</label>
 
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control"
                                                    id="permanentAddress"
-                                                   placeholder="Постоянен адрес..."
                                                    ng-model="translator.permanentAddress" uppercased="">
                                         </div>
                                     </div>
 
 
                                     <div class="form-group form-group-sm">
-                                        <label for="eid" class="col-sm-2 control-label">ЛИЧНА
-                                            КАРТА</label>
+                                        <label for="eid" class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.ID_CARD
+                                        </label>
 
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="lk"
-                                                   placeholder="Лична карта..."
                                                    ng-model="translator.document" uppercased="">
                                         </div>
                                     </div>
                                     <div class="form-group form-group-sm">
-                                        <label for="iban" class="col-sm-2 control-label">IBAN</label>
+                                        <label for="iban" class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.IBAN
+                                        </label>
 
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="iban"
-                                                   placeholder="IBAN..."
                                                    ng-model="translator.iban" uppercased="">
                                         </div>
                                     </div>
@@ -181,22 +184,26 @@
 
                                     <div class="form-group form-group-sm">
                                         <label for="favorite"
-                                               class="col-sm-2 control-label">ЛЮБИМ</label>
+                                               class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.FAVORITE
+                                        </label>
 
                                         <div class="col-sm-10">
                                             <input simple-switch ng-model="translator.favorite" type="checkbox" id="favorite"  width="30"
-                                                   on-text="LANGUAGES.YES" off-text="LANGUAGES.NO">
+                                                   on-text="BUTTON.YES" off-text="BUTTON.NO">
                                         </div>
 
                                     </div>
 
                                     <div class="form-group form-group-sm">
                                         <label
-                                               class="col-sm-2 control-label">ЗАКЛЕТ</label>
+                                               class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.SIGNED
+                                        </label>
 
                                         <div class="col-sm-10">
                                             <input simple-switch type="checkbox" ng-model="translator.registered" width="30"
-                                                   on-text="LANGUAGES.YES" off-text="LANGUAGES.NO">
+                                                   on-text="BUTTON.YES" off-text="BUTTON.NO">
                                         </div>
 
                                     </div>
@@ -204,7 +211,9 @@
 
                                     <div class="form-group form-group-sm">
                                         <label for="comment"
-                                               class="col-sm-2 control-label">КОМЕНТ</label>
+                                               class="col-sm-2 control-label" translate>
+                                            TRANSLATOR_EDITOR.MEMO
+                                        </label>
 
                                         <div class="col-sm-10">
                                                 <textarea class="form-control" rows="2" id="comment"
@@ -220,19 +229,21 @@
                         <button type="button" class="btn btn-success btn-sm pull-right"
                                 ng-show="!inEditMode"
                                 ng-click="add(translator)">
-                            <i class="fa fa-plus"></i> Добави
+                            <i class="fa fa-plus"></i>
+                            <span translate>BUTTON.REGISTER</span>
                         </button>
 
                         <button type="button" class="btn btn-success btn-sm pull-right"
                                 ng-show="inEditMode"
                                 ng-click="edit(translator)">
-                            <i class="fa fa-pencil"></i> Редактирай
+                            <i class="fa fa-pencil"></i>
+                            <span translate>BUTTON.UPDATE</span>
                         </button>
 
                         <button type="button" class="btn btn-default btn-sm pull-right"
                                 ng-click="cancel()"
                                 style="margin-right: 15px">
-                            Отказ
+                            <span translate>BUTTON.CANCEL</span>
                         </button>
 
                     </div>

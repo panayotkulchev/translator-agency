@@ -37,32 +37,6 @@ angular.module('ta.core', [
     });
   })
 
-  .config(function i18n($translateProvider) {
-    $translateProvider
-      .translations('bg', {
-        MENU: {
-          HOME: "НАЧАЛО",
-          TRANSLATORS: "ПРЕВОДАЧИ",
-          LANGUAGES: "ЕЗИЦИ",
-          LOGOUT: "Изход"
-        },
-        SYSTEM: {
-          ERROR_500: "Системна грешка!"
-        }
-      })
-      .translations('en', {
-        MENU: {
-          HOME: "HOME",
-          TRANSLATORS: "TRANSLATORS",
-          LANGUAGES: "LANGUAGES",
-          LOGOUT: "Log out"
-        },
-        SYSTEM: {
-          ERROR_500: "System error!"
-        }
-      });
-  })
-
   .run(function run() {
   })
 
