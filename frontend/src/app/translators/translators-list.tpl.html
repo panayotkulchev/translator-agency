@@ -33,10 +33,10 @@
 
                         <form class="form-inline" role="form">
                             <div class="form-group form-group-sm">
-                                <label for="filter" class="hidden-xs">Филтър: </label>
+                                <label for="filter" class="hidden-xs" translate>TRANSLATORS.FILTER </label>
 
                                 <ol id="filter" class="nya-bs-select btn-sm" title="{{'TRANSLATORS.CHOOSE_LANGUAGE' | translate}}"
-                                    ng-model="translator.filteredLanguages" multiple
+                                    ng-model="selectedLanguageOptions" multiple
                                     data-size="5" data-live-search="true">
                                     <li nya-bs-option="option in languageOptions">
                                         <a>
@@ -48,7 +48,7 @@
                                 <button type="submit" class="btn btn-primary btn-sm"
                                         style="width: 100px"
                                         tooltip="{{'TRANSLATORS.SEARCH_TOOLTIP' | translate}}"
-                                        ng-click="getByLanguages(translator.filteredLanguages)"
+                                        ng-click="getByLanguages(selectedLanguageOptions)"
                                         ng-init="findAllLangs()" translate>
                                     TRANSLATORS.SEARCH
                                 </button>

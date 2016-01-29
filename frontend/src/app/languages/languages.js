@@ -32,7 +32,10 @@ angular.module('ta.languages', [
           NO: 'Не',
           ACTIVE: 'Активен',
           LANGUAGES: 'Езици',
-          NOMENCLATURE: 'номенклатура'
+          NOMENCLATURE: 'номенклатура',
+          ADDED_SUCCESSFUL: "Езикът е добавен!",
+          UPDATED_SUCCESSFUL: "Езикът е редактиран!",
+          DELETED_SUCCESSFUL: "Езикът е изтрит!"
         }
       })
       .translations('en', {
@@ -44,7 +47,10 @@ angular.module('ta.languages', [
           NO: 'No',
           ACTIVE: 'Active',
           LANGUAGES: 'Languages',
-          NOMENCLATURE: 'nomenclature'
+          NOMENCLATURE: 'nomenclature',
+          ADDED_SUCCESSFUL: "Language is added!",
+          UPDATED_SUCCESSFUL: "Language is updated!!",
+          DELETED_SUCCESSFUL: "Language is deleted!"
         }
       });
 
@@ -78,7 +84,7 @@ angular.module('ta.languages', [
           $scope.lang = "";
           $scope.langs.push({id: lang, isActive: false});
           $scope.langs.sort(compare);
-          growl.success(lang + " е добавен!");
+          growl.success("{{'LANGUAGES.ADDED_SUCCESSFUL' | translate}}");
         }
       );
     };
@@ -95,7 +101,7 @@ angular.module('ta.languages', [
     $scope.changeStatus = function (lang) {
       languagesGateway.changeStatus(lang.id, lang.isActive).then(
         function onSuccess() {
-          growl.success("Статусът на " + lang.id + " е редактиран!");
+          growl.success("{{'LANGUAGES.UPDATED_SUCCESSFUL' | translate}}");
         }
       );
     };
@@ -104,9 +110,7 @@ angular.module('ta.languages', [
       console.log(row.id);
       languagesGateway.del(row.id).then(
         function onSuccess() {
-
-          growl.success(row.id + " е изтрит!");
-
+          growl.success("{{'LANGUAGES.DELETED_SUCCESSFUL' | translate}}");
           var index = $scope.langs.indexOf(row);
           if (index !== -1) {
             $scope.langs.splice(index, 1);

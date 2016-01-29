@@ -45,6 +45,9 @@ angular.module('ta.core', [
           TRANSLATORS: "ПРЕВОДАЧИ",
           LANGUAGES: "ЕЗИЦИ",
           LOGOUT: "Изход"
+        },
+        SYSTEM: {
+          ERROR_500: "Системна грешка!"
         }
       })
       .translations('en', {
@@ -53,6 +56,9 @@ angular.module('ta.core', [
           TRANSLATORS: "TRANSLATORS",
           LANGUAGES: "LANGUAGES",
           LOGOUT: "Log out"
+        },
+        SYSTEM: {
+          ERROR_500: "System error!"
         }
       });
   })

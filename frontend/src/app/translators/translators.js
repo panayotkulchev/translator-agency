@@ -37,7 +37,11 @@ angular.module('ta.translators', [
     $translateProvider
       .translations('bg', {
         TRANSLATORS: {
-          CHOOSE_LANGUAGE: "Изберете език...",
+          NO_LANGUAGE_SELECTED: "Няма избран език!",
+          REGISTERED_SUCCESSFUL: "Преводачът е регистриран!",
+          UPDATED_SUCCESSFUL: "Преводачът е обновен!",
+          DELETED_SUCCESSFUL: "Преводачът е изтрит!",
+          CHOOSE_LANGUAGE: "Изберете езици...",
           NEW: "Нов преводач",
           "TRANSLATORS": "Преводачи",
           "NOMENCLATURE": "номенклатура",
@@ -72,7 +76,11 @@ angular.module('ta.translators', [
       })
       .translations('en', {
         TRANSLATORS: {
-          CHOOSE_LANGUAGE: "Choose language...",
+          NO_LANGUAGE_SELECTED: "Select language!",
+          REGISTERED_SUCCESSFUL: "Registered successful!",
+          UPDATED_SUCCESSFUL: "Updated successful!",
+          DELETED_SUCCESSFUL: "Deleted successful!",
+          CHOOSE_LANGUAGE: "Choose languages...",
           NEW: "New translator",
           "TRANSLATORS": "Translators",
           "NOMENCLATURE": "nomenclature",
@@ -148,23 +156,19 @@ angular.module('ta.translators', [
 
       translatorsGateway.add(translator).then(
         function onSuccess() {
-          growl.success($scope.translator.name + " беше добавен!");
-          $scope.translator = {};
-        },
-        function onError() {
-          growl.warning("Възникна системна грешка!");
+          growl.success("{{'TRANSLATORS.REGISTERED_SUCCESSFUL' | translate}}");
+          $state.go("translatorsList");
         }
       );
     };
+
 
     $scope.edit = function (translator) {
 
       translatorsGateway.edit(translator).then(
         function onSuccess() {
-          growl.success($scope.translator.name + " беше редактиран!");
-        },
-        function onError() {
-          growl.warning("Възникна системна грешка!");
+          growl.success("{{'TRANSLATORS.UPDATED_SUCCESSFUL' | translate}}");
+          $state.go("translatorsList");
         }
       );
     };
@@ -194,22 +198,27 @@ angular.module('ta.translators', [
 
   .controller('TranslatorsListCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state, $modal, $translate) {
 
-    $scope.getByLanguages = function (selectedLanguages) {
+    $scope.selectedLanguageOptions = [];
 
-      translatorsGateway.getByLanguages(selectedLanguages).then(
-        function onSuccess(data) {
-          $scope.translators = data;
-          $scope.showNoResultsMsg = data.length === 0;
-        },
-        function onError() {
-          $scope.translators = {};
-          growl.warning("Възникна системна грешка!");
-        }
-      );
+    $scope.getByLanguages = function (selectedLanguages) {
+      if (selectedLanguages.length>0){
+        translatorsGateway.getByLanguages(selectedLanguages).then(
+          function onSuccess(data) {
+            $scope.translators = data;
+            $scope.showNoResultsMsg = data.length === 0;
+          },
+          function onError() {
+            $scope.translators = {};
+          }
+        );
+      } else {
+        growl.warning("{{'TRANSLATORS.NO_LANGUAGE_SELECTED' | translate}}");
+      }
     };
 
     $scope.deleteById = function (id) {
       translatorsGateway.deleteById(id).then(
+
         function onSuccess() {
           var position = $scope.translators.map(function (e) {
             return e.email;
@@ -217,9 +226,7 @@ angular.module('ta.translators', [
           if (position !== -1) {
             $scope.translators.splice(position, 1);
           }
-        },
-        function onError() {
-          growl.warning("Системна грешка!");
+          growl.success("{{'TRANSLATORS.DELETED_SUCCESSFUL' | translate}}");
         }
       );
     };
