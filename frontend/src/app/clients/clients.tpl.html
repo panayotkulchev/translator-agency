@@ -1,0 +1,218 @@
+<!--<style>-->
+<!--#id {-->
+<!--width: 5%;-->
+<!--}-->
+
+<!--#name {-->
+<!--width: 17%;-->
+<!--}-->
+
+<!--#eik {-->
+<!--width: 8%;-->
+<!--}-->
+
+<!--#dds {-->
+<!--width: 10%;-->
+<!--}-->
+
+<!--#address {-->
+<!--width: 35%;-->
+<!--}-->
+
+<!--#mol {-->
+<!--width: 15%;-->
+<!--}-->
+
+<!--#edit-dell {-->
+<!--width: 10%;-->
+<!--}-->
+<!--</style>-->
+
+
+<div class="panel panel-default">
+    <span ng-init="initialLoad()"></span>
+
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5>
+                    <span translate>TRANSLATORS.TRANSLATORS</span>
+                    <span class="text-muted" translate>TRANSLATORS.NOMENCLATURE</span>
+                </h5>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="panel-body" style="min-height: 700px;">
+        <div class="row">
+            <div class="col-sm-offset-0 col-sm-12">
+
+                <div class="row">
+                    <div class="col-xs-12 top-buffer">
+                        <button type="button"
+                                class="btn btn-success btn-sm pull-right"
+                                ng-click="openAddModal()">
+                            <i class="fa fa-plus"></i>
+                            <span translate>CLIENTS.NEW</span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="input-group" style="margin: 10px auto">
+                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    <input class="form-control" type="text" ng-model="searchText"
+                           placeholder="{{'CLIENTS.SEARCH' | translate}}"/>
+                </div>
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th translate>CLIENTS.NAME</th>
+                        <th translate>CLIENTS.EIK</th>
+                        <th translate>CLIENTS.DDS</th>
+                        <th translate>CLIENTS.ADDRESS</th>
+                        <th translate>CLIENTS.MOL</th>
+                        <th translate>CLIENTS.OPTIONS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="datalist in datalists | orderBy:'name' |  filter:searchText"
+                        class="repeat-animation">
+                        <th id="id" scope="row">{{$index + 1}}</th>
+                        <td id="name">{{datalist.name}}</td>
+                        <td id="eik">{{ datalist.eik }}</td>
+                        <td id="dds">{{ datalist.dds }}</td>
+                        <td id="address">{{ datalist.address }}</td>
+                        <td id="mol">{{ datalist.mol }}</td>
+                        <td id="edit-del" class="text-center">
+
+                            <button type="button" class="btn btn-info btn-xs"
+                                    ng-click="openModal(datalist.id, datalist.name,datalist.eik,datalist.dds, datalist.address, datalist.mol, datalist.phone)"
+                                    tooltip="{{'CLIENTS.EDIT'| translate}}">
+                                <i class="fa fa-pencil"></i></button>
+
+                            <confirm-modal
+                                    message="Сигурни ли сте, че искате да изтриете {{row.name}}?"
+                                    ok-pressed="deleteClient(datalist.id)">
+                                <button type="button" class="btn btn-danger btn-xs"
+                                        tooltip="{{'CLIENTS.DELETE'| translate}}">
+                                    <i class="fa fa-trash"></i></button>
+                            </confirm-modal>
+
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">{{modalTitle}}</h4>
+                            </div>
+                            <div class="modal-body" align="center">
+
+                                <!--<label for="modalName" translate>CLIENTS.NAME</label>-->
+                                <!--<input id="modalName" type="text" class="form-control" ng-model="name"/><br/>-->
+
+                                <form class="form-horizontal">
+
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-md-2 control-label" for="modalName"
+                                               translate>CLIENTS.NAME</label>
+
+                                        <div class="col-md-10">
+                                            <input id="modalName" type="text" class="form-control"
+                                                   ng-model="name"/>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-md-2 control-label" for="modalEik"
+                                               translate>CLIENTS.EIK</label>
+
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" id="modalEik" ng-model="eik">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-md-2 control-label" for="modalDds"
+                                               translate>CLIENTS.DDS</label>
+
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" id="modalDds" ng-model="dds">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-md-2 control-label" for="modalAddress"
+                                               translate>CLIENTS.ADDRESS</label>
+
+                                        <div class="col-md-10">
+                                            <input id="modalAddress" type="text" class="form-control" ng-model="address"/>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-md-2 control-label" for="modalMol"
+                                               translate>CLIENTS.MOL</label>
+
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" id="modalMol" ng-model="mol">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-md-2 control-label" for="modalPhone"
+                                               translate>CLIENTS.PHONE</label>
+
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" id="modalPhone" ng-model="phone">
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                                <br/>
+                                <button type="button" class="btn btn-sm btn-success" ng-click="save()"
+                                        ng-if="showEditBtn"
+                                        data-dismiss="modal"
+                                        style="width: 100px;"><i class="fa fa-check"></i>&nbsp;
+                                    Edit
+                                </button>
+                                <button type="button" class="btn btn-sm btn-success" ng-click="add()" ng-if="showAddBtn"
+                                        data-dismiss="modal"
+                                        style="width: 100px;"><i class="fa fa-check"></i>&nbsp;
+                                    Add
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"
+                                        style="width: 100px; margin-left: 30px"><i class="fa fa-times"></i>&nbsp;
+                                    Cancel
+                                </button>
+                            </div>
+                            <div class="modal-footer">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

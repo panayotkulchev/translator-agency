@@ -9,7 +9,8 @@ angular.module('ta.core', [
     'ngAnimate',
     'ta.home',
     'ta.translators',
-    'ta.languages'
+    'ta.languages',
+    'ta.clients'
   ])
   .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider) {
     $urlRouterProvider.otherwise('/home');
@@ -40,7 +41,7 @@ angular.module('ta.core', [
   .run(function run() {
   })
 
-  .controller('AppCtrl', function AppCtrl($rootScope,$scope, $translate) {
+  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate) {
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       // set page to top
