@@ -31,7 +31,11 @@ angular.module('ta.clients', [
           ADDRESS: "АДРЕС",
           MOL: "МОЛ",
           PHONE: "ТЕЛЕФОН",
-          OPTIONS: "ОПЦИИ"
+          OPTIONS: "ОПЦИИ",
+          EDIT: "Редакция",
+          DELETE: "Изтриване",
+          REGISTER: "Регистрация на клиент",
+          UPDATE: "Обновяване на клиент"
         }
       })
       .translations('en', {
@@ -44,53 +48,37 @@ angular.module('ta.clients', [
           ADDRESS: "ADDR",
           MOL: "MOL",
           PHONE: "TEL",
-          OPTIONS: "OPTIONS"
+          OPTIONS: "OPTIONS",
+          EDIT: "Edit",
+          DELETE: "Delete",
+          REGISTER: "Register new client",
+          UPDATE: "Update client information"
         }
       });
   })
 
-  .controller('ClientsCtrl', function ClientsCtrl($scope) {
-
-    $scope.datalists = [
-      {
-        id: "100",
-        name: "ET COMPUTER",
-        eik: "202209164",
-        dds: "BG202209164",
-        address: "5000 Veliko Tarnovo, ul.N.Gabrovski 22A",
-        mol: "Ivan Dimitrov",
-        phone: "08833545548"
+  .service('clientsGateway', function (httpRequest) {
+    return {
+      add: function (client) {
+        return httpRequest.post('/r/clients', client);
       },
-      {
-        id: "101",
-        name: "ET DRAGAN TZANKOV",
-        eik: "345852123",
-        dds: "BG202209164",
-        address: "5000 Veliko Tarnovo, ul.S.Stambolov 5A",
-        mol: "Dragan Tzankov",
-        phone: "0897528735"
-      },
-      {
-        id: "102",
-        name: "CLOUWAY LTD.",
-        eik: "256664521",
-        dds: "BG202209164",
-        address: "5000 Veliko Tarnovo, ul.V.Levski 21",
-        mol: "Petar Vasilev",
-        phone: "0895225652"
-      },
-      {
-        id: "103",
-        name: "ABV NETWORK",
-        eik: "885522456",
-        dds: "BG202209164",
-        address: "5000 Veliko Tarnovo, bul.Bulgaria 8",
-        mol: "Tosho Stefanov",
-        phone: "0877854111"
+      getAll: function () {
+        return httpRequest.get('/r/clients');
       }
-    ];
+    };
+  })
+
+  .controller('ClientsCtrl', function ClientsCtrl($scope, clientsGateway) {
+
+    $scope.datalists = [];
 
     $scope.modalContent = "";
+
+    $scope.loadInitialData = function () {
+      clientsGateway.getAll().then(function onSuccess(data) {
+        $scope.datalists = data;
+      });
+    };
 
     $scope.openModal = function (id, name, eik, dds, address, mol, phone) {
       $scope.id = id;
@@ -102,7 +90,7 @@ angular.module('ta.clients', [
       $scope.phone = phone;
       $scope.showAddBtn = false;
       $scope.showEditBtn = true;
-      $scope.modalTitle = "Edit client";
+      $scope.modalTitle = "CLIENTS.UPDATE";
       $('#myModal').modal('show');
     };
 
@@ -116,7 +104,7 @@ angular.module('ta.clients', [
       $scope.phone = "";
       $scope.showAddBtn = true;
       $scope.showEditBtn = false;
-      $scope.modalTitle = "Add client";
+      $scope.modalTitle = "CLIENTS.REGISTER";
       $('#myModal').modal('show');
     };
 
@@ -146,8 +134,11 @@ angular.module('ta.clients', [
       newClient.address = $scope.address;
       newClient.mol = $scope.mol;
       newClient.phone = $scope.phone;
+      //$scope.datalists.push(newClient);
 
-      $scope.datalists.push(newClient);
+      clientsGateway.add(newClient).then(function onSuccess() {
+        $scope.datalists.push(newClient);
+      });
 
     };
 

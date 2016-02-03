@@ -1,5 +1,6 @@
 package com.clouway.ta.adapter.db;
 
+import com.clouway.ta.adapter.frontend.Client;
 import com.clouway.ta.adapter.frontend.Language;
 import com.clouway.ta.adapter.frontend.Translator;
 import com.clouway.ta.adapter.frontend.UserEntity;
@@ -18,6 +19,7 @@ public class OfyService {
     ObjectifyService.register(Language.class);
     ObjectifyService.register(Translator.class);
     ObjectifyService.register(UserEntity.class);
+    ObjectifyService.register(Client.class);
     ObjectifyService.register(SessionEntity.class);
 
   }

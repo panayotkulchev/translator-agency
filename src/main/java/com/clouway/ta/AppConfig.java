@@ -1,6 +1,7 @@
 package com.clouway.ta;
 
 import com.clouway.ta.adapter.db.PersistenceModule;
+import com.clouway.ta.adapter.frontend.ClientsRestService;
 import com.clouway.ta.adapter.frontend.LanguagesRestService;
 import com.clouway.ta.adapter.frontend.TranslatorRestService;
 import com.clouway.ta.adapter.security.*;
@@ -38,6 +39,7 @@ public class AppConfig extends GuiceServletContextListener {
               protected void configureSitebricks() {
                 at("/r/translators").serve(TranslatorRestService.class);
                 at("/r/languages").serve(LanguagesRestService.class);
+                at("/r/clients").serve(ClientsRestService.class);
 
                 at("/login").show(LoginPage.class);
                 at("/register").show(RegisterPage.class);
