@@ -29,8 +29,9 @@ angular.module('ta.core', [
           return response;
         },
         'responseError': function (rejection) {
+          console.log(rejection);
           if (rejection.status === 401) {
-            $window.location.href = '/login';
+            $window.location.href = '/logout';
           }
           return $q.reject(rejection);
         }
@@ -38,10 +39,25 @@ angular.module('ta.core', [
     });
   })
 
+  .config(function i18n($translateProvider) {
+    $translateProvider
+      .translations('bg', {
+        APP: {
+          HELLO: "Приевет, "
+        }
+      })
+      .translations('en', {
+        APP: {
+          HELLO: "Hello, "
+        }
+      });
+
+  })
+
   .run(function run() {
   })
 
-  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate) {
+  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest) {
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       // set page to top
@@ -65,5 +81,12 @@ angular.module('ta.core', [
       }
 
       $translate.use('en');
+    };
+
+    $scope.getCurrentUser = function () {
+      httpRequest.get('/r/currentUser').then(function (data) {
+        $scope.currentUser = data;
+      });
+      console.log($scope.currentUser);
     };
   });

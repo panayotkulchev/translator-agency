@@ -80,10 +80,10 @@
 
 
 
-  <!--<div class="container">-->
+  <div class="container" ng-init="getCurrentUser()">
       <!--<div class="pull-left" style="padding: 1px 1px"><h5>Вие сте тук: <b>{{pageTitle}}</b></h5></div>-->
-      <!--&lt;!&ndash;<div class="pull-right" style="padding: 1px 1px"><h5>Hello, <b>{{currentUser}}</b></h5></div>&ndash;&gt;-->
-  <!--</div>-->
+      <div class="pull-right" style="padding: 1px 1px"><h5><span translate>APP.HELLO</span><b>{{currentUser.email}}</b></h5></div>
+  </div>
 
   <div class="container slide-animation" ui-view="main"></div>
 

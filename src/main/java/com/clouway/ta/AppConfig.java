@@ -2,6 +2,7 @@ package com.clouway.ta;
 
 import com.clouway.ta.adapter.db.PersistenceModule;
 import com.clouway.ta.adapter.frontend.ClientsRestService;
+import com.clouway.ta.adapter.frontend.CurrentUserService;
 import com.clouway.ta.adapter.frontend.LanguagesRestService;
 import com.clouway.ta.adapter.frontend.TranslatorRestService;
 import com.clouway.ta.adapter.security.*;
@@ -27,12 +28,14 @@ public class AppConfig extends GuiceServletContextListener {
 //                filter("/login").through(LoginFilter.class);
 //                filter("/app").through(MainPageSecurityFilter.class);
 //                filter("/r/*").through(SecurityFilter.class);
+                filter("/*").through(OAuthCredentialsFilter.class);
 
               }
             },
 
             new PersistenceModule(),
             new SecurityModule(),
+//            new OAuthModule(),
 
             new SitebricksModule() {
               @Override
@@ -40,14 +43,12 @@ public class AppConfig extends GuiceServletContextListener {
                 at("/r/translators").serve(TranslatorRestService.class);
                 at("/r/languages").serve(LanguagesRestService.class);
                 at("/r/clients").serve(ClientsRestService.class);
+                at("/r/currentUser").serve(CurrentUserService.class);
 
-                at("/login").show(LoginPage.class);
-                at("/register").show(RegisterPage.class);
-                at("/logout").serve(LogoutPage.class);
-//                at("/rest").serve(Services.class);
-//                at("/wallet").show(Wallet.class);
-//                at("/oauth-callback").show(OAuthCallback.class);
-                at("/app").show(App.class);
+                at("/login").serve(LoginService.class);
+                at("/loginPage").show(LoginPage.class);
+                at("/logoutPage").show(LogoutPage.class);
+                at("/logout").serve(LogoutService.class);
               }
             }
 
