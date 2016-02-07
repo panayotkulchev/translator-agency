@@ -51,6 +51,9 @@ public class TranslatorRestService {
 
     List<Translator> translators = translatorRepository.getFavorites();
 
+    for (Translator each: translators){
+      each.createLanguageLine();
+    }
     return Reply.with(translators).as(Json.class);
 
   }

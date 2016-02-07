@@ -36,8 +36,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <h5>
-                    <span translate>TRANSLATORS.TRANSLATORS</span>
-                    <span class="text-muted" translate>TRANSLATORS.NOMENCLATURE</span>
+                    <span translate>CLIENTS.CLIENTS</span>
+                    <span class="text-muted" translate>CLIENTS.NOMENCLATURE</span>
                 </h5>
             </div>
 
@@ -46,13 +46,13 @@
 
     <div class="panel-body" style="min-height: 700px;">
         <div class="row">
-            <div class="col-sm-offset-0 col-sm-12">
+            <div class="col-sm-offset-1 col-sm-10">
 
                 <div class="row">
                     <div class="col-xs-12 top-buffer">
                         <button type="button"
                                 class="btn btn-success btn-sm pull-right"
-                                ng-click="openAddModal()">
+                                ng-click="openRegistrationModal()">
                             <i class="fa fa-plus"></i>
                             <span translate>CLIENTS.NEW</span>
                         </button>
@@ -65,36 +65,36 @@
                     <input class="form-control" type="text" ng-model="searchText"
                            placeholder="{{'CLIENTS.SEARCH' | translate}}"/>
                 </div>
-                <table class="table table-bordered table-condensed">
+                <table class="table table-hover table-striped table-vert-align-middle table-row-pointer table-condensed">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th translate>CLIENTS.NAME</th>
-                        <th translate>CLIENTS.EIK</th>
-                        <th translate>CLIENTS.DDS</th>
-                        <th translate>CLIENTS.ADDRESS</th>
-                        <th translate>CLIENTS.MOL</th>
-                        <th translate>CLIENTS.OPTIONS</th>
+                        <th class="text-center text-primary" style="width: 50px"><h6><strong>#</strong></h6></th>
+                        <th class="text-center text-primary"><h6><strong translate>CLIENTS.NAME</strong></h6></th>
+                        <th class="text-center text-primary"><h6><strong translate>CLIENTS.EIK</strong></h6></th>
+                        <th class="text-center text-primary"><h6><strong translate>CLIENTS.DDS</strong></h6></th>
+                        <th class="text-center text-primary"><h6><strong translate>CLIENTS.ADDRESS</strong></h6></th>
+                        <th class="text-center text-primary"><h6><strong translate>CLIENTS.MOL</strong></h6></th>
+                        <th class="text-center text-primary" style="width: 80px"><h6><strong translate>CLIENTS.OPTIONS</strong></h6></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="datalist in datalists | orderBy:'name' |  filter:searchText"
                         class="repeat-animation">
-                        <th id="id" scope="row">{{$index + 1}}</th>
-                        <td id="name">{{datalist.name}}</td>
-                        <td id="eik">{{ datalist.eik }}</td>
-                        <td id="dds">{{ datalist.dds }}</td>
-                        <td id="address">{{ datalist.address }}</td>
-                        <td id="mol">{{ datalist.mol }}</td>
+                        <th id="id" class="text-center" style="width: 50px" scope="row">{{$index + 1}}</th>
+                        <td id="name" class="text-center" >{{datalist.name}}</td>
+                        <td id="eik" class="text-center" >{{ datalist.eik }}</td>
+                        <td id="dds" class="text-center" >{{ datalist.dds }}</td>
+                        <td id="address" class="text-center" >{{ datalist.address }}</td>
+                        <td id="mol" class="text-center" >{{ datalist.mol }}</td>
                         <td id="edit-del" class="text-center">
 
                             <button type="button" class="btn btn-info btn-xs"
-                                    ng-click="openModal(datalist.id, datalist.name,datalist.eik,datalist.dds, datalist.address, datalist.mol, datalist.phone)"
+                                    ng-click="openUpdateModal(datalist)"
                                     tooltip="{{'CLIENTS.EDIT'| translate}}">
                                 <i class="fa fa-pencil"></i></button>
 
                             <confirm-modal
-                                    message="Сигурни ли сте, че искате да изтриете {{row.name}}?"
+                                    message="{{'CLIENTS.CONFIRM_DELETION' | translate}}"
                                     ok-pressed="deleteClient(datalist.id)">
                                 <button type="button" class="btn btn-danger btn-xs"
                                         tooltip="{{'CLIENTS.DELETE'| translate}}">
@@ -126,8 +126,7 @@
                                                translate>CLIENTS.NAME</label>
 
                                         <div class="col-md-10">
-                                            <input id="modalName" type="text" class="form-control"
-                                                   ng-model="name"/>
+                                            <input id="modalName" type="text" class="form-control" ng-model="modalData.client.name"/>
                                         </div>
                                     </div>
 
@@ -138,7 +137,7 @@
                                                translate>CLIENTS.EIK</label>
 
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="modalEik" ng-model="eik">
+                                            <input class="form-control" type="text" id="modalEik" ng-model="modalData.client.eik">
                                         </div>
                                     </div>
 
@@ -148,7 +147,7 @@
                                                translate>CLIENTS.DDS</label>
 
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="modalDds" ng-model="dds">
+                                            <input class="form-control" type="text" id="modalDds" ng-model="modalData.client.dds">
                                         </div>
 
                                     </div>
@@ -158,7 +157,7 @@
                                                translate>CLIENTS.ADDRESS</label>
 
                                         <div class="col-md-10">
-                                            <input id="modalAddress" type="text" class="form-control" ng-model="address"/>
+                                            <input id="modalAddress" type="text" class="form-control" ng-model="modalData.client.address"/>
                                         </div>
                                     </div>
 
@@ -168,7 +167,7 @@
                                                translate>CLIENTS.MOL</label>
 
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="modalMol" ng-model="mol">
+                                            <input class="form-control" type="text" id="modalMol" ng-model="modalData.client.mol">
                                         </div>
                                     </div>
 
@@ -178,7 +177,7 @@
                                                translate>CLIENTS.PHONE</label>
 
                                         <div class="col-md-10">
-                                            <input class="form-control" type="text" id="modalPhone" ng-model="phone">
+                                            <input class="form-control" type="text" id="modalPhone" ng-model="modalData.client.phone">
                                         </div>
                                     </div>
 
@@ -188,7 +187,7 @@
                                 <button type="button" class="btn btn-success btn-sm pull-right"
                                         ng-if="showAddBtn"
                                         data-dismiss="modal"
-                                        ng-click="add()">
+                                        ng-click="add(modalData.client)">
                                     <i class="fa fa-plus"></i>
                                     <span translate>BUTTON.REGISTER</span>
                                 </button>
@@ -196,7 +195,7 @@
                                 <button type="button" class="btn btn-success btn-sm pull-right"
                                         ng-if="showEditBtn"
                                         data-dismiss="modal"
-                                        ng-click="save()">
+                                        ng-click="update(modalData.client)">
                                     <i class="fa fa-pencil"></i>
                                     <span translate>BUTTON.UPDATE</span>
                                 </button>

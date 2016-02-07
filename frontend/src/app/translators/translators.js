@@ -243,7 +243,7 @@ angular.module('ta.translators', [
     $scope.selectedLanguageOptions = [];
 
     $scope.getByLanguages = function (selectedLanguages) {
-      if (selectedLanguages.length>0){
+      if (selectedLanguages.length > 0) {
         translatorsGateway.getByLanguages(selectedLanguages).then(
           function onSuccess(data) {
             $scope.translators = data;
@@ -260,7 +260,6 @@ angular.module('ta.translators', [
 
     $scope.deleteById = function (id) {
       translatorsGateway.deleteById(id).then(
-
         function onSuccess() {
           var position = $scope.translators.map(function (e) {
             return e.email;

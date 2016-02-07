@@ -23,36 +23,42 @@ angular.module('ta.clients', [
     $translateProvider
       .translations('bg', {
         CLIENTS: {
+          CLIENTS: "Клиенти",
+          NOMENCLATURE: "номенклатура",
           NEW: "Нов клиент",
-          SEARCH: "Търси в резултатите...",
-          NAME: "ИМЕ",
-          EIK: "БУЛСТАТ",
+          SEARCH: "Търси в списъка...",
+          NAME: "Име",
+          EIK: "Булстат",
           DDS: "ДДС",
-          ADDRESS: "АДРЕС",
+          ADDRESS: "Адрес",
           MOL: "МОЛ",
-          PHONE: "ТЕЛЕФОН",
-          OPTIONS: "ОПЦИИ",
+          PHONE: "Телефон",
+          OPTIONS: "Опции",
           EDIT: "Редакция",
           DELETE: "Изтриване",
           REGISTER: "Регистрация на клиент",
-          UPDATE: "Обновяване на клиент"
+          UPDATE: "Обновяване на клиент",
+          CONFIRM_DELETION: "Изтриване на клиента?"
         }
       })
       .translations('en', {
         CLIENTS: {
+          CLIENTS: "Clients",
+          NOMENCLATURE: "nomenclature",
           NEW: "New client",
-          SEARCH: "Search in results...",
-          NAME: "NAME",
+          SEARCH: "Search in the list...",
+          NAME: "Name",
           EIK: "EIK",
           DDS: "DDS",
-          ADDRESS: "ADDR",
+          ADDRESS: "Address",
           MOL: "MOL",
-          PHONE: "TEL",
-          OPTIONS: "OPTIONS",
+          PHONE: "Telephone",
+          OPTIONS: "Options",
           EDIT: "Edit",
           DELETE: "Delete",
           REGISTER: "Register new client",
-          UPDATE: "Update client information"
+          UPDATE: "Update client information",
+          CONFIRM_DELETION: "Delete client?"
         }
       });
   })
@@ -65,7 +71,7 @@ angular.module('ta.clients', [
       getAll: function () {
         return httpRequest.get('/r/clients');
       },
-      update : function (client) {
+      update: function (client) {
         return httpRequest.put("/r/clients", client);
       },
       deleteById: function (clientId) {
@@ -77,8 +83,7 @@ angular.module('ta.clients', [
   .controller('ClientsCtrl', function ClientsCtrl($scope, clientsGateway) {
 
     $scope.datalists = [];
-
-    $scope.modalContent = "";
+    $scope.modalData = {};
 
     $scope.loadInitialData = function () {
       clientsGateway.getAll().then(function onSuccess(data) {
@@ -86,70 +91,40 @@ angular.module('ta.clients', [
       });
     };
 
-    $scope.openModal = function (id, name, eik, dds, address, mol, phone) {
-      $scope.id = id;
-      $scope.name = name;
-      $scope.eik = eik;
-      $scope.dds = dds;
-      $scope.address = address;
-      $scope.mol = mol;
-      $scope.phone = phone;
+    $scope.openUpdateModal = function (clent) {
+      $scope.modalData.client = clent;
       $scope.showAddBtn = false;
       $scope.showEditBtn = true;
       $scope.modalTitle = "CLIENTS.UPDATE";
       $('#myModal').modal('show');
     };
 
-    $scope.openAddModal = function () {
-      $scope.id = "";
-      $scope.name = "";
-      $scope.eik = "";
-      $scope.dds = "";
-      $scope.address = "";
-      $scope.mol = "";
-      $scope.phone = "";
+    $scope.openRegistrationModal = function () {
+
+      $scope.modalData.client = {};
       $scope.showAddBtn = true;
       $scope.showEditBtn = false;
       $scope.modalTitle = "CLIENTS.REGISTER";
       $('#myModal').modal('show');
     };
 
-
-    $scope.save = function () {
-      for (var i = 0; i < $scope.datalists.length; i++) {
-
-        if ($scope.datalists[i].id == $scope.id) {
-          $scope.datalists[i].name = $scope.name;
-          $scope.datalists[i].eik = $scope.eik;
-          $scope.datalists[i].dds = $scope.dds;
-          $scope.datalists[i].address = $scope.address;
-          $scope.datalists[i].mol = $scope.mol;
-          $scope.datalists[i].phone = $scope.phone;
-          break;
-        }
-
-      }
-    };
-
-    $scope.add = function () {
-      //put to db and get it because need id
-      var newClient = {};
-      newClient.name = $scope.name;
-      newClient.eik = $scope.eik;
-      newClient.dds = $scope.dds;
-      newClient.address = $scope.address;
-      newClient.mol = $scope.mol;
-      newClient.phone = $scope.phone;
-      //$scope.datalists.push(newClient);
-
-      clientsGateway.add(newClient).then(function onSuccess() {
-        $scope.datalists.push(newClient);
+    $scope.add = function (client) {
+      clientsGateway.add(client).then(function onSuccess() {
+        $scope.datalists.push(client);
       });
 
     };
 
-    $scope.deleteClient = function (clientId, index) {
-      clientsGateway.deleteById(clientId);
-      $scope.datalists.splice(index, 1);
+    $scope.update = function (client, index) {
+      clientsGateway.update(client).then(function () {
+        $scope.datalists[index] = client;
+      });
     };
+
+    $scope.deleteClient = function (clientId, index) {
+      clientsGateway.deleteById(clientId).then(function () {
+        $scope.datalists.splice(index, 1);
+      });
+    };
+
   });

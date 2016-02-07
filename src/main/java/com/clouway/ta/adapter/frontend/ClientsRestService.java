@@ -56,10 +56,11 @@ public class ClientsRestService {
     Client client = request.read(Client.class).as(Json.class);
 
     clientRepository.update(client);
+    System.out.println(client);
 
     return Reply.saying().ok();
   }
-
+  @At("/:clientId")
   @Delete
   public Reply delete(@Named("clientId") Long clientId){
 
