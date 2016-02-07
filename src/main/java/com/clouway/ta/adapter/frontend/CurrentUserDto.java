@@ -6,9 +6,14 @@ package com.clouway.ta.adapter.frontend;
  * happy codding ...
  */
 class CurrentUserDto {
-  public final String email = "demo@gmail.com";
+  public final String email;
 
   @SuppressWarnings("unused")
   public CurrentUserDto() {
+    email = null;
+  }
+
+  public CurrentUserDto(String email) {
+    this.email = email;
   }
 }

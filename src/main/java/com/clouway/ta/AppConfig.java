@@ -25,9 +25,6 @@ public class AppConfig extends GuiceServletContextListener {
 
                 filter("/*").through(EncodingFilter.class);
                 filter("/*").through(ObjectifyFilter.class);
-//                filter("/login").through(LoginFilter.class);
-//                filter("/app").through(MainPageSecurityFilter.class);
-//                filter("/r/*").through(SecurityFilter.class);
                 filter("/*").through(OAuthCredentialsFilter.class);
 
               }
@@ -35,7 +32,6 @@ public class AppConfig extends GuiceServletContextListener {
 
             new PersistenceModule(),
             new SecurityModule(),
-//            new OAuthModule(),
 
             new SitebricksModule() {
               @Override
@@ -45,9 +41,7 @@ public class AppConfig extends GuiceServletContextListener {
                 at("/r/clients").serve(ClientsRestService.class);
                 at("/r/currentUser").serve(CurrentUserService.class);
 
-                at("/login").serve(LoginService.class);
                 at("/loginPage").show(LoginPage.class);
-                at("/logoutPage").show(LogoutPage.class);
                 at("/logout").serve(LogoutService.class);
               }
             }

@@ -36,7 +36,10 @@ angular.module('ta.http', [])
 
                     .error(function (data, status) {
                       emitErrorMessages(data, status);
-                      growl.warning("{{'SYSTEM.ERROR_500' | translate}}");
+                      if (status !=401){
+                        growl.warning("{{'SYSTEM.ERROR_500' | translate}}");
+                      }
+
                       deferred.reject(data);
                       count--;
 

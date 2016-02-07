@@ -57,7 +57,7 @@ angular.module('ta.core', [
   .run(function run() {
   })
 
-  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest) {
+  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest, $modal) {
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       // set page to top
@@ -83,10 +83,12 @@ angular.module('ta.core', [
       $translate.use('en');
     };
 
+    $('#my-modal').modal('show');
+
     $scope.getCurrentUser = function () {
       httpRequest.get('/r/currentUser').then(function (data) {
         $scope.currentUser = data;
+        $('#my-modal').modal('hide');
       });
-      console.log($scope.currentUser);
     };
   });
