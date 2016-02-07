@@ -64,6 +64,12 @@ angular.module('ta.clients', [
       },
       getAll: function () {
         return httpRequest.get('/r/clients');
+      },
+      update : function (client) {
+        return httpRequest.put("/r/clients", client);
+      },
+      deleteById: function (clientId) {
+        return httpRequest.del('/r/clients/' + clientId);
       }
     };
   })
@@ -142,12 +148,8 @@ angular.module('ta.clients', [
 
     };
 
-    $scope.deleteClient = function (id) {
-      for (var i = 0; i < $scope.datalists.length; i++) {
-        if ($scope.datalists[i].id == id) {
-          $scope.datalists.splice(i, 1);
-          break;
-        }
-      }
+    $scope.deleteClient = function (clientId, index) {
+      clientsGateway.deleteById(clientId);
+      $scope.datalists.splice(index, 1);
     };
   });

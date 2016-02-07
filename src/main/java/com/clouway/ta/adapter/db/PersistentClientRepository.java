@@ -20,7 +20,16 @@ public class PersistentClientRepository implements ClientRepository {
   @Override
   public void update(Client client) {
 
-//    Client oldCliient = ofy().load().type(Client.class).id(client.id).now();
+    Client oldClient = ofy().load().type(Client.class).id(client.id).now();
+
+    oldClient.name = client.name;
+    oldClient.eik = client.eik;
+    oldClient.dds = client.dds;
+    oldClient.address = client.address;
+    oldClient.mol = client.mol;
+    oldClient.phone = client.phone;
+
+    ofy().save().entity(oldClient).now();
 
   }
 
@@ -36,6 +45,6 @@ public class PersistentClientRepository implements ClientRepository {
 
   @Override
   public void delete(Long id) {
-
+    ofy().delete().type(Client.class).id(id).now();
   }
 }

@@ -43,7 +43,7 @@ angular.module('ta.core', [
     $translateProvider
       .translations('bg', {
         APP: {
-          HELLO: "Приевет, "
+          HELLO: "Привет, "
         }
       })
       .translations('en', {
