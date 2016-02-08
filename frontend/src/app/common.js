@@ -707,35 +707,35 @@ angular.module('common', ['ui.bootstrap'])
   //    }
   //  };
   //})
-  //
-  //.factory('eventBus', ['$rootScope', function ($rootScope) {
-  //  var eventBus = {};
-  //
-  //  eventBus.emitMsg = function (eventName, data, scope) {
-  //
-  //    // no scope was defined? so we are using the root scope
-  //    if (typeof scope === 'undefined') {
-  //      scope = $rootScope;
-  //    }
-  //
-  //    scope.$emit(eventName, data);
-  //  };
-  //
-  //  /**
-  //   * Subscribes for particular event.
-  //   * <p/>
-  //   * The subscription will be removed automatically when message is removed.
-  //   *
-  //   * @param eventName the event for which subscription is required
-  //   * @param func the callback to be executed when event is received
-  //   */
-  //  eventBus.onMsg = function (eventName, func) {
-  //    var unbind = $rootScope.$on(eventName, func);
-  //    $rootScope.$on('$destroy', unbind);
-  //  };
-  //
-  //  return eventBus;
-  //}])
+
+  .factory('eventBus', ['$rootScope', function ($rootScope) {
+    var eventBus = {};
+
+    eventBus.emitMsg = function (eventName, data, scope) {
+
+      // no scope was defined? so we are using the root scope
+      if (typeof scope === 'undefined') {
+        scope = $rootScope;
+      }
+
+      scope.$emit(eventName, data);
+    };
+
+    /**
+     * Subscribes for particular event.
+     * <p/>
+     * The subscription will be removed automatically when message is removed.
+     *
+     * @param eventName the event for which subscription is required
+     * @param func the callback to be executed when event is received
+     */
+    eventBus.onMsg = function (eventName, func) {
+      var unbind = $rootScope.$on(eventName, func);
+      $rootScope.$on('$destroy', unbind);
+    };
+
+    return eventBus;
+  }])
   //
   ///**
   // * @ngdoc factory
@@ -969,51 +969,52 @@ angular.module('common', ['ui.bootstrap'])
   //  };
   //})
   //
-  ///**
-  // * @ngdoc directive
-  // * @name dateTime
-  // * @restrict EA
-  // *
-  // * @description
-  // * Formats date long value and Date() to human
-  // * readable date-time format based on current locale configuration
-  // *
-  // * Example usages:
-  // *
-  // * <pre>
-  // *
-  // *   // $scope.date = 123423536434;
-  // *   <date-time>{{date}}</date-time>
-  // *
-  // *   // $scope.date = newDate(2015,10,27,15,30);
-  // *   <div date-time>{{date}}</div>
-  // *   <div date-time>{{date.getTime()}}</div>
-  // *
-  // * </pre>
-  // */
-  //.directive('dateTime', function ($filter, $interpolate, $parse, eventBus) {
-  //
-  //  return {
-  //    restrict: 'EA',
-  //
-  //    link: function (scope, elem) {
-  //
-  //      var inner = $interpolate(elem.html())(scope);
-  //      var parsed = $parse(inner)();
-  //      var html = $filter('date')(new Date(parsed), 'short');
-  //
-  //      elem.text(html);
-  //
-  //      eventBus.onMsg('$localeChangeSuccess', function () {
-  //
-  //        var html = $filter('date')(new Date(parsed), 'short');
-  //
-  //        elem.text(html);
-  //      });
-  //    }
-  //  };
-  //})
-  //
+  /**
+   * @ngdoc directive
+   * @name dateTime
+   * @restrict EA
+   *
+   * @description
+   * Formats date long value and Date() to human
+   * readable date-time format based on current locale configuration
+   *
+   * Example usages:
+   *
+   * <pre>
+   *
+   *   // $scope.date = 123423536434;
+   *   <date-time>{{date}}</date-time>
+   *
+   *   // $scope.date = newDate(2015,10,27,15,30);
+   *   <div date-time>{{date}}</div>
+   *   <div date-time>{{date.getTime()}}</div>
+   *
+   * </pre>
+   */
+  .directive('dateTime', function ($filter, $interpolate, $parse, eventBus, $rootScope) {
+
+    return {
+      restrict: 'EA',
+
+      link: function (scope, elem) {
+
+        var inner = $interpolate(elem.html())(scope);
+        var parsed = $parse(inner)();
+        var html = $filter('date')(new Date(parsed), 'short');
+
+        elem.text(html);
+
+        //eventBus.onMsg('$localeChangeSuccess', function () {
+        $rootScope.$on('$localeChangeSuccess', function () {
+
+          var html = $filter('date')(new Date(parsed), 'short');
+
+          elem.text(html);
+        });
+      }
+    };
+  })
+
   ///**
   // * @ngdoc directive
   // * @name date

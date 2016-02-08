@@ -15,6 +15,7 @@ angular.module('i18n', [
           TRANSLATORS: "ПРЕВОДАЧИ",
           LANGUAGES: "ЕЗИЦИ",
           CLIENTS: "КЛИЕНТИ",
+          ORDERS: "ПОРЪЧКИ",
           LOGOUT: "Изход"
         },
 
@@ -38,6 +39,7 @@ angular.module('i18n', [
           TRANSLATORS: "TRANSLATORS",
           LANGUAGES: "LANGUAGES",
           CLIENTS: "CLIENTS",
+          ORDERS: "ORDERS",
           LOGOUT: "Log out"
         },
 

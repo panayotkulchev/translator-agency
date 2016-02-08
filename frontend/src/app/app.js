@@ -10,7 +10,8 @@ angular.module('ta.core', [
     'ta.home',
     'ta.translators',
     'ta.languages',
-    'ta.clients'
+    'ta.clients',
+    'ta.orders'
   ])
   .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider) {
     $urlRouterProvider.otherwise('/home');
