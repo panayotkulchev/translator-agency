@@ -74,6 +74,9 @@ angular.module('ta.clients', [
       update: function (client) {
         return httpRequest.put("/r/clients", client);
       },
+      search: function (query) {
+        return httpRequest.get('/r/clients/search/filtered', {query: query});
+      },
       deleteById: function (clientId) {
         return httpRequest.del('/r/clients/' + clientId);
       }

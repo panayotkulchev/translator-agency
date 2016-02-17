@@ -6,6 +6,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -57,10 +58,12 @@ public class Translator {
 
   public void createLanguageLine() {
     String languagesLine = "";
+    Collections.sort(languages);
     for (String each : languages) {
-      languagesLine += each + ", ";
+
+      languagesLine += each.substring(0, 3) + ", ";
     }
-    this.languagesLine = languagesLine;
+    this.languagesLine = languagesLine.substring(0,languagesLine.length()-2);
   }
 
   @Override

@@ -1,0 +1,238 @@
+<div class="panel panel-default">
+    <span ng-init="initForm()"></span>
+
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5>
+                    <span translate>ORDERS.ORDERS</span>
+                    <span class="text-muted" translate>ORDERS.ADD</span></h5></div>
+        </div>
+    </div>
+
+    <div class="panel-body" style="min-height: 700px;">
+        <div class="row top-buffer">
+            <div class="col-xs-offset-1 col-xs-10">
+
+                <div class="row">
+                    <div class="col-sm-12 top-buffer">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading panel-heading-sm"></div>
+
+                            <div class="panel-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-sm-2 control-label" translate>
+                                            ORDERS.TITLE
+                                        </label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control"
+                                                   ng-model="order.title">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-sm-2 control-label" translate>
+                                            ORDERS.CLIENT
+                                        </label>
+
+                                        <div class="col-sm-10">
+
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                       ng-model="order.client.name">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary btn-sm" type="button"
+                                                    ng-click="openClientSearchDialog()">
+                                                        <i class="fa fa-search"></i>
+                                                        <span translate>ORDERS.SEARCH</span>
+                                                    </button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-sm-2 control-label" translate>
+                                            ORDERS.DESCRIPTION
+                                        </label>
+
+                                        <div class="col-sm-10">
+                                                <textarea class="form-control" rows="5"
+                                                          ng-model="order.description"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-sm pull-right"
+                                ng-show="!inEditMode"
+                                ng-click="add(translator)">
+                            <i class="fa fa-plus"></i>
+                            <span translate>BUTTON.REGISTER</span>
+                        </button>
+
+                        <button type="button" class="btn btn-success btn-sm pull-right"
+                                ng-show="inEditMode"
+                                ng-click="edit(translator)">
+                            <i class="fa fa-pencil"></i>
+                            <span translate>BUTTON.UPDATE</span>
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm pull-right"
+                                ng-click="cancel()"
+                                style="margin-right: 15px">
+                            <span translate>BUTTON.CANCEL</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="clientSearchModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{modalTitle | translate}}</h4>
+                </div>
+                <div class="modal-body" align="center">
+
+                    <tabset class="tab-content">
+                        <tab heading="Булстат">
+                            <div class="row">
+                                <div class="col-sm-12 top-buffer">
+                                    <form class="form-horizontal">
+                                        <div class="form-group form-group-sm">
+                                            <label class="col-sm-2 control-label" translate>
+                                                БУЛСТАТ
+                                            </label>
+
+                                            <div class="col-sm-10">
+
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="eik">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary btn-sm" type="button"
+                                                            ng-click="searchClientByEik(eik)">
+                                                        <i class="fa fa-search"></i>
+                                                        <span translate>ORDERS.SEARCH</span>
+                                                    </button>
+                                                </span>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h5 class="panel-title" translate>Резултати</h5>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="list-group" style="max-height: 350px;overflow-y:scroll; ">
+                                                    <a class="list-group-item table-row-pointer" ng-click="select(client)" ng-repeat="client in clientList | filter:checkForNull">
+                                                        <span>{{client.name}}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
+
+                        </tab>
+                        <tab heading="Име">
+                            <div class="row">
+                                <div class="col-sm-12 top-buffer">
+                                    <form class="form-horizontal">
+                                        <div class="form-group form-group-sm">
+                                            <label class="col-sm-2 control-label" translate>
+                                                ИМЕ
+                                            </label>
+
+                                            <div class="col-sm-10">
+
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="query">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary btn-sm" type="button"
+                                                            ng-click="searchClient(query)">
+                                                        <i class="fa fa-search"></i>
+                                                        <span translate>ORDERS.SEARCH</span>
+                                                    </button>
+                                                </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading panel-heading-sm">
+                                            <h5 class="panel-title" translate>Резултати</h5>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="list-group" style="max-height: 200px; overflow-y:scroll;">
+                                                <a class="list-group-item table-row-pointer text-left" ng-click="select(client)" ng-repeat="client in clientsList">
+                                                    <h5>
+                                                        <small class="text-muted text-uppercase">име</small>
+                                                        <span>{{client.name}}</span>
+                                                        <small class="text-muted text-uppercase">булстат</small>
+                                                        <span>{{client.eik}}</span>
+                                                        <small class="text-muted text-uppercase">мол</small>
+                                                        <span>{{client.mol}}</span>
+                                                    </h5>
+
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </tab>
+
+                    </tabset>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success btn-sm pull-right"
+                            data-dismiss="modal"
+                            ng-click="ok(modalData.client)">
+                        <i class="fa fa-plus"></i>
+                        <span translate>BUTTON.REGISTER</span>
+                    </button>
+
+                    <button type="button" class="btn btn-default btn-sm pull-right"
+                            data-dismiss="modal"
+                            style="margin-right: 15px">
+                        <span translate>BUTTON.CANCEL</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

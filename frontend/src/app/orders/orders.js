@@ -11,6 +11,19 @@ angular.module('ta.orders', [
   ])
 
   .config(function config($stateProvider) {
+    $stateProvider.state('orderEditor', {
+      url: '/orderEditor',
+      views: {
+        "main": {
+          controller: 'OrderEditorCtrl',
+          templateUrl: 'orders/order-editor.tpl.html'
+        }
+      },
+      data: {pageTitle: 'Orders Editor'}
+    });
+  })
+
+  .config(function config($stateProvider) {
     $stateProvider.state('orders', {
       url: '/orders',
       views: {
@@ -29,22 +42,32 @@ angular.module('ta.orders', [
         ORDERS: {
           ORDERS: "Поръчки",
           NOMENCLATURE: "списък",
-          NEW: "Нова поръчка"
+          NEW: "Нова поръчка",
+          ADD: "добавяне",
+          TITLE: "ЗАГЛАВИЕ",
+          DESCRIPTION: "ОПИСАНИЕ",
+          CLIENT: "КЛИЕНТ",
+          SEARCH: "Търси"
         }
       })
       .translations('en', {
         ORDERS: {
           ORDERS: "Orders",
           NOMENCLATURE: "list",
-          NEW: "New order"
+          NEW: "New order",
+          ADD: "registration",
+          TITLE: "TITLE",
+          DESCRIPTION: "DESCRIPTION",
+          CLIENT: "CLIENT",
+          SEARCH: "Търси"
         }
       });
   })
 
   .service('ordersGateway', function (httpRequest) {
     return {
-      add: function (client) {
-        return httpRequest.post('/r/orders', client);
+      add: function (order) {
+        return httpRequest.post('/r/orders', order);
       },
       getAll: function () {
         return httpRequest.get('/r/orders');
@@ -55,7 +78,7 @@ angular.module('ta.orders', [
     };
   })
 
-  .controller('OrdersCtrl', function OrdersCtrl($scope, ordersGateway) {
+  .controller('OrdersCtrl', function OrdersCtrl($scope, $state, ordersGateway) {
 
     $scope.orderList = [
       {
@@ -98,10 +121,37 @@ angular.module('ta.orders', [
       //});
     };
 
+    $scope.goToOrderEditor = function () {
+      $state.go("orderEditor");
+    };
+
+  })
+
+  .controller('OrderEditorCtrl', function OrdersCtrl($scope, ordersGateway, clientsGateway) {
+
+    $scope.order = {};
+
+    $scope.openClientSearchDialog = function () {
+      $scope.modalTitle = "Търсене на клиент";
+      $('#clientSearchModal').modal('show');
+    };
+
     $scope.add = function (order) {
       ordersGateway.add(order).then(function onSuccess() {
         $scope.datalists.push(order);
       });
+    };
+
+    $scope.searchClient = function (query) {
+      console.log("searching", query);
+      clientsGateway.search(query).then(function (data) {
+        $scope.clientsList = data;
+      });
+    };
+
+    $scope.select = function (client) {
+      console.log("selected", client);
+      $scope.order.client = client;
     };
 
   });

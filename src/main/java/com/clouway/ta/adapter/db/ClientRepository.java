@@ -19,6 +19,8 @@ public interface ClientRepository {
 
   List<Client> getAll();
 
+  List<Client> search(String query);
+
   void delete(Long id);
 
 }
