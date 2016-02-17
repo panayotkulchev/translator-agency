@@ -40,11 +40,23 @@ public class ClientsRestService {
     return Reply.with(clients).as(Json.class);
   }
 
+  @At("/search/filtered")
+  @Get
+  public Reply search(Request request){
+
+    String query = request.param("query");
+
+    List<Client> clients = clientRepository.search(query);
+
+    return Reply.with(clients).as(Json.class);
+  }
+
   @Post
   public Reply add(Request request){
 
     Client client = request.read(Client.class).as(Json.class);
 
+    client.createSearchIndex();
     clientRepository.add(client);
 
     return Reply.saying().ok();
@@ -55,6 +67,9 @@ public class ClientsRestService {
 
     Client client = request.read(Client.class).as(Json.class);
 
+    client.createSearchIndex();
+    System.out.println("update");
+    System.out.println(client);
     clientRepository.update(client);
     System.out.println(client);
 
