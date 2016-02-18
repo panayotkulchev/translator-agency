@@ -2,6 +2,7 @@ package com.clouway.ta.adapter.db;
 
 import com.clouway.ta.adapter.frontend.Client;
 import com.clouway.ta.adapter.frontend.Language;
+import com.clouway.ta.adapter.frontend.Order;
 import com.clouway.ta.adapter.frontend.Translator;
 import com.clouway.ta.adapter.frontend.UserEntity;
 import com.googlecode.objectify.Objectify;
@@ -21,6 +22,7 @@ public class OfyService {
     ObjectifyService.register(UserEntity.class);
     ObjectifyService.register(Client.class);
     ObjectifyService.register(SessionEntity.class);
+    ObjectifyService.register(Order.class);
 
   }
 

@@ -4,6 +4,7 @@ import com.clouway.ta.adapter.db.PersistenceModule;
 import com.clouway.ta.adapter.frontend.ClientsRestService;
 import com.clouway.ta.adapter.frontend.CurrentUserService;
 import com.clouway.ta.adapter.frontend.LanguagesRestService;
+import com.clouway.ta.adapter.frontend.OrderRestService;
 import com.clouway.ta.adapter.frontend.TranslatorRestService;
 import com.clouway.ta.adapter.security.*;
 import com.google.inject.Guice;
@@ -40,6 +41,7 @@ public class AppConfig extends GuiceServletContextListener {
                 at("/r/languages").serve(LanguagesRestService.class);
                 at("/r/clients").serve(ClientsRestService.class);
                 at("/r/currentUser").serve(CurrentUserService.class);
+                at("/r/orders").serve(OrderRestService.class);
 
                 at("/loginPage").show(LoginPage.class);
                 at("/logout").serve(LogoutService.class);

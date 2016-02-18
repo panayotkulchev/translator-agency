@@ -66,7 +66,8 @@ angular.module('ta.orders', [
 
   .service('ordersGateway', function (httpRequest) {
     return {
-      add: function (order) {
+      register: function (order) {
+        console.log("send");
         return httpRequest.post('/r/orders', order);
       },
       getAll: function () {
@@ -127,31 +128,35 @@ angular.module('ta.orders', [
 
   })
 
-  .controller('OrderEditorCtrl', function OrdersCtrl($scope, ordersGateway, clientsGateway) {
+  .controller('OrderEditorCtrl', function OrdersCtrl($scope, ordersGateway, clientsGateway, $state) {
 
     $scope.order = {};
+    $scope.modalData= {};
 
     $scope.openClientSearchDialog = function () {
-      $scope.modalTitle = "Търсене на клиент";
+      $scope.modalData.modalTitle = "Търсене на клиент";
       $('#clientSearchModal').modal('show');
     };
 
-    $scope.add = function (order) {
-      ordersGateway.add(order).then(function onSuccess() {
-        $scope.datalists.push(order);
-      });
-    };
-
     $scope.searchClient = function (query) {
-      console.log("searching", query);
       clientsGateway.search(query).then(function (data) {
         $scope.clientsList = data;
       });
     };
 
     $scope.select = function (client) {
-      console.log("selected", client);
-      $scope.order.client = client;
+      $scope.order.clientId = client.id;
+      $scope.order.clientName = client.name;
+    };
+
+    $scope.registerOrder = function (order) {
+      ordersGateway.register(order).then(function onSuccess() {
+        $scope.datalists.push(order);
+      });
+    };
+
+    $scope.goToOrders = function () {
+      $state.go("orders");
     };
 
   });

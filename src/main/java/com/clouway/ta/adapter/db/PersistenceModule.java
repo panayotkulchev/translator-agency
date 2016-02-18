@@ -19,6 +19,7 @@ public class PersistenceModule extends AbstractModule {
     bind(SessionRepository.class).to(PersistentSessionRepository.class);
     bind(UserRepository.class).to(PersistentUserRepository.class);
     bind(ClientRepository.class).to(PersistentClientRepository.class);
+    bind(OrderRepository.class).to(PersistentOrderRepository.class);
     bind(ObjectifyFilter.class).in(Singleton.class);
   }
 
