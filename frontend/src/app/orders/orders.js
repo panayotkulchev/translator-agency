@@ -117,9 +117,9 @@ angular.module('ta.orders', [
     ];
 
     $scope.loadInitialData = function () {
-      //ordersGateway.getAll().then(function onSuccess(data) {
-      //  $scope.orders = data;
-      //});
+      ordersGateway.getAll().then(function onSuccess(data) {
+        $scope.orderList = data;
+      });
     };
 
     $scope.goToOrderEditor = function () {
@@ -150,6 +150,7 @@ angular.module('ta.orders', [
     };
 
     $scope.registerOrder = function (order) {
+      console.log(order);
       ordersGateway.register(order).then(function onSuccess() {
         $scope.datalists.push(order);
       });

@@ -71,7 +71,7 @@
                                 </form>
                             </div>
                         </div>
-                        {{order}}
+
                         <button type="button" class="btn btn-success btn-sm pull-right"
                                 ng-show="!inEditMode"
                                 ng-click="registerOrder(order)">
@@ -107,7 +107,7 @@
                 <div class="modal-body" align="center">
 
                     <tabset class="tab-content">
-                        <tab heading="Име">
+                        <tab heading="Име/Булстат">
                             <div class="row">
                                 <div class="col-sm-8 col-sm-offset-2 top-buffer">
                                     <form class="form-horizontal">
@@ -140,48 +140,7 @@
 
                                 </a>
                             </div>
-
                         </tab>
-                        <tab heading="Булстат">
-                            <div class="row">
-                                <div class="col-sm-12 top-buffer">
-                                    <form class="form-horizontal">
-                                        <div class="form-group form-group-sm">
-                                            <label class="col-sm-2 control-label" translate>
-                                                БУЛСТАТ
-                                            </label>
-
-                                            <div class="col-sm-10">
-
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control"
-                                                           ng-model="eik">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-primary btn-sm" type="button"
-                                                            ng-click="searchClientByEik(eik)">
-                                                        <i class="fa fa-search"></i>
-                                                        <span translate>ORDERS.SEARCH</span>
-                                                    </button>
-                                                </span>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-
-                                    tbd
-
-                                </div>
-                            </div>
-
-                        </tab>
-
                     </tabset>
 
                 </div>

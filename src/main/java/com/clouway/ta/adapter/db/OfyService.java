@@ -5,6 +5,7 @@ import com.clouway.ta.adapter.frontend.Language;
 import com.clouway.ta.adapter.frontend.Order;
 import com.clouway.ta.adapter.frontend.Translator;
 import com.clouway.ta.adapter.frontend.UserEntity;
+import com.clouway.ta.core.OrdersCounter;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
@@ -23,6 +24,7 @@ public class OfyService {
     ObjectifyService.register(Client.class);
     ObjectifyService.register(SessionEntity.class);
     ObjectifyService.register(Order.class);
+    ObjectifyService.register(OrdersCounter.class);
 
   }
 

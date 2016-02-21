@@ -18,15 +18,31 @@ public class Order {
   @Id
   public Long id;
   public String title;
-  public String clientId;
+  public Long clientId;
   public String clientName;
   public String description;
-  public String number;
+  public Long number;
   public Date createdOn;
   public Date createdBy;
   public Date updatedBy;
+  public Date updatedOn;
 
   @SuppressWarnings("unchecked")
   public Order() {
+  }
+
+  @Override
+  public String toString() {
+    return "Order{" +
+            "id=" + id +
+            ", title='" + title + '\'' +
+            ", clientId='" + clientId + '\'' +
+            ", clientName='" + clientName + '\'' +
+            ", description='" + description + '\'' +
+            ", number='" + number + '\'' +
+            ", createdOn=" + createdOn +
+            ", createdBy=" + createdBy +
+            ", updatedBy=" + updatedBy +
+            '}';
   }
 }

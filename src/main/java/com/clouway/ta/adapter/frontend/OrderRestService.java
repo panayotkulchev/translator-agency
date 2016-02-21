@@ -7,7 +7,10 @@ import com.google.sitebricks.client.transport.Json;
 import com.google.sitebricks.headless.Reply;
 import com.google.sitebricks.headless.Request;
 import com.google.sitebricks.headless.Service;
+import com.google.sitebricks.http.Get;
 import com.google.sitebricks.http.Post;
+
+import java.util.List;
 
 /**
  * Created by Panayot Kulchev on 16-2-18.
@@ -25,6 +28,14 @@ public class OrderRestService {
   public OrderRestService(OrderRepository orderRepository) {
 
     this.orderRepository = orderRepository;
+  }
+
+  @Get
+  public Reply getAll(Request request){
+
+    List<Order> orderList = orderRepository.getAll();
+
+    return Reply.with(orderList).as(Json.class);
   }
 
   @Post
