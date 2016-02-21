@@ -82,38 +82,38 @@ angular.module('ta.orders', [
   .controller('OrdersCtrl', function OrdersCtrl($scope, $state, ordersGateway) {
 
     $scope.orderList = [
-      {
-        clientName: "Иван Иванов",
-        title: "Превод и легализация на диплома и свидетелство",
-        number: 1340,
-        createdBy: "panayotkulchev@gmail.com",
-        createdOn: 1454967058000,
-        commentsNumber: 4
-      },
-      {
-        clientName: "ET Старт 97",
-        title: "Превод свидетелство за граждански брак",
-        number: 1341,
-        createdBy: "panayotkulchev@gmail.com",
-        createdOn: 1454966058000,
-        commentsNumber: 2
-      },
-      {
-        clientName: "Свежест ООД",
-        title: "Фактури за внос на перилни препарати",
-        number: 1342,
-        createdBy: "julika@abv.bg",
-        createdOn: 1454965058000,
-        commentsNumber: 11
-      },
-      {
-        clientName: "Стефан Петров",
-        title: "Уверение за бригада",
-        number: 1343,
-        createdBy: "mtrifonova@yahoo.com",
-        createdOn: 1454964058000,
-        commentsNumber: 1
-      }
+      //{
+      //  clientName: "Иван Иванов",
+      //  title: "Превод и легализация на диплома и свидетелство",
+      //  number: 1340,
+      //  createdBy: "panayotkulchev@gmail.com",
+      //  createdOn: 1454967058000,
+      //  commentsNumber: 4
+      //},
+      //{
+      //  clientName: "ET Старт 97",
+      //  title: "Превод свидетелство за граждански брак",
+      //  number: 1341,
+      //  createdBy: "panayotkulchev@gmail.com",
+      //  createdOn: 1454966058000,
+      //  commentsNumber: 2
+      //},
+      //{
+      //  clientName: "Свежест ООД",
+      //  title: "Фактури за внос на перилни препарати",
+      //  number: 1342,
+      //  createdBy: "julika@abv.bg",
+      //  createdOn: 1454965058000,
+      //  commentsNumber: 11
+      //},
+      //{
+      //  clientName: "Стефан Петров",
+      //  title: "Уверение за бригада",
+      //  number: 1343,
+      //  createdBy: "mtrifonova@yahoo.com",
+      //  createdOn: 1454964058000,
+      //  commentsNumber: 1
+      //}
     ];
 
     $scope.loadInitialData = function () {
