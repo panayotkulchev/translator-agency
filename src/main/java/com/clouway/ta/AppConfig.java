@@ -7,9 +7,14 @@ import com.clouway.ta.adapter.frontend.LanguagesRestService;
 import com.clouway.ta.adapter.frontend.OrderRestService;
 import com.clouway.ta.adapter.frontend.TranslatorRestService;
 import com.clouway.ta.adapter.security.*;
+import com.clouway.ta.core.CurrentUser;
+import com.google.appengine.api.users.UserService;
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Provides;
 import com.google.inject.servlet.GuiceServletContextListener;
+import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
 import com.google.sitebricks.SitebricksModule;
 import com.googlecode.objectify.ObjectifyFilter;
@@ -46,7 +51,20 @@ public class AppConfig extends GuiceServletContextListener {
                 at("/loginPage").show(LoginPage.class);
                 at("/logout").serve(LogoutService.class);
               }
+            },
+            new AbstractModule() {
+              @Override
+              protected void configure() {
+
+              }
+
+              @Provides
+              @RequestScoped
+              public CurrentUser getCurrentUser(UserService userService) {
+                return new CurrentUser(userService.getCurrentUser().getEmail());
+              }
             }
+
 
     );
   }

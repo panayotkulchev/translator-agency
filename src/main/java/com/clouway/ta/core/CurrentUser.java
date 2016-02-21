@@ -1,5 +1,7 @@
 package com.clouway.ta.core;
 
+import java.util.Date;
+
 /**
  * Created on 15-5-5.
  *
@@ -11,8 +13,10 @@ public class CurrentUser {
   public final String email;
 
   public CurrentUser(String email) {
-
     this.email = email;
+  }
 
+  public Date getTime (){
+    return new Date();
   }
 }

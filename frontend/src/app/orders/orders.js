@@ -152,7 +152,7 @@ angular.module('ta.orders', [
     $scope.registerOrder = function (order) {
       console.log(order);
       ordersGateway.register(order).then(function onSuccess() {
-        $scope.datalists.push(order);
+        $scope.goToOrders();
       });
     };
 

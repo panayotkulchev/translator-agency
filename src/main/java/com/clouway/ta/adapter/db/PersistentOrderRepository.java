@@ -1,7 +1,9 @@
 package com.clouway.ta.adapter.db;
 
 import com.clouway.ta.adapter.frontend.Order;
+import com.clouway.ta.core.CurrentUser;
 import com.clouway.ta.core.OrdersCounter;
+import com.google.inject.Inject;
 
 import java.util.Date;
 import java.util.List;
@@ -14,6 +16,15 @@ import static com.clouway.ta.adapter.db.OfyService.ofy;
  * happy codding ...
  */
 public class PersistentOrderRepository implements OrderRepository {
+
+
+  private final CurrentUser currentUser;
+
+  @Inject
+  public PersistentOrderRepository(CurrentUser currentUser) {
+    this.currentUser = currentUser;
+  }
+
   @Override
   public void register(Order order) {
     //inject counter with current user
@@ -27,8 +38,9 @@ public class PersistentOrderRepository implements OrderRepository {
       ofy().save().entity(counter).now();
     }
 
-    order.createdOn = (new Date());
     order.number = counter.increaseOrders();
+    order.createdOn = currentUser.getTime();
+    order.createdBy = currentUser.email;
     ofy().save().entities(order, counter).now();
   }
 

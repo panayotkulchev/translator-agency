@@ -22,10 +22,12 @@ public class Order {
   public String clientName;
   public String description;
   public Long number;
+  public String comment;
+  public Long commentsNumber= 0L;
   public Date createdOn;
-  public Date createdBy;
-  public Date updatedBy;
+  public String createdBy;
   public Date updatedOn;
+  public String updatedBy;
 
   @SuppressWarnings("unchecked")
   public Order() {
