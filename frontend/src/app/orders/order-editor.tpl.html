@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" xmlns:orderBy="http://www.w3.org/1999/xhtml">
     <span ng-init="initForm()"></span>
 
     <div class="panel-heading">
@@ -22,6 +22,27 @@
 
                             <div class="panel-body">
                                 <form class="form-horizontal">
+
+                                    <div class="form-group">
+                                        <label for="langs" class="col-sm-2 control-label"
+                                               style="font-size: 12px" translate>
+                                            ВИД</label>
+                                        <div class="col-sm-10">
+                                            <ol id="langs" class="nya-bs-select form-control"
+                                                title="Изберете вид на услугата"
+                                                ng-model="order.type"
+                                                data-size="5">
+                                                <li nya-bs-option="option in orderTypeOptions">
+                                                    <a>
+                                                        <span translate>{{option}}</span>
+
+                                                        <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                    </a>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group form-group-sm">
                                         <label class="col-sm-2 control-label" translate>
                                             ORDERS.TITLE
@@ -41,7 +62,7 @@
                                         <div class="col-sm-10">
 
                                             <div class="input-group">
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" disabled
                                                        ng-model="order.clientName">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-primary btn-sm" type="button"
@@ -126,9 +147,10 @@
                                 </div>
                             </div>
 
-                            <div class="list-group" style="max-height: 200px; overflow-y:scroll;">
+                            <div style="max-height: 200px; overflow-y:scroll;">
                                 <a class="list-group-item table-row-pointer text-left"
-                                   ng-click="modalData.client = client" ng-repeat="client in clientsList">
+                                   ng-class="{'table-row-selected' : modalData.client.id == client.id}"
+                                   ng-click="modalData.client = client" ng-repeat="client in clientsList | orderBy:'name'" style="padding-top: 0; padding-bottom: 0">
                                     <h5>
                                         <small class="text-muted text-uppercase">име</small>
                                         <span>{{client.name}}</span>

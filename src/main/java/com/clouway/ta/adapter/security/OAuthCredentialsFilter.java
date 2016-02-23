@@ -32,7 +32,7 @@ public class OAuthCredentialsFilter implements Filter {
   public void init(FilterConfig config) throws ServletException {
   }
 
-
+//todo (pkulchev) meke it readable
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
     System.out.println("oauth filter");
 
@@ -45,6 +45,12 @@ public class OAuthCredentialsFilter implements Filter {
       if (userService.getCurrentUser() != null) {
         String email = userService.getCurrentUser().getEmail();
         System.out.println(email);
+//        if (!email.equals("panayotkulchev@gmail.com")){
+//          HttpServletResponse response = (HttpServletResponse) resp;
+//          response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+//          System.out.println("NOT AWOLLED");
+//          return;
+//        }
 
       } else {
         System.out.println("UNAUTHORIZED");

@@ -14,7 +14,7 @@ angular.module('ta.core', [
     'ta.orders'
   ])
   .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider) {
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/orders');
 
     growlProvider.onlyUniqueMessages(false);
     growlProvider.globalDisableCountDown(true);
