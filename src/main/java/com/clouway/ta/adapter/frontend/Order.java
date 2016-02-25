@@ -28,6 +28,8 @@ public class Order {
   public String createdBy;
   public Date updatedOn;
   public String updatedBy;
+  @Index
+  public String type;
 
   @SuppressWarnings("unchecked")
   public Order() {

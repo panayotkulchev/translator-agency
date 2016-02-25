@@ -48,7 +48,9 @@ angular.module('ta.orders', [
           DESCRIPTION: "ОПИСАНИЕ",
           CLIENT: "КЛИЕНТ",
           SEARCH: "Търси"
-        }
+        },
+        TRANSLATION: "Превод",
+        LEGALIZATION: "Легализация"
       })
       .translations('en', {
         ORDERS: {
@@ -59,8 +61,10 @@ angular.module('ta.orders', [
           TITLE: "TITLE",
           DESCRIPTION: "DESCRIPTION",
           CLIENT: "CLIENT",
-          SEARCH: "Търси"
-        }
+          SEARCH: "Search"
+        },
+        TRANSLATION: "Translation",
+        LEGALIZATION: "Legalization"
       });
   })
 
@@ -99,7 +103,7 @@ angular.module('ta.orders', [
 
     $scope.order = {};
     $scope.modalData= {};
-    $scope.orderTypeOptions = ['Превод', 'Легализация', 'Синхронен превод', 'Устен превод'];
+    $scope.orderTypeOptions = ['TRANSLATION', 'LEGALIZATION'];
     $scope.openClientSearchDialog = function () {
       $scope.modalData.modalTitle = "Търсене на клиент";
       $('#clientSearchModal').modal('show');
