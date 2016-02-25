@@ -71,6 +71,7 @@ module.exports = {
       'vendor/nya-bootstrap-select/dist/js/nya-bs-select.js',
       'vendor/angular-animate/angular-animate.js',
       'vendor/angular-translate/angular-translate.min.js',
+      'vendor/angular-dynamic-locale/dist/tmhDynamicLocale.js',
       'vendor/angular-loading-bar/src/loading-bar.js'
     ],
     css: [
@@ -88,6 +89,10 @@ module.exports = {
     ],
     assets: [
       'vendor/bootstrap-language/languages.png'
+    ],
+    locales: [
+      'vendor/angular-i18n/angular-locale_bg.js',
+      'vendor/angular-i18n/angular-locale_en.js'
     ]
   }
 };

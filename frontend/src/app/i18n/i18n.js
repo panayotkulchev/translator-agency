@@ -1,5 +1,6 @@
 angular.module('i18n', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'tmh.dynamicLocale'
   ])
 
   .config(function i18nConfig($translateProvider) {

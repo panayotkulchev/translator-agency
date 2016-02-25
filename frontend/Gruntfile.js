@@ -113,7 +113,15 @@ module.exports = function (grunt) {
                         cwd: '.',
                         expand: true,
                         flatten: true
-                    }
+                    },
+                  {
+                    //for i18n locales
+                    src: ['<%= vendor_files.locales %>'],
+                    dest: '<%= build_dir %>/locales/',
+                    cwd: '.',
+                    expand: true,
+                    flatten: true
+                  }
                 ]
             },
             build_appjs: {
@@ -169,7 +177,15 @@ module.exports = function (grunt) {
                         dest: '<%= compile_dir %>/',
                         cwd: '.',
                         expand: true
-                    }
+                    },
+                  {
+                    //for i18n locales
+                    src: ['<%= vendor_files.locales %>'],
+                    dest: '<%= compile_dir %>/locales/',
+                    cwd: '.',
+                    expand: true,
+                    flatten: true
+                  }
                 ]
             }
         },

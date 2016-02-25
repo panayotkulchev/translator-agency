@@ -4,6 +4,7 @@ angular.module('ta.core', [
     'angular-growl',
     'nya.bootstrap.select',
     'i18n',
+    'tmh.dynamicLocale',
     'ui.router',
     'angular-loading-bar',
     'ngAnimate',
@@ -13,13 +14,17 @@ angular.module('ta.core', [
     'ta.clients',
     'ta.orders'
   ])
-  .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider) {
+  .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider, tmhDynamicLocaleProvider) {
     $urlRouterProvider.otherwise('/orders');
 
     growlProvider.onlyUniqueMessages(false);
     growlProvider.globalDisableCountDown(true);
     growlProvider.globalDisableIcons(true);
     growlProvider.globalTimeToLive({success: 5000, error: 10000, warning: 5000, info: 5000});
+
+    // todo remove may be
+    // Specify location of angular locale files
+    tmhDynamicLocaleProvider.localeLocationPattern('locales/angular-locale_{{locale}}.js');
 
   })
 
@@ -55,10 +60,15 @@ angular.module('ta.core', [
 
   })
 
-  .run(function run() {
+  .run(function run(tmhDynamicLocale,$rootScope) {
+    tmhDynamicLocale.set('bg');
+    // Change locale when translation changes
+    $rootScope.$on('$translateChangeSuccess', function (event, data) {
+      tmhDynamicLocale.set(data.language);
+    });
   })
 
-  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest, $modal) {
+  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest, $modal, tmhDynamicLocale) {
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       // set page to top
