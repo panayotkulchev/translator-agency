@@ -12,7 +12,7 @@ angular.module('ta.orders', [
 
   .config(function config($stateProvider) {
     $stateProvider.state('orderEditor', {
-      url: '/orderEditor',
+      url: '/orderEditor?orderId',
       views: {
         "main": {
           controller: 'OrderEditorCtrl',
@@ -71,14 +71,16 @@ angular.module('ta.orders', [
   .service('ordersGateway', function (httpRequest) {
     return {
       register: function (order) {
-        console.log("send");
         return httpRequest.post('/r/orders', order);
+      },
+      loadOrder: function (orderId) {
+        return httpRequest.get('/r/orders', {orderId: orderId});
       },
       getAll: function () {
         return httpRequest.get('/r/orders');
       },
-      update: function (client) {
-        return httpRequest.put("/r/orders", client);
+      editOrder: function (order) {
+        return httpRequest.put("/r/orders", order);
       }
     };
   })
@@ -93,13 +95,22 @@ angular.module('ta.orders', [
       });
     };
 
+    $scope.editOrder = function (orderId) {
+      console.log("EDIT ORDER");
+      $state.go("orderEditor", {orderId: orderId});
+    };
+
     $scope.goToOrderEditor = function () {
       $state.go("orderEditor");
     };
 
   })
 
-  .controller('OrderEditorCtrl', function OrdersCtrl($scope, ordersGateway, clientsGateway, $state) {
+  .controller('OrderEditorCtrl', function OrdersCtrl($scope, ordersGateway, clientsGateway,
+                                                     $state, $stateParams, growl) {
+
+    var orderId = $stateParams.orderId;
+    $scope.inEditMode = orderId ? true : false;
 
     $scope.order = {};
     $scope.modalData= {};
@@ -121,14 +132,33 @@ angular.module('ta.orders', [
     };
 
     $scope.registerOrder = function (order) {
-      console.log(order);
       ordersGateway.register(order).then(function onSuccess() {
+        growl.success('Поръчката е добавена');
         $scope.goToOrders();
       });
     };
 
     $scope.goToOrders = function () {
       $state.go("orders");
+    };
+
+    $scope.loadOrder = function (orderId) {
+      ordersGateway.loadOrder(orderId).then(function (data) {
+        $scope.order = data;
+      });
+    };
+
+    $scope.initForm = function () {
+      if($scope.inEditMode) {
+        $scope.loadOrder(orderId);
+      }
+    };
+
+    $scope.editOrder = function (order) {
+      ordersGateway.editOrder(order).then(function () {
+        growl.success('Поръчката е обновена');
+        $scope.goToOrders();
+      });
     };
 
   });

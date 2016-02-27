@@ -28,7 +28,7 @@ public class Order {
   public String createdBy;
   public Date updatedOn;
   public String updatedBy;
-  public boolean important = false;
+  public boolean requireAttention = false;
   public boolean priority = false;
   @Index
   public String type;

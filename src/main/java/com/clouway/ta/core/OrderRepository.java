@@ -14,4 +14,8 @@ public interface OrderRepository {
   void register(Order order);
 
   List<Order> getAll();
+
+  Order get(Long orderId);
+
+  void update(Order order);
 }

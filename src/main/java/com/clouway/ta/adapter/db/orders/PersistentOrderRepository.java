@@ -47,4 +47,27 @@ public class PersistentOrderRepository implements OrderRepository {
   public List<Order> getAll() {
     return ofy().load().type(Order.class).list();
   }
+
+  @Override
+  public Order get(Long orderId) {
+    return ofy().load().type(Order.class).id(orderId).now();
+  }
+
+  @Override
+  public void update(Order orderUpdate) {
+    Order oldOrder = ofy().load().type(Order.class).id(orderUpdate.id).now();
+
+    oldOrder.title = orderUpdate.title;
+    oldOrder.clientId = orderUpdate.clientId;
+    oldOrder.type = orderUpdate.type;
+    oldOrder.clientName = orderUpdate.clientName;
+    oldOrder.comment = orderUpdate.comment;
+    oldOrder.priority = orderUpdate.priority;
+    oldOrder.requireAttention = orderUpdate.requireAttention;
+    oldOrder.updatedOn = currentUser.getTime();
+    oldOrder.description = orderUpdate.description;
+    oldOrder.updatedBy = currentUser.email;
+
+    ofy().save().entity(oldOrder).now();
+  }
 }

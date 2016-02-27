@@ -10,6 +10,7 @@ import com.google.sitebricks.headless.Request;
 import com.google.sitebricks.headless.Service;
 import com.google.sitebricks.http.Get;
 import com.google.sitebricks.http.Post;
+import com.google.sitebricks.http.Put;
 
 import java.util.List;
 
@@ -32,11 +33,18 @@ public class OrderRestService {
   }
 
   @Get
-  public Reply getAll(Request request){
+  public Reply get(Request request){
+    String orderId = request.param("orderId");
 
-    List<Order> orderList = orderRepository.getAll();
+    if (orderId!=null){
+      Order order = orderRepository.get(Long.valueOf(orderId));
+      return Reply.with(order).as(Json.class);
+    }
 
-    return Reply.with(orderList).as(Json.class);
+    else {
+      List<Order> orderList = orderRepository.getAll();
+      return Reply.with(orderList).as(Json.class);
+    }
   }
 
   @Post
@@ -45,6 +53,16 @@ public class OrderRestService {
     Order order = request.read(Order.class).as(Json.class);
 
     orderRepository.register(order);
+
+    return Reply.saying().ok();
+  }
+
+  @Put
+  public Reply update(Request request){
+
+    Order order = request.read(Order.class).as(Json.class);
+    System.out.println(order);
+    orderRepository.update(order);
 
     return Reply.saying().ok();
   }

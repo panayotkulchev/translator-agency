@@ -72,10 +72,10 @@
                                                     </button>
                                                 </span>
                                             </div>
-
                                         </div>
-
                                     </div>
+
+
 
                                     <div class="form-group form-group-sm">
                                         <label class="col-sm-2 control-label" translate>
@@ -85,6 +85,26 @@
                                         <div class="col-sm-10">
                                                 <textarea class="form-control" rows="5"
                                                           ng-model="order.description"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-sm-2 control-label" translate> ПРИОРИТЕТ </label>
+
+                                        <div class="col-sm-10">
+                                            <input simple-switch ng-model="order.priority" type="checkbox" id="priority"  width="30"
+                                                   on-text="BUTTON.YES" off-text="BUTTON.NO">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group form-group-sm">
+                                        <label class="col-sm-2 control-label" translate> ВНИМАНИЕ </label>
+
+                                        <div class="col-sm-10">
+                                            <input simple-switch ng-model="order.requireAttention" type="checkbox" id="requireAttention"  width="30"
+                                                   on-text="BUTTON.YES" off-text="BUTTON.NO">
                                         </div>
 
                                     </div>
@@ -100,12 +120,12 @@
                             <span translate>BUTTON.REGISTER</span>
                         </button>
 
-                        <!--<button type="button" class="btn btn-success btn-sm pull-right"-->
-                                <!--ng-show="inEditMode"-->
-                                <!--ng-click="edit(translator)">-->
-                            <!--<i class="fa fa-pencil"></i>-->
-                            <!--<span translate>BUTTON.UPDATE</span>-->
-                        <!--</button>-->
+                        <button type="button" class="btn btn-success btn-sm pull-right"
+                                ng-show="inEditMode"
+                                ng-click="editOrder(order)">
+                            <i class="fa fa-pencil"></i>
+                            <span translate>BUTTON.UPDATE</span>
+                        </button>
 
                         <button type="button" class="btn btn-default btn-sm pull-right"
                                 ng-click="goToOrders()"
