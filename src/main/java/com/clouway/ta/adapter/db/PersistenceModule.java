@@ -1,6 +1,17 @@
 package com.clouway.ta.adapter.db;
 
-import com.clouway.ta.core.SessionRepository;
+import com.clouway.ta.adapter.db.clients.PersistentClientRepository;
+import com.clouway.ta.adapter.db.languages.PersistentLanguageRepository;
+import com.clouway.ta.adapter.db.orders.PersistentOrderRepository;
+import com.clouway.ta.adapter.db.translators.PersistentTranslatorRepository;
+import com.clouway.ta.adapter.db.users.PersistentUserRepository;
+import com.clouway.ta.core.ClientRepository;
+import com.clouway.ta.core.LanguageRepository;
+import com.clouway.ta.core.OrderRepository;
+import com.clouway.ta.core.TranslatorRepository;
+import com.clouway.ta.core.UserRepository;
+import com.clouway.ta.core.examples.PersistentSessionRepository;
+import com.clouway.ta.core.examples.SessionRepository;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.googlecode.objectify.ObjectifyFilter;

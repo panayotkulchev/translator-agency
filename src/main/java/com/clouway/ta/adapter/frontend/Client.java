@@ -1,6 +1,6 @@
 package com.clouway.ta.adapter.frontend;
 
-import com.clouway.ta.core.IndexWriter;
+import com.clouway.ta.adapter.db.IndexWriter;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;

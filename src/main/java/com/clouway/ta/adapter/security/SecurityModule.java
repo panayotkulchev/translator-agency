@@ -6,7 +6,7 @@ import com.clouway.ta.adapter.http.validator.RequestParamHolder;
 import com.clouway.ta.adapter.http.validator.Rule;
 import com.clouway.ta.adapter.http.validator.ValidationRule;
 import com.clouway.ta.adapter.http.validator.Validator;
-import com.clouway.ta.core.SessionManager;
+import com.clouway.ta.core.examples.SessionManager;
 import com.clouway.ta.adapter.http.validator.ValidationRules;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;

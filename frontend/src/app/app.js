@@ -5,6 +5,7 @@ angular.module('ta.core', [
     'nya.bootstrap.select',
     'i18n',
     'tmh.dynamicLocale',
+    'angularMoment',
     'ui.router',
     'angular-loading-bar',
     'ngAnimate',
@@ -60,12 +61,13 @@ angular.module('ta.core', [
 
   })
 
-  .run(function run(tmhDynamicLocale,$rootScope) {
+  .run(function run(tmhDynamicLocale, $rootScope, amMoment) {
     tmhDynamicLocale.set('bg');
     // Change locale when translation changes
     $rootScope.$on('$translateChangeSuccess', function (event, data) {
       tmhDynamicLocale.set(data.language);
     });
+    amMoment.changeLocale('bg');
   })
 
   .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest, $modal, tmhDynamicLocale) {

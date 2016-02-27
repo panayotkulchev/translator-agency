@@ -53,8 +53,10 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12 text-muted small">
-                                <span>#{{order.number}} добавено на
-                                    <span date-time>{{order.createdOn}}</span>
+                                <span>#{{order.number}}
+                                    добавено
+                                    <span am-time-ago="order.createdOn"></span>
+                                    <!--<span date-time>{{order.createdOn}}</span>-->
                                     от {{order.createdBy}}
                                 </span>
                                                 </div>

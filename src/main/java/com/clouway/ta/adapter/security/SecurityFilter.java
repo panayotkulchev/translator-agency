@@ -1,10 +1,9 @@
 package com.clouway.ta.adapter.security;
 
-import com.clouway.ta.adapter.db.UserRepository;
-import com.clouway.ta.core.SessionManager;
-import com.clouway.ta.core.SessionRepository;
-import com.clouway.ta.core.SidFetcher;
-import com.google.appengine.api.users.User;
+import com.clouway.ta.core.UserRepository;
+import com.clouway.ta.core.examples.SessionManager;
+import com.clouway.ta.core.examples.SessionRepository;
+import com.clouway.ta.core.examples.SidFetcher;
 import com.google.appengine.api.users.UserService;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -15,7 +14,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 

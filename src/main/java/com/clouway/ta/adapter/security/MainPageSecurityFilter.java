@@ -1,7 +1,7 @@
 package com.clouway.ta.adapter.security;
 
-import com.clouway.ta.core.SessionRepository;
-import com.clouway.ta.core.SidFetcher;
+import com.clouway.ta.core.examples.SessionRepository;
+import com.clouway.ta.core.examples.SidFetcher;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 

@@ -1,18 +1,25 @@
 package com.clouway.ta.core;
 
-/**
- * Created on 15-5-5.
- *
- * @author Panayot Kulchev <panayotkulchev@gmail.com>
- */
+import com.clouway.ta.core.examples.User;
 
+/**
+ * Created by Panayot Kulchev on 15-11-20.
+ * e-mail: panayotkulchev@gmail.com
+ * happy codding ...
+ */
 public interface UserRepository {
+
+  void register(User user);
 
   void register(String email, String password);
 
-  boolean isExisting(String email);
-
   boolean authorize(String email, String password);
 
-  CurrentUser getBySid(String sid);
+  boolean isExisting(String email);
+
+  boolean isExist(String email);
+
+  User get(String email);
+
+  void edit(User user);
 }

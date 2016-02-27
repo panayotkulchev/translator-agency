@@ -72,6 +72,9 @@ module.exports = {
       'vendor/angular-animate/angular-animate.js',
       'vendor/angular-translate/angular-translate.min.js',
       'vendor/angular-dynamic-locale/dist/tmhDynamicLocale.js',
+      'vendor/moment/moment.js',
+      'vendor/angular-moment/angular-moment.js',
+      'vendor/moment/locale/bg.js',
       'vendor/angular-loading-bar/src/loading-bar.js'
     ],
     css: [

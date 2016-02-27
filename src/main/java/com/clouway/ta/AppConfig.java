@@ -1,11 +1,11 @@
 package com.clouway.ta;
 
 import com.clouway.ta.adapter.db.PersistenceModule;
-import com.clouway.ta.adapter.frontend.ClientsRestService;
-import com.clouway.ta.adapter.frontend.CurrentUserService;
-import com.clouway.ta.adapter.frontend.LanguagesRestService;
-import com.clouway.ta.adapter.frontend.OrderRestService;
-import com.clouway.ta.adapter.frontend.TranslatorRestService;
+import com.clouway.ta.adapter.frontend.clients.ClientsRestService;
+import com.clouway.ta.adapter.frontend.users.CurrentUserService;
+import com.clouway.ta.adapter.frontend.languages.LanguagesRestService;
+import com.clouway.ta.adapter.frontend.orders.OrderRestService;
+import com.clouway.ta.adapter.frontend.translators.TranslatorRestService;
 import com.clouway.ta.adapter.security.*;
 import com.clouway.ta.core.CurrentUser;
 import com.google.appengine.api.users.UserService;

@@ -1,6 +1,6 @@
 package com.clouway.ta.adapter.security;
 
-import com.clouway.ta.adapter.db.UserRepository;
+import com.clouway.ta.core.UserRepository;
 import com.clouway.ta.adapter.http.validator.Validator;
 import com.google.inject.Inject;
 import com.google.sitebricks.At;

@@ -1,10 +1,9 @@
 package com.clouway.ta.adapter.security;
 
 
-import com.clouway.ta.adapter.db.UserRepository;
+import com.clouway.ta.core.UserRepository;
 import com.clouway.ta.adapter.http.validator.Validator;
-import com.clouway.ta.core.SessionManager;
-import com.clouway.ta.core.Util;
+import com.clouway.ta.core.examples.SessionManager;
 import com.google.appengine.api.users.UserService;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -14,13 +13,7 @@ import com.google.sitebricks.http.Get;
 import com.google.sitebricks.http.Post;
 
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.http.client.utils.URIBuilder;
-
 import javax.servlet.http.HttpServletRequest;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.List;
 
 /**
