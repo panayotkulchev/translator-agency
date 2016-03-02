@@ -1,5 +1,5 @@
 <div class="panel panel-default" xmlns:orderBy="http://www.w3.org/1999/xhtml">
-    <span ng-init="initForm()"></span>
+    <span ng-init="initForm(orderId)"></span>
 
     <div class="panel-heading">
         <div class="row">
@@ -13,11 +13,21 @@
     <div class="panel-body" style="min-height: 700px;">
         <div class="row top-buffer">
             <div class="col-xs-offset-1 col-xs-10">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="btn-group btn-group-sm pull-right">
+                            <button class="btn btn-warning">Приета</button>
+                            <button class="btn btn-primary" ng-click="assign(orderId)">Възложена</button>
+                            <button class="btn btn-success" ng-click="execute(orderId)">Изпълнена</button>
+                            <button class="btn btn-default" ng-click="close(orderId)">Затворена</button>
+                        </div>
+                    </div>
 
+                </div>
                 <div class="row">
                     <div class="col-sm-12 top-buffer">
 
-                        <div class="panel panel-default">
+                        <div class="panel panel-primary">
                             <div class="panel-heading panel-heading-sm"></div>
 
                             <div class="panel-body">
@@ -27,6 +37,7 @@
                                         <label for="langs" class="col-sm-2 control-label"
                                                style="font-size: 12px" translate>
                                             ВИД</label>
+
                                         <div class="col-sm-10">
                                             <ol id="langs" class="nya-bs-select form-control"
                                                 title="Изберете вид на услугата"
@@ -76,7 +87,6 @@
                                     </div>
 
 
-
                                     <div class="form-group form-group-sm">
                                         <label class="col-sm-2 control-label" translate>
                                             ORDERS.DESCRIPTION
@@ -93,7 +103,8 @@
                                         <label class="col-sm-2 control-label" translate> ПРИОРИТЕТ </label>
 
                                         <div class="col-sm-10">
-                                            <input simple-switch ng-model="order.priority" type="checkbox" id="priority"  width="30"
+                                            <input simple-switch ng-model="order.priority" type="checkbox" id="priority"
+                                                   width="30"
                                                    on-text="BUTTON.YES" off-text="BUTTON.NO">
                                         </div>
 
@@ -103,7 +114,8 @@
                                         <label class="col-sm-2 control-label" translate> ВНИМАНИЕ </label>
 
                                         <div class="col-sm-10">
-                                            <input simple-switch ng-model="order.requireAttention" type="checkbox" id="requireAttention"  width="30"
+                                            <input simple-switch ng-model="order.requireAttention" type="checkbox"
+                                                   id="requireAttention" width="30"
                                                    on-text="BUTTON.YES" off-text="BUTTON.NO">
                                         </div>
 
@@ -156,7 +168,8 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" ng-model="query">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-primary btn-sm" type="submit" ng-click="searchClient(query)">
+                                                    <button class="btn btn-primary btn-sm" type="submit"
+                                                            ng-click="searchClient(query)">
                                                         <i class="fa fa-search"></i>
                                                         <span translate>ORDERS.SEARCH</span>
                                                     </button>
@@ -170,7 +183,9 @@
                             <div style="max-height: 200px; overflow-y:scroll;">
                                 <a class="list-group-item table-row-pointer text-left"
                                    ng-class="{'table-row-selected' : modalData.client.id == client.id}"
-                                   ng-click="modalData.client = client" ng-repeat="client in clientsList | orderBy:'name'" style="padding-top: 0; padding-bottom: 0">
+                                   ng-click="modalData.client = client"
+                                   ng-repeat="client in clientsList | orderBy:'name'"
+                                   style="padding-top: 0; padding-bottom: 0">
                                     <h5>
                                         <small class="text-muted text-uppercase">име</small>
                                         <span>{{client.name}}</span>

@@ -17,6 +17,8 @@ public class Order {
 
   @Id
   public Long id;
+  @Index
+  public String status;
   public String title;
   public Long clientId;
   public String clientName;

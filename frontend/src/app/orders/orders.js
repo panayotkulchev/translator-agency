@@ -81,6 +81,15 @@ angular.module('ta.orders', [
       },
       editOrder: function (order) {
         return httpRequest.put("/r/orders", order);
+      },
+      assign: function (orderId) {
+        return httpRequest.put("/r/orders/"+orderId+'/assign');
+      },
+      execute: function (orderId) {
+        return httpRequest.put("/r/orders/"+orderId+'/execute');
+      },
+      close: function (orderId) {
+        return httpRequest.put("/r/orders/"+orderId+'/close');
       }
     };
   })
@@ -103,14 +112,13 @@ angular.module('ta.orders', [
     $scope.goToOrderEditor = function () {
       $state.go("orderEditor");
     };
-
   })
 
   .controller('OrderEditorCtrl', function OrdersCtrl($scope, ordersGateway, clientsGateway,
                                                      $state, $stateParams, growl) {
 
-    var orderId = $stateParams.orderId;
-    $scope.inEditMode = orderId ? true : false;
+    $scope.orderId = $stateParams.orderId;
+    $scope.inEditMode = $scope.orderId ? true : false;
 
     $scope.order = {};
     $scope.modalData= {};
@@ -148,7 +156,7 @@ angular.module('ta.orders', [
       });
     };
 
-    $scope.initForm = function () {
+    $scope.initForm = function (orderId) {
       if($scope.inEditMode) {
         $scope.loadOrder(orderId);
       }
@@ -158,6 +166,27 @@ angular.module('ta.orders', [
       ordersGateway.editOrder(order).then(function () {
         growl.success('Поръчката е обновена');
         $scope.goToOrders();
+      });
+    };
+
+    $scope.assign = function (orderId) {
+     ordersGateway.assign(orderId).then(function () {
+       order.status = 'assigned';
+       growl.success('Статусът е променен');
+     });
+    };
+
+    $scope.execute = function (orderId) {
+      ordersGateway.execute(orderId).then(function () {
+        order.status = 'executed';
+        growl.success('Статусът е променен');
+      });
+    };
+
+    $scope.close = function (orderId) {
+      ordersGateway.close(orderId).then(function () {
+        order.status = 'closed';
+        growl.success('Статусът е променен');
       });
     };
 

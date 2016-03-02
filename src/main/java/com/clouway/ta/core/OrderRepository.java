@@ -18,4 +18,10 @@ public interface OrderRepository {
   Order get(Long orderId);
 
   void update(Order order);
+
+  void assignOrder(Long orderId);
+
+  void executeOrder(Long orderId);
+
+  void closeOrder(Long orderId);
 }

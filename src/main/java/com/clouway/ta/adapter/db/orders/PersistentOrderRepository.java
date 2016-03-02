@@ -3,6 +3,7 @@ package com.clouway.ta.adapter.db.orders;
 import com.clouway.ta.core.OrderRepository;
 import com.clouway.ta.adapter.frontend.Order;
 import com.clouway.ta.core.CurrentUser;
+import com.clouway.ta.core.OrderStatus;
 import com.google.inject.Inject;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class PersistentOrderRepository implements OrderRepository {
     }
 
     order.number = counter.increaseOrders();
+    order.status = OrderStatus.RAW;
     order.createdOn = currentUser.getTime();
     order.createdBy = currentUser.email;
     ofy().save().entities(order, counter).now();
@@ -69,5 +71,26 @@ public class PersistentOrderRepository implements OrderRepository {
     oldOrder.updatedBy = currentUser.email;
 
     ofy().save().entity(oldOrder).now();
+  }
+
+  @Override
+  public void assignOrder(Long orderId) {
+    Order order = get(orderId);
+    order.status = OrderStatus.ASSIGNED;
+    update(order);
+  }
+
+  @Override
+  public void executeOrder(Long orderId) {
+    Order order = get(orderId);
+    order.status = OrderStatus.EXECUTED;
+    update(order);
+  }
+
+  @Override
+  public void closeOrder(Long orderId) {
+    Order order = get(orderId);
+    order.status = OrderStatus.CLOSED;
+    update(order);
   }
 }

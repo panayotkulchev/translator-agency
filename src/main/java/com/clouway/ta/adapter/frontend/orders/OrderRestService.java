@@ -3,6 +3,7 @@ package com.clouway.ta.adapter.frontend.orders;
 import com.clouway.ta.core.OrderRepository;
 import com.clouway.ta.adapter.frontend.Order;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.google.sitebricks.At;
 import com.google.sitebricks.client.transport.Json;
 import com.google.sitebricks.headless.Reply;
@@ -63,6 +64,33 @@ public class OrderRestService {
     Order order = request.read(Order.class).as(Json.class);
     System.out.println(order);
     orderRepository.update(order);
+
+    return Reply.saying().ok();
+  }
+
+  @Put
+  @At("/:orderId/assign")
+  public Reply assignOrder(@Named("orderId") Long orderId) {
+
+    orderRepository.assignOrder(orderId);
+
+    return Reply.saying().ok();
+  }
+
+  @Put
+  @At("/:orderId/execute")
+  public Reply executeOrder(@Named("orderId") Long orderId) {
+
+    orderRepository.executeOrder(orderId);
+
+    return Reply.saying().ok();
+  }
+
+  @Put
+  @At("/:orderId/close")
+  public Reply closeOrder(@Named("orderId") Long orderId) {
+
+    orderRepository.closeOrder(orderId);
 
     return Reply.saying().ok();
   }
