@@ -1,4 +1,4 @@
-<div class="panel panel-default" xmlns:orderBy="http://www.w3.org/1999/xhtml">
+<div class="panel">
     <span ng-init="initForm(orderId)"></span>
 
     <div class="panel-heading">
@@ -16,10 +16,14 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="btn-group btn-group-sm pull-right">
-                            <button class="btn btn-warning">Приета</button>
-                            <button class="btn btn-primary" ng-click="assign(orderId)">Възложена</button>
-                            <button class="btn btn-success" ng-click="execute(orderId)">Изпълнена</button>
-                            <button class="btn btn-default" ng-click="close(orderId)">Затворена</button>
+                            <button class="btn btn-warning" ng-click="raw(orderId)">
+                                <i class="fa fa-exclamation-triangle"></i> Приета</button>
+                            <button class="btn btn-primary" ng-click="assign(orderId)">
+                                <i class="fa fa-hourglass-half"></i> Възложена</button>
+                            <button class="btn btn-success" ng-click="execute(orderId)">
+                                <i class="fa fa-check"></i> Изпълнена</button>
+                            <button class="btn btn-default" ng-click="close(orderId)">
+                                <i class="fa fa-thumbs-o-up"></i> Затворена</button>
                         </div>
                     </div>
 
@@ -27,7 +31,11 @@
                 <div class="row">
                     <div class="col-sm-12 top-buffer">
 
-                        <div class="panel panel-primary">
+                        <div class="panel panel-default"
+                             ng-class="{ 'panel-warning': order.status === 'raw',
+                                         'panel-primary': order.status === 'assigned',
+                                         'panel-success': order.status === 'executed',
+                                         'panel-default': order.status === 'closed'}">
                             <div class="panel-heading panel-heading-sm"></div>
 
                             <div class="panel-body">

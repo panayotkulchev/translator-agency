@@ -82,6 +82,9 @@ angular.module('ta.orders', [
       editOrder: function (order) {
         return httpRequest.put("/r/orders", order);
       },
+      raw: function (orderId) {
+        return httpRequest.put("/r/orders/"+orderId+'/raw');
+      },
       assign: function (orderId) {
         return httpRequest.put("/r/orders/"+orderId+'/assign');
       },
@@ -169,25 +172,37 @@ angular.module('ta.orders', [
       });
     };
 
+    $scope.raw = function (orderId) {
+      ordersGateway.raw(orderId).then(function () {
+        $scope.order.status = 'raw';
+        growl.success('Статусът е променен');
+      });
+    };
+
     $scope.assign = function (orderId) {
      ordersGateway.assign(orderId).then(function () {
-       order.status = 'assigned';
+       $scope.order.status = 'assigned';
        growl.success('Статусът е променен');
      });
     };
 
     $scope.execute = function (orderId) {
       ordersGateway.execute(orderId).then(function () {
-        order.status = 'executed';
+        $scope.order.status = 'executed';
         growl.success('Статусът е променен');
       });
     };
 
     $scope.close = function (orderId) {
       ordersGateway.close(orderId).then(function () {
-        order.status = 'closed';
+        $scope.order.status = 'closed';
         growl.success('Статусът е променен');
       });
+    };
+
+    $scope.getClass = function () {
+      console.log("get style");
+      return 'fa fa-money';
     };
 
   });

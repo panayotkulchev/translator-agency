@@ -19,6 +19,8 @@ public interface OrderRepository {
 
   void update(Order order);
 
+  void rawOrder(Long orderId);
+
   void assignOrder(Long orderId);
 
   void executeOrder(Long orderId);

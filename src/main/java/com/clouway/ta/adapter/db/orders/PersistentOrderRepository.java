@@ -74,6 +74,13 @@ public class PersistentOrderRepository implements OrderRepository {
   }
 
   @Override
+  public void rawOrder(Long orderId) {
+    Order order = get(orderId);
+    order.status = OrderStatus.RAW;
+    update(order);
+  }
+
+  @Override
   public void assignOrder(Long orderId) {
     Order order = get(orderId);
     order.status = OrderStatus.ASSIGNED;

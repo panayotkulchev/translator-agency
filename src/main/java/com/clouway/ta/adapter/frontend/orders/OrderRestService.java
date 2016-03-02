@@ -69,6 +69,15 @@ public class OrderRestService {
   }
 
   @Put
+  @At("/:orderId/raw")
+  public Reply rawOrder(@Named("orderId") Long orderId) {
+
+    orderRepository.rawOrder(orderId);
+
+    return Reply.saying().ok();
+  }
+
+  @Put
   @At("/:orderId/assign")
   public Reply assignOrder(@Named("orderId") Long orderId) {
 

@@ -18,7 +18,7 @@
     "angular-translate-loader-static-files": "~2.7.2",
     "angular-ui-router": "~0.2.15",
     "bootstrap": "~3.3",
-    "components-font-awesome": "~4.1.0",
+    "components-font-awesome": "~4.5",
     "smalot-bootstrap-datetimepicker": "2.3.1",
     "angular-ui-utils": "keypress-0.1.0",
     "nya-bootstrap-select": "~2.0.10",

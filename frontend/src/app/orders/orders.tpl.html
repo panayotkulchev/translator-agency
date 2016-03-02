@@ -36,7 +36,13 @@
 
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="pull-left"><i class="fa fa-money" style="color: red"></i></div>
+                                        <div class="pull-left">
+                                            <i ng-class="{
+                                            'fa fa fa-exclamation-triangle text-warning': order.status === 'raw',
+                                            'fa fa-hourglass-half text-primary': order.status === 'assigned',
+                                            'fa fa-check text-success': order.status === 'executed',
+                                            'fa fa-thumbs-o-up': order.status === 'closed'}"></i>
+                                        </div>
                                         <div class="col-sm-10">
 
                                             <div class="row">
