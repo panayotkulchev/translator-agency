@@ -66,8 +66,8 @@ angular.module('ta.core', [
     // Change locale when translation changes
     $rootScope.$on('$translateChangeSuccess', function (event, data) {
       tmhDynamicLocale.set(data.language);
+      amMoment.changeLocale(data.language);
     });
-    amMoment.changeLocale('bg');
   })
 
   .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest, $modal, tmhDynamicLocale) {
