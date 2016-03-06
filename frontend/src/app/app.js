@@ -70,7 +70,20 @@ angular.module('ta.core', [
     });
   })
 
-  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest, $modal, tmhDynamicLocale) {
+  .service('CurrentUser', function () {
+    var email;
+    this.getUser = function () {
+      return this.email;
+    };
+    this.setUser = function (email) {
+      this.email = email;
+    };
+    this.getTime = function () {
+      return new Date();
+    };
+  })
+
+  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest, $modal, tmhDynamicLocale, CurrentUser) {
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       // set page to top
@@ -101,6 +114,7 @@ angular.module('ta.core', [
     $scope.getCurrentUser = function () {
       httpRequest.get('/r/currentUser').then(function (data) {
         $scope.currentUser = data;
+        CurrentUser.setUser(data.email);
         $('#my-modal').modal('hide');
       });
     };

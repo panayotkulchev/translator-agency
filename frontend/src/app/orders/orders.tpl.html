@@ -55,29 +55,29 @@
                                                     <span class="label label-primary" style="margin-left: 5px"
                                                           ng-show="order.type=='LEGALIZATION'">{{order.type | translate}}</span>
                                                     <span class="label label-info" style="margin-left: 5px"
-                                                          ng-show=order.priority>Приоритет</span>
+                                                          ng-show=order.priority translate>ORDERS.PRIORITY</span>
                                                     <span class="label label-warning" style="margin-left: 5px"
-                                                               ng-show=order.requireAttention>Внимание</span>
+                                                               ng-show=order.requireAttention translate>ORDERS.ATTENTION</span>
                                                 </div>
 
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12 text-muted small">
                                 <span>#{{order.number}}
-                                    добавено
+                                    <span translate>ORDERS.ADDED</span>
                                     <span am-time-ago="order.createdOn"></span>
-                                    <span date-time>{{order.createdOn}}</span>
+                                    <!--<span date-time>{{order.createdOn}}</span>-->
                                     от {{order.createdBy}}
                                 </span>
                                                 </div>
                                             </div>
 
                                         </div>
-                                        <div class="pull-right">
-                                            <span class="text-muted">
+                                        <div class="pull-right" ng-class="{'text-muted' : order.comments.length===0}">
+                                            <span>
                                             <i class="fa fa-comment-o"></i>
                                             </span>
-                                            <strong class="text-muted" style="margin-right: 5px">{{order.commentsNumber}}</strong>
+                                            <strong style="margin-right: 5px">{{order.comments.length}}</strong>
                                         </div>
                                     </div>
                                 </div>

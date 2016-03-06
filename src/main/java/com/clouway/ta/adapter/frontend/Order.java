@@ -4,7 +4,9 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Panayot Kulchev on 16-2-18.
@@ -34,6 +36,7 @@ public class Order {
   public boolean priority = false;
   @Index
   public String type;
+  public List<Comment> comments = new ArrayList<>();
 
   @SuppressWarnings("unchecked")
   public Order() {

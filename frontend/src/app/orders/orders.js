@@ -7,6 +7,7 @@ angular.module('ta.orders', [
     'ui.bootstrap',
     'ta.http',
     'ngAnimate',
+    'ui.keypress',
     'common'
   ])
 
@@ -47,7 +48,16 @@ angular.module('ta.orders', [
           TITLE: "ЗАГЛАВИЕ",
           DESCRIPTION: "ОПИСАНИЕ",
           CLIENT: "КЛИЕНТ",
-          SEARCH: "Търси"
+          SEARCH: "Търси",
+          ADDED: "Добавена",
+          PRIORITY: "Приоритет",
+          ATTENTION: "Внимание",
+          TYPE: "ВИД",
+          CHOOSE_ORDER_TYPE: "Избери вид услуга...",
+          STATUS_RAW: "Приета",
+          STATUS_ASSIGNED: "Възложена",
+          STATUS_EXECUTED: "Изпълнена",
+          STATUS_CLOSED: "Затворена"
         },
         TRANSLATION: "Превод",
         LEGALIZATION: "Легализация"
@@ -61,7 +71,16 @@ angular.module('ta.orders', [
           TITLE: "TITLE",
           DESCRIPTION: "DESCRIPTION",
           CLIENT: "CLIENT",
-          SEARCH: "Search"
+          SEARCH: "Search",
+          ADDED: "Added",
+          PRIORITY: "Priority",
+          ATTENTION: "Attention",
+          TYPE: "TYPE",
+          CHOOSE_ORDER_TYPE: "Choose order type...",
+          STATUS_RAW: "Raw",
+          STATUS_ASSIGNED: "Assigned",
+          STATUS_EXECUTED: "Executed",
+          STATUS_CLOSED: "Closed"
         },
         TRANSLATION: "Translation",
         LEGALIZATION: "Legalization"
@@ -93,6 +112,9 @@ angular.module('ta.orders', [
       },
       close: function (orderId) {
         return httpRequest.put("/r/orders/"+orderId+'/close');
+      },
+      addOrderComment: function (orderId, comment) {
+        return httpRequest.post("/r/orders/"+orderId+"/comment", {orderId: orderId, comment: comment} );
       }
     };
   })
@@ -108,7 +130,6 @@ angular.module('ta.orders', [
     };
 
     $scope.editOrder = function (orderId) {
-      console.log("EDIT ORDER");
       $state.go("orderEditor", {orderId: orderId});
     };
 
@@ -118,12 +139,14 @@ angular.module('ta.orders', [
   })
 
   .controller('OrderEditorCtrl', function OrdersCtrl($scope, ordersGateway, clientsGateway,
-                                                     $state, $stateParams, growl) {
+                                                     $state, $stateParams, growl, CurrentUser) {
 
     $scope.orderId = $stateParams.orderId;
     $scope.inEditMode = $scope.orderId ? true : false;
 
     $scope.order = {};
+    $scope.comment = {};
+    $scope.comments = [];
     $scope.modalData= {};
     $scope.orderTypeOptions = ['TRANSLATION', 'LEGALIZATION'];
     $scope.openClientSearchDialog = function () {
@@ -200,9 +223,15 @@ angular.module('ta.orders', [
       });
     };
 
-    $scope.getClass = function () {
-      console.log("get style");
-      return 'fa fa-money';
-    };
+    $scope.addOrderComment = function (orderId, comment) {
+      if (!comment){
+        return;
+      }
 
+      ordersGateway.addOrderComment(orderId, comment).then(function () {
+        var newComment = {content: comment, author: CurrentUser.getUser(), createdOn: new Date()};
+        $scope.order.comments.unshift(newComment);
+        $scope.comment.content = "";
+      });
+    };
   });

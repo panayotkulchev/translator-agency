@@ -1,5 +1,6 @@
 package com.clouway.ta.adapter.db.orders;
 
+import com.clouway.ta.adapter.frontend.Comment;
 import com.clouway.ta.core.OrderRepository;
 import com.clouway.ta.adapter.frontend.Order;
 import com.clouway.ta.core.CurrentUser;
@@ -16,7 +17,6 @@ import static com.clouway.ta.adapter.db.OfyService.ofy;
  * happy codding ...
  */
 public class PersistentOrderRepository implements OrderRepository {
-
 
   private final CurrentUser currentUser;
 
@@ -98,6 +98,15 @@ public class PersistentOrderRepository implements OrderRepository {
   public void closeOrder(Long orderId) {
     Order order = get(orderId);
     order.status = OrderStatus.CLOSED;
+    update(order);
+  }
+
+  @Override
+  public void addOrderComment(Long orderId, String content) {
+    Order order = get(orderId);
+
+    Comment comment = new Comment(currentUser.email, currentUser.getTime(), content);
+    order.comments.add(comment);
     update(order);
   }
 }

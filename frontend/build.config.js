@@ -75,6 +75,7 @@ module.exports = {
       'vendor/moment/moment.js',
       'vendor/angular-moment/angular-moment.js',
       'vendor/moment/locale/bg.js',
+      'vendor/angular-ui-utils/keypress.js',
       'vendor/angular-loading-bar/src/loading-bar.js'
     ],
     css: [

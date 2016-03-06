@@ -1972,4 +1972,24 @@ angular.module('common', ['ui.bootstrap'])
       }
     };
   })
+
+  /**
+   * @ngdoc directive
+   * @name infoLine
+   *
+   * @param {String} label label test of the infoLine.
+   * @param {boolean} [narrow=false] whether the infoLine should have a narrow line height.
+   */
+  .directive('infoLine', function () {
+    return {
+      restrict: 'E',
+      transclude: true,
+      template: '<h5 style="display: inline;" ng-style="{lineHeight: narrow ? 1.9 : 2.5}">' +
+      '<small translate>{{label}}</small> <ng-transclude></ng-transclude></h5>',
+      scope: {
+        label: '@',
+        narrow: '='
+      }
+    };
+  })
 ;

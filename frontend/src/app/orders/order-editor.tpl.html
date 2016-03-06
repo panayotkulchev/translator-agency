@@ -13,17 +13,21 @@
     <div class="panel-body" style="min-height: 700px;">
         <div class="row top-buffer">
             <div class="col-xs-offset-1 col-xs-10">
-                <div class="row">
+                <div class="row" ng-if="inEditMode">
                     <div class="col-sm-12">
                         <div class="btn-group btn-group-sm pull-right">
                             <button class="btn btn-warning" ng-click="raw(orderId)">
-                                <i class="fa fa-exclamation-triangle"></i> Приета</button>
+                                <i class="fa fa-exclamation-triangle"></i> <span translate>ORDERS.STATUS_RAW</span>
+                            </button>
                             <button class="btn btn-primary" ng-click="assign(orderId)">
-                                <i class="fa fa-hourglass-half"></i> Възложена</button>
+                                <i class="fa fa-hourglass-half"></i> <span translate>ORDERS.STATUS_ASSIGNED</span>
+                            </button>
                             <button class="btn btn-success" ng-click="execute(orderId)">
-                                <i class="fa fa-check"></i> Изпълнена</button>
+                                <i class="fa fa-check"></i> <span translate>ORDERS.STATUS_EXECUTED</span>
+                            </button>
                             <button class="btn btn-default" ng-click="close(orderId)">
-                                <i class="fa fa-thumbs-o-up"></i> Затворена</button>
+                                <i class="fa fa-thumbs-o-up"></i> <span translate>ORDERS.STATUS_CLOSED</span>
+                            </button>
                         </div>
                     </div>
 
@@ -42,13 +46,13 @@
                                 <form class="form-horizontal">
 
                                     <div class="form-group">
-                                        <label for="langs" class="col-sm-2 control-label"
+                                        <label class="col-sm-2 control-label"
                                                style="font-size: 12px" translate>
-                                            ВИД</label>
+                                            ORDERS.TYPE</label>
 
                                         <div class="col-sm-10">
-                                            <ol id="langs" class="nya-bs-select form-control"
-                                                title="Изберете вид на услугата"
+                                            <ol class="nya-bs-select form-control"
+                                                title="{{'ORDERS.CHOOSE_ORDER_TYPE' | translate}}"
                                                 ng-model="order.type"
                                                 data-size="5">
                                                 <li nya-bs-option="option in orderTypeOptions">
@@ -101,14 +105,14 @@
                                         </label>
 
                                         <div class="col-sm-10">
-                                                <textarea class="form-control" rows="5"
+                                                <textarea class="form-control" rows="2"
                                                           ng-model="order.description"></textarea>
                                         </div>
 
                                     </div>
 
                                     <div class="form-group form-group-sm">
-                                        <label class="col-sm-2 control-label" translate> ПРИОРИТЕТ </label>
+                                        <label class="col-sm-2 control-label text-uppercase" translate> ORDERS.PRIORITY </label>
 
                                         <div class="col-sm-10">
                                             <input simple-switch ng-model="order.priority" type="checkbox" id="priority"
@@ -119,7 +123,7 @@
                                     </div>
 
                                     <div class="form-group form-group-sm">
-                                        <label class="col-sm-2 control-label" translate> ВНИМАНИЕ </label>
+                                        <label class="col-sm-2 control-label text-uppercase" translate> ORDERS.ATTENTION </label>
 
                                         <div class="col-sm-10">
                                             <input simple-switch ng-model="order.requireAttention" type="checkbox"
@@ -154,6 +158,47 @@
                         </button>
                     </div>
                 </div>
+
+                <!--NEW COMMENT FORM-->
+                <div class="row top-buffer" ng-if="inEditMode">
+                    <div class="col-sm-12">
+                        <form class="form-horizontal">
+                            <div class="form-group form-group-sm">
+                                <label class="col-sm-2 control-label" translate>
+                                    ДОБАВИ КОМЕНТАР
+                                </label>
+
+                                <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="comment.content"
+                                      ui-keypress="{enter: 'addOrderComment(orderId, comment.content)'}"/>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!--COMMENTS LIST-->
+                <div class="row top-buffer">
+                    <div class="col-sm-12">
+                        <table class="table table-condensed table-hover">
+                            <tbody>
+                            <tr ng-repeat="comment in order.comments | orderBy: '-createdOn'">
+                                <td>
+                                    <info-line class="pull-right" narrow="true">
+                                        <small>&nbsp;&nbsp; <span am-time-ago="comment.createdOn"></span></small>
+                                    </info-line>
+                                    <info-line label="<b>{{comment.author}}:</b>" narrow="true">
+                                        <span class="text-multiline">{{comment.content}}</span>
+                                    </info-line>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

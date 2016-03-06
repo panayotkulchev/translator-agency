@@ -26,4 +26,6 @@ public interface OrderRepository {
   void executeOrder(Long orderId);
 
   void closeOrder(Long orderId);
+
+  void addOrderComment(Long orderId, String comment);
 }

@@ -62,7 +62,7 @@ public class OrderRestService {
   public Reply update(Request request){
 
     Order order = request.read(Order.class).as(Json.class);
-    System.out.println(order);
+
     orderRepository.update(order);
 
     return Reply.saying().ok();
@@ -100,6 +100,17 @@ public class OrderRestService {
   public Reply closeOrder(@Named("orderId") Long orderId) {
 
     orderRepository.closeOrder(orderId);
+
+    return Reply.saying().ok();
+  }
+
+  @At("/:orderId/comment")
+  @Post
+  public Reply addOrderComment(Request request){
+
+    NewOrderCommentRequest req= request.read(NewOrderCommentRequest.class).as(Json.class);
+
+    orderRepository.addOrderComment(req.orderId, req.comment);
 
     return Reply.saying().ok();
   }
