@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ClientRepository {
 
-  void add(Client client);
+  Long add(Client client);
 
   void update(Client client);
 

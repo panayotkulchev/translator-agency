@@ -1,7 +1,7 @@
 package com.clouway.ta.adapter.frontend.clients;
 
-import com.clouway.ta.core.ClientRepository;
 import com.clouway.ta.adapter.frontend.Client;
+import com.clouway.ta.core.ClientRepository;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.google.sitebricks.At;
@@ -34,7 +34,7 @@ public class ClientsRestService {
   }
 
   @Get
-  public Reply getAll(){
+  public Reply getAll() {
 
     List<Client> clients = clientRepository.getAll();
 
@@ -43,7 +43,7 @@ public class ClientsRestService {
 
   @At("/search/filtered")
   @Get
-  public Reply search(Request request){
+  public Reply search(Request request) {
 
     String query = request.param("query");
 
@@ -53,32 +53,28 @@ public class ClientsRestService {
   }
 
   @Post
-  public Reply add(Request request){
+  public Reply add(Request request) {
 
     Client client = request.read(Client.class).as(Json.class);
 
-    client.createSearchIndex();
-    clientRepository.add(client);
+    Long clientId = clientRepository.add(client);
 
-    return Reply.saying().ok();
+    return Reply.with(clientId).as(Json.class);
   }
 
   @Put
-  public Reply update (Request request){
+  public Reply update(Request request) {
 
     Client client = request.read(Client.class).as(Json.class);
 
-    client.createSearchIndex();
-    System.out.println("update");
-    System.out.println(client);
     clientRepository.update(client);
-    System.out.println(client);
 
     return Reply.saying().ok();
   }
+
   @At("/:clientId")
   @Delete
-  public Reply delete(@Named("clientId") Long clientId){
+  public Reply delete(@Named("clientId") Long clientId) {
 
     clientRepository.delete(clientId);
 

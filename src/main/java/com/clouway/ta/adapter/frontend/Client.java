@@ -19,6 +19,7 @@ public class Client {
   @Id
   public Long id;
   public String name;
+  @Index
   public String eik;
   public String dds;
   public String address;
@@ -32,9 +33,8 @@ public class Client {
   }
 
   public void createSearchIndex (){
+    String name = this.name.replaceAll("\"|\'|-", "");
     this.searchIndex = IndexWriter.createIndex(name);
-    this.searchIndex.add(eik);
-    System.out.println("create search index" + this.searchIndex);
   }
 
   @Override

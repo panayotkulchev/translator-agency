@@ -112,7 +112,8 @@ angular.module('ta.clients', [
     };
 
     $scope.add = function (client) {
-      clientsGateway.add(client).then(function onSuccess() {
+      clientsGateway.add(client).then(function onSuccess(data) {
+        client.id = data;
         $scope.datalists.push(client);
       });
 
