@@ -1,6 +1,6 @@
 //package com.clouway.ta.adapter.db;
 //
-//import com.clouway.ta.adapter.frontend.Language;
+//import com.clouway.ta.adapter.db.languages.Language;
 //import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 //import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 //import com.google.code.twig.ObjectDatastore;

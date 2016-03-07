@@ -1,4 +1,4 @@
-package com.clouway.ta.adapter.frontend;
+package com.clouway.ta.adapter.db.languages;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -13,7 +13,7 @@ import java.util.List;
  * happy codding ...
  */
 @Entity
-public class Language {
+public class LanguageEntity {
 
   @Id
   public String id;
@@ -23,11 +23,12 @@ public class Language {
   public boolean isActive;
 
   @SuppressWarnings("unchecked")
-  public Language() {
+  public LanguageEntity() {
   }
 
-  public void setId(String id) {
+  public LanguageEntity(String id, boolean isActive) {
     this.id = id;
+    this.isActive = isActive;
   }
 
   @Override

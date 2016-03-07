@@ -1,6 +1,6 @@
-package com.clouway.ta.core;
+package com.clouway.ta.core.clients;
 
-import com.clouway.ta.adapter.frontend.Client;
+import com.clouway.ta.core.clients.Client;
 
 import java.util.List;
 

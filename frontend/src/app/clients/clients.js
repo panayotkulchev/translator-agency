@@ -8,7 +8,7 @@ angular.module('ta.clients', [
 
   .config(function config($stateProvider) {
     $stateProvider.state('clients', {
-      url: '/clients',
+      url: '/clients?clientId',
       views: {
         "main": {
           controller: 'ClientsCtrl',
@@ -83,16 +83,26 @@ angular.module('ta.clients', [
     };
   })
 
-  .controller('ClientsCtrl', function ClientsCtrl($scope, clientsGateway) {
+  .controller('ClientsCtrl', function ClientsCtrl($scope, clientsGateway, $stateParams) {
 
     $scope.datalists = [];
     $scope.modalData = {};
+    $scope.clientId = $stateParams.clientId || "";
 
     $scope.loadInitialData = function () {
       clientsGateway.getAll().then(function onSuccess(data) {
         $scope.datalists = data;
+        if ($scope.clientId){
+          $scope.clientId = Number($scope.clientId);
+          var client = findById(data, $scope.clientId);
+          $scope.searchText = client.name;
+        }
       });
     };
+
+    function findById(itemList, itemId) {
+      return _.find(itemList, {id: itemId});
+    }
 
     $scope.openUpdateModal = function (clent) {
       $scope.modalData.client = clent;

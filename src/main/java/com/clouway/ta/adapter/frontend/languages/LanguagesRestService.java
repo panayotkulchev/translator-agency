@@ -1,7 +1,7 @@
 package com.clouway.ta.adapter.frontend.languages;
 
-import com.clouway.ta.core.LanguageRepository;
-import com.clouway.ta.adapter.frontend.Language;
+import com.clouway.ta.core.languages.Language;
+import com.clouway.ta.core.languages.LanguageRepository;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.sitebricks.At;
@@ -38,29 +38,28 @@ public class LanguagesRestService {
 
     List<Language> languages = repository.getAll();
 
-    return Reply.with(languages).as(Json.class);
+    List<LanguageDto> dtos = adapt(languages);
+
+    return Reply.with(dtos).as(Json.class);
   }
 
   @At("/active")
   @Get
   public Reply<?> getActive() {
 
-    List<Language> languages = repository.getAll();
+    List<String> languages = repository.getActive();
 
-    List<String> result = Lists.newArrayList();
-    for (Language each : languages){
-      if (each.isActive){
-        result.add(each.id);
-      }
-    }
-    return Reply.with(result).as(Json.class);
+    return Reply.with(languages).as(Json.class);
   }
 
   @Post
   public Reply<?> add(Request request) {
 
-    String lang = request.param("lang");
-    repository.add(lang);
+    String languageName = request.param("lang");
+
+    Language language = new Language(languageName, false);
+
+    repository.add(language);
 
     return Reply.saying().ok();
   }
@@ -69,6 +68,7 @@ public class LanguagesRestService {
   public Reply<?> edit(Request request) {
 
     LanguageDto dto = request.read(LanguageDto.class).as(Json.class);
+
     repository.changeStatus(dto.id, dto.isActive);
 
     return Reply.saying().ok();
@@ -78,8 +78,24 @@ public class LanguagesRestService {
   public Reply<?> delete(Request request) {
 
     String id = request.param("id");
+
     repository.delete(id);
 
     return Reply.saying().ok();
+  }
+
+
+  private LanguageDto adapt(Language language) {
+    return new LanguageDto(language.id, language.isActive);
+  }
+
+
+  private List<LanguageDto> adapt(List<Language> languages) {
+    List<LanguageDto> dtos = Lists.newArrayList();
+
+    for (Language language : languages) {
+      dtos.add(adapt(language));
+    }
+    return dtos;
   }
 }

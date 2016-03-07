@@ -24,7 +24,7 @@ public class OrdersCounter {
     this.countOfOrders = countOfOrders;
   }
 
-  public void reset(){
+  public void reset() {
     countOfOrders = 0L;
   }
 
@@ -32,11 +32,11 @@ public class OrdersCounter {
     return countOfOrders;
   }
 
-  public void decreaseNumOfExpenses(){
+  public void decreaseNumOfExpenses() {
     this.countOfOrders--;
   }
 
-  public Long increaseOrders(){
+  public Long increaseOrders() {
     countOfOrders++;
     return countOfOrders;
   }

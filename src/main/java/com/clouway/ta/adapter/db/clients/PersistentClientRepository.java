@@ -1,15 +1,17 @@
 package com.clouway.ta.adapter.db.clients;
 
-import com.clouway.ta.core.ClientRepository;
-import com.clouway.ta.adapter.frontend.Client;
-import com.clouway.ta.adapter.db.IndexWriter;
+import com.clouway.ta.core.clients.Client;
+import com.clouway.ta.core.clients.ClientRepository;
 import com.google.api.client.util.Lists;
 import com.google.api.client.util.Sets;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import static com.clouway.ta.adapter.db.OfyService.ofy;
+import static com.clouway.ta.adapter.db.clients.ClientEntity.newClientEntity;
+import static com.clouway.ta.core.clients.Client.newClient;
 
 /**
  * Created by Panayot Kulchev on 16-2-3.
@@ -20,32 +22,35 @@ public class PersistentClientRepository implements ClientRepository {
   @Override
   public Long add(Client client) {
 
-    client.createSearchIndex();
+    ClientEntity clientEntity = adapt(client);
 
-    ofy().save().entity(client).now();
+    clientEntity.createSearchIndex();
 
-    return client.id;
+    ofy().save().entity(clientEntity).now();
+
+    return clientEntity.getId();
   }
+
 
   @Override
   public void update(Client client) {
 
-    Client oldClient = ofy().load().type(Client.class).id(client.id).now();
+    ClientEntity clientEntity = ofy().load().type(ClientEntity.class).id(client.id).now();
 
-    String oldName = oldClient.name;
+    String oldName = clientEntity.getName();
 
-    oldClient.name = client.name;
-    oldClient.eik = client.eik;
-    oldClient.dds = client.dds;
-    oldClient.address = client.address;
-    oldClient.mol = client.mol;
-    oldClient.phone = client.phone;
+    clientEntity.setName(client.name);
+    clientEntity.setEik(client.eik);
+    clientEntity.setDds(client.dds);
+    clientEntity.setAddress(client.address);
+    clientEntity.setMol(client.mol);
+    clientEntity.setPhone(client.phone);
 
     if (!oldName.equals(client.name)){
-      oldClient.createSearchIndex();
+      clientEntity.createSearchIndex();
     }
 
-    ofy().save().entity(oldClient).now();
+    ofy().save().entity(clientEntity).now();
 
   }
 
@@ -56,26 +61,62 @@ public class PersistentClientRepository implements ClientRepository {
 
   @Override
   public List<Client> getAll() {
-    return ofy().load().type(Client.class).list();
+    List<ClientEntity> entities = ofy().load().type(ClientEntity.class).list();
+    return adapt(entities);
   }
 
   @Override
   public List<Client> search(String query) {
-    Set<Client> result = Sets.newHashSet();
+    Set<ClientEntity> result = Sets.newHashSet();
 
     query = query.toLowerCase();
     query = query.replace("\"|\'|-", "");
 
-    List<Client> searchIndexResults = ofy().load().type(Client.class).filter("searchIndex", query).list();
-    List<Client> eikResults = ofy().load().type(Client.class).filter("eik", query).list();
+    List<ClientEntity> searchIndexResults = ofy().load().type(ClientEntity.class).filter("searchIndex", query).list();
+    List<ClientEntity> eikResults = ofy().load().type(ClientEntity.class).filter("eik", query).list();
 
     result.addAll(searchIndexResults);
     result.addAll(eikResults);
-    return Lists.newArrayList(result);
+
+    ArrayList<ClientEntity> clients = Lists.newArrayList(result);
+
+    return adapt(clients);
   }
 
   @Override
   public void delete(Long id) {
-    ofy().delete().type(Client.class).id(id).now();
+    ofy().delete().type(ClientEntity.class).id(id).now();
+  }
+
+  private ClientEntity adapt(Client client) {
+    return newClientEntity()
+            .name(client.name)
+            .eik(client.eik)
+            .dds(client.dds)
+            .address(client.address)
+            .mol(client.mol)
+            .phone(client.phone)
+            .build();
+  }
+
+  private List<Client> adapt(List<ClientEntity> entities) {
+    List<Client> clients = Lists.newArrayList();
+
+    for(ClientEntity entity: entities){
+      clients.add(adapt(entity));
+    }
+    return clients;
+  }
+
+  private Client adapt(ClientEntity entity) {
+    return newClient()
+            .id(entity.getId())
+            .name(entity.getName())
+            .eik(entity.getEik())
+            .dds(entity.getDds())
+            .address(entity.getAddress())
+            .mol(entity.getMol())
+            .phone(entity.getPhone())
+            .build();
   }
 }

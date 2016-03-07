@@ -1,4 +1,4 @@
-package com.clouway.ta.core;
+package com.clouway.ta.core.orders;
 
 /**
  * Created by Panayot Kulchev on 16-3-2.

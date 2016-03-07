@@ -1,6 +1,6 @@
 package com.clouway.ta.adapter.frontend.translators;
 
-import com.clouway.ta.core.LanguageRepository;
+import com.clouway.ta.core.languages.LanguageRepository;
 import com.clouway.ta.core.TranslatorRepository;
 import com.clouway.ta.adapter.frontend.Translator;
 import com.google.inject.Inject;
@@ -64,7 +64,7 @@ public class TranslatorRestService {
 
     List languages = request.read(List.class).as(Json.class);
 
-    List<String> translatorIds = languageRepository.getUserIds(languages);
+    List<String> translatorIds = languageRepository.getTranslatorIds(languages);
 
     List<Translator> translators = translatorRepository.getById(translatorIds);
 

@@ -1,7 +1,8 @@
 package com.clouway.ta.adapter.frontend.clients;
 
-import com.clouway.ta.adapter.frontend.Client;
-import com.clouway.ta.core.ClientRepository;
+import com.clouway.ta.core.clients.Client;
+import com.clouway.ta.core.clients.ClientRepository;
+import com.google.api.client.util.Lists;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.google.sitebricks.At;
@@ -15,6 +16,9 @@ import com.google.sitebricks.http.Post;
 import com.google.sitebricks.http.Put;
 
 import java.util.List;
+
+import static com.clouway.ta.adapter.frontend.clients.ClientDto.newClientDto;
+import static com.clouway.ta.core.clients.Client.newClient;
 
 /**
  * Created by Panayot Kulchev on 16-2-3.
@@ -38,7 +42,9 @@ public class ClientsRestService {
 
     List<Client> clients = clientRepository.getAll();
 
-    return Reply.with(clients).as(Json.class);
+    List<ClientDto> dtos = adapt(clients);
+
+    return Reply.with(dtos).as(Json.class);
   }
 
   @At("/search/filtered")
@@ -49,13 +55,17 @@ public class ClientsRestService {
 
     List<Client> clients = clientRepository.search(query);
 
-    return Reply.with(clients).as(Json.class);
+    List<ClientDto> dtos = adapt(clients);
+
+    return Reply.with(dtos).as(Json.class);
   }
 
   @Post
   public Reply add(Request request) {
 
-    Client client = request.read(Client.class).as(Json.class);
+    ClientDto clientDto = request.read(ClientDto.class).as(Json.class);
+
+    Client client = adapt(clientDto);
 
     Long clientId = clientRepository.add(client);
 
@@ -65,9 +75,11 @@ public class ClientsRestService {
   @Put
   public Reply update(Request request) {
 
-    Client client = request.read(Client.class).as(Json.class);
+    ClientDto client = request.read(ClientDto.class).as(Json.class);
 
-    clientRepository.update(client);
+    Client clientUpdate = adapt(client);
+
+    clientRepository.update(clientUpdate);
 
     return Reply.saying().ok();
   }
@@ -81,4 +93,38 @@ public class ClientsRestService {
     return Reply.saying().ok();
   }
 
+  private Client adapt(ClientDto clientDto) {
+    return newClient()
+            .id(clientDto.id)
+            .name(clientDto.name)
+            .eik(clientDto.eik)
+            .dds(clientDto.dds)
+            .address(clientDto.address)
+            .mol(clientDto.mol)
+            .phone(clientDto.phone)
+            .build();
+  }
+
+
+  private List<ClientDto> adapt(List<Client> clients) {
+    List<ClientDto> dtos = Lists.newArrayList();
+
+    for (Client client: clients){
+      dtos.add(adapt(client));
+    }
+    return dtos;
+  }
+
+
+  private ClientDto adapt(Client client) {
+    return newClientDto()
+            .id(client.id)
+            .name(client.name)
+            .eik(client.eik)
+            .dds(client.dds)
+            .address(client.address)
+            .mol(client.mol)
+            .phone(client.phone)
+            .build();
+  }
 }

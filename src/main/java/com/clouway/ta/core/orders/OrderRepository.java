@@ -1,4 +1,4 @@
-package com.clouway.ta.core;
+package com.clouway.ta.core.orders;
 
 import com.clouway.ta.adapter.frontend.Order;
 

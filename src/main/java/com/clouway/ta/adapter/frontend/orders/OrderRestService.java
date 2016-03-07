@@ -1,6 +1,6 @@
 package com.clouway.ta.adapter.frontend.orders;
 
-import com.clouway.ta.core.OrderRepository;
+import com.clouway.ta.core.orders.OrderRepository;
 import com.clouway.ta.adapter.frontend.Order;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;

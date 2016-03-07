@@ -114,7 +114,7 @@
                         </thead>
 
                         <tbody>
-                        <tr ng-repeat="row in translators  | filter:search | orderBy: name">
+                        <tr ng-repeat="row in translators  | filter:search | orderBy: 'name' ">
                             <td class="text-center" style="width: 15px" ng-click="open(row)">
                                 <small>{{$index+1}}</small>
                             </td>

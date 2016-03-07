@@ -5,12 +5,18 @@ package com.clouway.ta.adapter.frontend.languages;
  * e-mail: panayotkulchev@gmail.com
  * happy codding ...
  */
-public class LanguageDto {
+class LanguageDto {
 
   public String id;
   public Boolean isActive;
 
+  @SuppressWarnings("unused")
   public LanguageDto() {
+  }
+
+  public LanguageDto(String id, Boolean isActive) {
+    this.id = id;
+    this.isActive = isActive;
   }
 
   @Override

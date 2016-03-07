@@ -1,11 +1,11 @@
 package com.clouway.ta.adapter.db;
 
-import com.clouway.ta.adapter.frontend.Client;
-import com.clouway.ta.adapter.frontend.Language;
+import com.clouway.ta.adapter.db.clients.ClientEntity;
+import com.clouway.ta.adapter.db.languages.LanguageEntity;
+import com.clouway.ta.adapter.db.orders.OrdersCounter;
 import com.clouway.ta.adapter.frontend.Order;
 import com.clouway.ta.adapter.frontend.Translator;
 import com.clouway.ta.adapter.frontend.UserEntity;
-import com.clouway.ta.adapter.db.orders.OrdersCounter;
 import com.clouway.ta.core.examples.SessionEntity;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
@@ -19,14 +19,13 @@ import com.googlecode.objectify.ObjectifyService;
 public class OfyService {
 
   static {
-    ObjectifyService.register(Language.class);
+    ObjectifyService.register(LanguageEntity.class);
     ObjectifyService.register(Translator.class);
     ObjectifyService.register(UserEntity.class);
-    ObjectifyService.register(Client.class);
+    ObjectifyService.register(ClientEntity.class);
     ObjectifyService.register(SessionEntity.class);
     ObjectifyService.register(Order.class);
     ObjectifyService.register(OrdersCounter.class);
-
   }
 
   public static Objectify ofy() {

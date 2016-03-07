@@ -47,7 +47,7 @@
 
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <strong><a href="#" style="color: #767676">{{order.clientName}}</a></strong>
+                                                    <strong><a href style="color: #767676" ng-click="searchClient(order.clientId)">{{order.clientName}}</a></strong>
                                                     <strong ng-click="editOrder(order.id)" style="cursor: pointer">{{order.title}}</strong>
                                                     <!--use ng-class-->
                                                     <span class="label label-success" style="margin-left: 5px"

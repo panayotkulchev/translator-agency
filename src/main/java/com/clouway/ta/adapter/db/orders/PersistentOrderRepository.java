@@ -1,10 +1,10 @@
 package com.clouway.ta.adapter.db.orders;
 
 import com.clouway.ta.adapter.frontend.Comment;
-import com.clouway.ta.core.OrderRepository;
+import com.clouway.ta.core.orders.OrderRepository;
 import com.clouway.ta.adapter.frontend.Order;
 import com.clouway.ta.core.CurrentUser;
-import com.clouway.ta.core.OrderStatus;
+import com.clouway.ta.core.orders.OrderStatus;
 import com.google.inject.Inject;
 
 import java.util.List;

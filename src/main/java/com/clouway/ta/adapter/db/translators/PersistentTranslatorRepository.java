@@ -1,7 +1,7 @@
 package com.clouway.ta.adapter.db.translators;
 
 import com.clouway.ta.core.TranslatorRepository;
-import com.clouway.ta.adapter.frontend.Language;
+import com.clouway.ta.adapter.db.languages.LanguageEntity;
 import com.clouway.ta.adapter.frontend.Translator;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -24,7 +24,7 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
     ofy().save().entity(translator).now();
 
     for (String each : translator.languages) {
-      Language entity = ofy().load().type(Language.class).id(each).now();
+      LanguageEntity entity = ofy().load().type(LanguageEntity.class).id(each).now();
       entity.translatorIds.add(translator.email);
       ofy().save().entity(entity).now();
     }
@@ -40,17 +40,17 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
     languages.addAll(oldTranslator.languages);
 
     for (String each : languages){
-      Language language  = ofy().load().type(Language.class).id(each).now();
+      LanguageEntity languageEntity = ofy().load().type(LanguageEntity.class).id(each).now();
 
-      if (newTranslator.languages.contains(language.id)){
-        if (!language.translatorIds.contains(newTranslator.email)){
-          language.translatorIds.add(newTranslator.email);
+      if (newTranslator.languages.contains(languageEntity.id)){
+        if (!languageEntity.translatorIds.contains(newTranslator.email)){
+          languageEntity.translatorIds.add(newTranslator.email);
         }
       }
       else{
-        language.translatorIds.remove(language.translatorIds.indexOf(newTranslator.email));
+        languageEntity.translatorIds.remove(languageEntity.translatorIds.indexOf(newTranslator.email));
       }
-      ofy().save().entity(language).now();
+      ofy().save().entity(languageEntity).now();
     }
 
     oldTranslator.name = newTranslator.name;
@@ -96,7 +96,7 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
     Translator translator = ofy().load().type(Translator.class).id(translatorId).now();
 
     for (String languageId : translator.languages) {
-      Language entity = ofy().load().type(Language.class).id(languageId).now();
+      LanguageEntity entity = ofy().load().type(LanguageEntity.class).id(languageId).now();
       int index = entity.translatorIds.indexOf(translatorId);
       if (index != -1) {
         entity.translatorIds.remove(index);

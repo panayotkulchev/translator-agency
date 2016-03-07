@@ -129,6 +129,10 @@ angular.module('ta.orders', [
       });
     };
 
+    $scope.searchClient = function (clientId) {
+      $state.go('clients', {clientId: clientId});
+    };
+
     $scope.editOrder = function (orderId) {
       $state.go("orderEditor", {orderId: orderId});
     };
