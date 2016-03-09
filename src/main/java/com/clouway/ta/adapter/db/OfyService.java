@@ -4,7 +4,7 @@ import com.clouway.ta.adapter.db.clients.ClientEntity;
 import com.clouway.ta.adapter.db.languages.LanguageEntity;
 import com.clouway.ta.adapter.db.orders.OrdersCounter;
 import com.clouway.ta.adapter.frontend.Order;
-import com.clouway.ta.adapter.frontend.Translator;
+import com.clouway.ta.adapter.db.translators.TranslatorEntity;
 import com.clouway.ta.adapter.frontend.UserEntity;
 import com.clouway.ta.core.examples.SessionEntity;
 import com.googlecode.objectify.Objectify;
@@ -20,7 +20,7 @@ public class OfyService {
 
   static {
     ObjectifyService.register(LanguageEntity.class);
-    ObjectifyService.register(Translator.class);
+    ObjectifyService.register(TranslatorEntity.class);
     ObjectifyService.register(UserEntity.class);
     ObjectifyService.register(ClientEntity.class);
     ObjectifyService.register(SessionEntity.class);

@@ -65,7 +65,7 @@ public class PersistentLanguageRepository implements LanguageRepository {
 
     List<String> languageIds = Lists.newArrayList();
 
-    for (LanguageEntity entity: entities){
+    for (LanguageEntity entity : entities) {
       languageIds.add(entity.id);
     }
 

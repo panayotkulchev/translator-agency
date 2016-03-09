@@ -1,6 +1,6 @@
 package com.clouway.ta.core;
 
-import com.clouway.ta.adapter.frontend.Translator;
+import com.clouway.ta.core.translators.Translator;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ public interface TranslatorRepository {
 
   Translator getById(String translatorId);
 
-  List<Translator> getById(List<String> ids);
+  List<Translator> getFavorites();
 
   void deleteById(String translatorId);
 
-  List<Translator> getFavorites();
+  List<Translator> getAllWith(List<String> languages);
 }

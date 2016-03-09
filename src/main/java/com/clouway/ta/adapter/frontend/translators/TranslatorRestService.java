@@ -1,8 +1,9 @@
 package com.clouway.ta.adapter.frontend.translators;
 
-import com.clouway.ta.core.languages.LanguageRepository;
 import com.clouway.ta.core.TranslatorRepository;
-import com.clouway.ta.adapter.frontend.Translator;
+import com.clouway.ta.core.languages.LanguageRepository;
+import com.clouway.ta.core.translators.Translator;
+import com.google.api.client.util.Lists;
 import com.google.inject.Inject;
 import com.google.sitebricks.At;
 import com.google.sitebricks.client.transport.Json;
@@ -14,6 +15,9 @@ import com.google.sitebricks.http.Get;
 import com.google.sitebricks.http.Post;
 
 import java.util.List;
+
+import static com.clouway.ta.adapter.frontend.translators.TranslatorDto.newTranslatorDto;
+import static com.clouway.ta.core.translators.Translator.newTranslator;
 
 /**
  * Created by Panayot Kulchev on 15-10-14.
@@ -41,7 +45,9 @@ public class TranslatorRestService {
 
     Translator translator = translatorRepository.getById(email);
 
-    return Reply.with(translator).as(Json.class);
+    TranslatorDto dto = adapt(translator);
+
+    return Reply.with(dto).as(Json.class);
 
   }
 
@@ -51,10 +57,11 @@ public class TranslatorRestService {
 
     List<Translator> translators = translatorRepository.getFavorites();
 
-    for (Translator each: translators){
-      each.createLanguageLine();
+    List<TranslatorDto> dtos = adapt(translators);
+    for (TranslatorDto dto : dtos) {
+      dto.createLanguageLine();
     }
-    return Reply.with(translators).as(Json.class);
+    return Reply.with(dtos).as(Json.class);
 
   }
 
@@ -64,22 +71,24 @@ public class TranslatorRestService {
 
     List languages = request.read(List.class).as(Json.class);
 
-    List<String> translatorIds = languageRepository.getTranslatorIds(languages);
+    List<Translator> translators = translatorRepository.getAllWith(languages);
 
-    List<Translator> translators = translatorRepository.getById(translatorIds);
+    List<TranslatorDto> dtos = adapt(translators);
 
-    for (Translator each: translators){
-      each.createLanguageLine();
+    for (TranslatorDto dto : dtos) {
+      dto.createLanguageLine();
     }
 
-    return Reply.with(translators).as(Json.class);
+    return Reply.with(dtos).as(Json.class);
   }
 
   @At("/add")
   @Post
   public Reply<?> add(Request request) {
 
-    Translator translator = request.read(Translator.class).as(Json.class);
+    TranslatorDto translatorDto = request.read(TranslatorDto.class).as(Json.class);
+
+    Translator translator = adapt(translatorDto);
 
     translatorRepository.add(translator);
 
@@ -90,7 +99,9 @@ public class TranslatorRestService {
   @Post
   public Reply<?> edit(Request request) {
 
-    Translator translator = request.read(Translator.class).as(Json.class);
+    TranslatorDto translatorDto = request.read(TranslatorDto.class).as(Json.class);
+
+    Translator translator = adapt(translatorDto);
 
     translatorRepository.edit(translator);
 
@@ -106,5 +117,52 @@ public class TranslatorRestService {
     translatorRepository.deleteById(translatorId);
 
     return Reply.saying().ok();
+  }
+
+  // ADAPT METHODS
+  private Translator adapt(TranslatorDto translatorDto) {
+    return newTranslator()
+            .email(translatorDto.email)
+            .name(translatorDto.name)
+            .currentAddress(translatorDto.currentAddress)
+            .permanentAddress(translatorDto.permanentAddress)
+            .phones(translatorDto.phones)
+            .languages(translatorDto.languages)
+            .skype(translatorDto.skype)
+            .eid(translatorDto.eid)
+            .document(translatorDto.document)
+            .iban(translatorDto.iban)
+            .favorite(translatorDto.favorite)
+            .registered(translatorDto.registered)
+            .comment(translatorDto.comment)
+            .build();
+  }
+
+  private TranslatorDto adapt(Translator translator) {
+    return newTranslatorDto()
+            .email(translator.email)
+            .name(translator.name)
+            .currentAddress(translator.currentAddress)
+            .permanentAddress(translator.permanentAddress)
+            .phones(translator.phones)
+            .languages(translator.languages)
+            .skype(translator.skype)
+            .eid(translator.eid)
+            .document(translator.document)
+            .iban(translator.iban)
+            .favorite(translator.favorite)
+            .registered(translator.registered)
+            .comment(translator.comment)
+            .build();
+  }
+
+  private List<TranslatorDto> adapt(List<Translator> translators) {
+    List<TranslatorDto> dtos = Lists.newArrayList();
+
+    for (Translator translator : translators) {
+      dtos.add(adapt(translator));
+    }
+
+    return dtos;
   }
 }

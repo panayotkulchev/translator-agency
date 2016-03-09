@@ -1,8 +1,7 @@
 package com.clouway.ta.adapter.db.translators;
 
 import com.clouway.ta.core.TranslatorRepository;
-import com.clouway.ta.adapter.db.languages.LanguageEntity;
-import com.clouway.ta.adapter.frontend.Translator;
+import com.clouway.ta.core.translators.Translator;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -10,6 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 import static com.clouway.ta.adapter.db.OfyService.ofy;
+import static com.clouway.ta.adapter.db.translators.TranslatorEntity.newTranslatorEntity;
+import static com.clouway.ta.core.translators.Translator.newTranslator;
 
 /**
  * Created by Panayot Kulchev on 15-10-14.
@@ -21,95 +22,110 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
   @Override
   public void add(Translator translator) {
 
-    ofy().save().entity(translator).now();
+    TranslatorEntity entity = adapt(translator);
 
-    for (String each : translator.languages) {
-      LanguageEntity entity = ofy().load().type(LanguageEntity.class).id(each).now();
-      entity.translatorIds.add(translator.email);
-      ofy().save().entity(entity).now();
-    }
-
+    ofy().save().entity(entity).now();
   }
 
   @Override
-  public void edit(Translator newTranslator) {
+  public void edit(Translator translator) {
 
-    Translator oldTranslator = ofy().load().type(Translator.class).id(newTranslator.email).now();
+    TranslatorEntity entity = ofy().load().type(TranslatorEntity.class).id(translator.email).now();
 
-    Set<String> languages = Sets.newHashSet(newTranslator.languages);
-    languages.addAll(oldTranslator.languages);
+    entity.setName(translator.name);
+    entity.setCurrentAddress(translator.currentAddress);
+    entity.setPermanentAddress(translator.permanentAddress);
+    entity.setPhones(translator.phones);
+    entity.setLanguages(translator.languages);
+    entity.setSkype(translator.skype);
+    entity.setEid(translator.eid);
+    entity.setDocument(translator.document);
+    entity.setIban(translator.iban);
+    entity.setFavorite(translator.favorite);
+    entity.setRegistered(translator.registered);
+    entity.setComment(translator.comment);
 
-    for (String each : languages){
-      LanguageEntity languageEntity = ofy().load().type(LanguageEntity.class).id(each).now();
-
-      if (newTranslator.languages.contains(languageEntity.id)){
-        if (!languageEntity.translatorIds.contains(newTranslator.email)){
-          languageEntity.translatorIds.add(newTranslator.email);
-        }
-      }
-      else{
-        languageEntity.translatorIds.remove(languageEntity.translatorIds.indexOf(newTranslator.email));
-      }
-      ofy().save().entity(languageEntity).now();
-    }
-
-    oldTranslator.name = newTranslator.name;
-    oldTranslator.currentAddress = newTranslator.currentAddress;
-    oldTranslator.permanentAddress = newTranslator.permanentAddress;
-    oldTranslator.phones = newTranslator.phones;
-    oldTranslator.languages = newTranslator.languages;
-    oldTranslator.skype = newTranslator.skype;
-    oldTranslator.eid = newTranslator.eid;
-    oldTranslator.document = newTranslator.document;
-    oldTranslator.iban = newTranslator.iban;
-    oldTranslator.favorite = newTranslator.favorite;
-    oldTranslator.registered = newTranslator.registered;
-    oldTranslator.comment = newTranslator.comment;
-
-    ofy().save().entity(oldTranslator).now();
+    ofy().save().entity(entity).now();
   }
 
   @Override
   public Translator getById(String translatorId) {
-    Translator result = ofy().load().type(Translator.class).id(translatorId).now();
-    return result;
-  }
-
-  @Override
-  public List<Translator> getById(List<String> ids) {
-
-    List<Translator> result = Lists.newArrayList();
-
-    for (String each : ids) {
-      Translator entity = ofy().load().type(Translator.class).id(each).now();
-      if (entity != null) {
-        result.add(entity);
-      }
-    }
-
-    return result;
+    TranslatorEntity entity = ofy().load().type(TranslatorEntity.class).id(translatorId).now();
+    return adapt(entity);
   }
 
   @Override
   public void deleteById(String translatorId) {
-
-    Translator translator = ofy().load().type(Translator.class).id(translatorId).now();
-
-    for (String languageId : translator.languages) {
-      LanguageEntity entity = ofy().load().type(LanguageEntity.class).id(languageId).now();
-      int index = entity.translatorIds.indexOf(translatorId);
-      if (index != -1) {
-        entity.translatorIds.remove(index);
-        ofy().save().entity(entity).now();
-      }
-    }
-
-    ofy().delete().type(Translator.class).id(translatorId).now();
+    ofy().delete().type(TranslatorEntity.class).id(translatorId).now();
   }
 
   @Override
+  public List<Translator> getAllWith(List<String> languages) {
+    Set<TranslatorEntity> translatorEntitySet = Sets.newHashSet();
+
+    for (String language : languages) {
+      List<TranslatorEntity> entities = ofy().load().type(TranslatorEntity.class).filter("languages", language).list();
+      translatorEntitySet.addAll(entities);
+    }
+
+    List<Translator> translators = adapt(Lists.newArrayList(translatorEntitySet));
+
+    return translators;
+  }
+
+
+  @Override
   public List<Translator> getFavorites() {
-   return ofy().load().type(Translator.class).filter("favorite", true).limit(20).list();
+    List<TranslatorEntity> entities = ofy().load().type(TranslatorEntity.class).filter("favorite", true).limit(20).list();
+    return adapt(entities);
+  }
+
+
+  //ADAPT METHODS
+  private TranslatorEntity adapt(Translator translator) {
+    return newTranslatorEntity()
+            .email(translator.email)
+            .name(translator.name)
+            .currentAddress(translator.currentAddress)
+            .permanentAddress(translator.permanentAddress)
+            .phones(translator.phones)
+            .languages(translator.languages)
+            .skype(translator.skype)
+            .eid(translator.eid)
+            .document(translator.document)
+            .iban(translator.iban)
+            .favorite(translator.favorite)
+            .registered(translator.registered)
+            .comment(translator.comment)
+            .build();
+  }
+
+
+  private Translator adapt(TranslatorEntity entity) {
+    return newTranslator()
+            .email(entity.getEmail())
+            .name(entity.getName())
+            .currentAddress(entity.getCurrentAddress())
+            .permanentAddress(entity.getPermanentAddress())
+            .phones(entity.getPhones())
+            .languages(entity.getLanguages())
+            .skype(entity.getSkype())
+            .eid(entity.getEid())
+            .document(entity.getDocument())
+            .iban(entity.getIban())
+            .favorite(entity.isFavorite())
+            .registered(entity.isRegistered())
+            .comment(entity.getComment())
+            .build();
+  }
+
+  private List<Translator> adapt(List<TranslatorEntity> entities) {
+    List<Translator> translators = Lists.newArrayList();
+
+    for (TranslatorEntity entity : entities) {
+      translators.add(adapt(entity));
+    }
+    return translators;
   }
 
 }
