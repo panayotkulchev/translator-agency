@@ -1,7 +1,5 @@
 package com.clouway.ta.core.orders;
 
-import com.clouway.ta.adapter.frontend.Order;
-
 import java.util.List;
 
 /**

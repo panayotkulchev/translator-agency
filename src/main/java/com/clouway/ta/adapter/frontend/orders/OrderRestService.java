@@ -1,7 +1,9 @@
 package com.clouway.ta.adapter.frontend.orders;
 
+import com.clouway.ta.core.orders.Order;
 import com.clouway.ta.core.orders.OrderRepository;
-import com.clouway.ta.adapter.frontend.Order;
+import com.clouway.ta.adapter.db.orders.OrderEntity;
+import com.google.api.client.util.Lists;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.google.sitebricks.At;
@@ -14,6 +16,9 @@ import com.google.sitebricks.http.Post;
 import com.google.sitebricks.http.Put;
 
 import java.util.List;
+
+import static com.clouway.ta.adapter.frontend.orders.OrderDto.newOrderDto;
+import static com.clouway.ta.core.orders.Order.newOrder;
 
 /**
  * Created by Panayot Kulchev on 16-2-18.
@@ -39,19 +44,23 @@ public class OrderRestService {
 
     if (orderId!=null){
       Order order = orderRepository.get(Long.valueOf(orderId));
-      return Reply.with(order).as(Json.class);
+      OrderDto dto = adapt(order);
+      return Reply.with(dto).as(Json.class);
     }
 
     else {
-      List<Order> orderList = orderRepository.getAll();
-      return Reply.with(orderList).as(Json.class);
+      List<Order> orders = orderRepository.getAll();
+      List<OrderDto> dtos = adapt(orders);
+      return Reply.with(orders).as(Json.class);
     }
   }
 
   @Post
   public Reply register(Request request){
 
-    Order order = request.read(Order.class).as(Json.class);
+    OrderDto orderDto = request.read(OrderDto.class).as(Json.class);
+
+    Order order = adapt(orderDto);
 
     orderRepository.register(order);
 
@@ -61,7 +70,9 @@ public class OrderRestService {
   @Put
   public Reply update(Request request){
 
-    Order order = request.read(Order.class).as(Json.class);
+    OrderDto orderDto = request.read(OrderDto.class).as(Json.class);
+
+    Order order = adapt(orderDto);
 
     orderRepository.update(order);
 
@@ -113,6 +124,50 @@ public class OrderRestService {
     orderRepository.addOrderComment(req.orderId, req.comment);
 
     return Reply.saying().ok();
+  }
+
+//  ADAPT METHODS
+  private Order adapt(OrderDto orderDto) {
+    return newOrder()
+            .type(orderDto.type)
+            .title(orderDto.title)
+            .clientId(orderDto.clientId)
+            .clientName(orderDto.clientName)
+            .description(orderDto.description)
+            .comment(orderDto.comment)
+            .requireAttention(orderDto.requireAttention)
+            .priority(orderDto.priority)
+            .build();
+  }
+
+  private OrderDto adapt(Order order) {
+    return newOrderDto()
+            .id(order.id)
+            .status(order.status)
+            .title(order.title)
+            .clientId(order.clientId)
+            .clientName(order.clientName)
+            .description(order.description)
+            .number(order.number)
+            .comment(order.comment)
+            .createdOn(order.createdOn)
+            .createdBy(order.createdBy)
+            .updatedOn(order.updatedOn)
+            .updatedBy(order.updatedBy)
+            .requireAttention(order.requireAttention)
+            .priority(order.priority)
+            .type(order.type)
+            .comments(order.comments)
+            .build();
+  }
+
+  private List<OrderDto> adapt(List<Order> orders) {
+    List<OrderDto> dtos = Lists.newArrayList();
+
+    for (Order order: orders){
+      dtos.add(adapt(order));
+    }
+    return dtos;
   }
 
 }

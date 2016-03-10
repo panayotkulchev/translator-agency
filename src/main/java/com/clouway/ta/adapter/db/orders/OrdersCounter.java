@@ -36,7 +36,7 @@ public class OrdersCounter {
     this.countOfOrders--;
   }
 
-  public Long increaseOrders() {
+  public Long nextAvailabe() {
     countOfOrders++;
     return countOfOrders;
   }

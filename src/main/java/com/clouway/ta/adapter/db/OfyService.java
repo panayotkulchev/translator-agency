@@ -3,7 +3,7 @@ package com.clouway.ta.adapter.db;
 import com.clouway.ta.adapter.db.clients.ClientEntity;
 import com.clouway.ta.adapter.db.languages.LanguageEntity;
 import com.clouway.ta.adapter.db.orders.OrdersCounter;
-import com.clouway.ta.adapter.frontend.Order;
+import com.clouway.ta.adapter.db.orders.OrderEntity;
 import com.clouway.ta.adapter.db.translators.TranslatorEntity;
 import com.clouway.ta.adapter.frontend.UserEntity;
 import com.clouway.ta.core.examples.SessionEntity;
@@ -24,7 +24,7 @@ public class OfyService {
     ObjectifyService.register(UserEntity.class);
     ObjectifyService.register(ClientEntity.class);
     ObjectifyService.register(SessionEntity.class);
-    ObjectifyService.register(Order.class);
+    ObjectifyService.register(OrderEntity.class);
     ObjectifyService.register(OrdersCounter.class);
   }
 
