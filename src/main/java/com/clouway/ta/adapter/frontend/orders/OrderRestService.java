@@ -129,7 +129,9 @@ public class OrderRestService {
 //  ADAPT METHODS
   private Order adapt(OrderDto orderDto) {
     return newOrder()
+            .id(orderDto.id)
             .type(orderDto.type)
+            .status(orderDto.status)
             .title(orderDto.title)
             .clientId(orderDto.clientId)
             .clientName(orderDto.clientName)

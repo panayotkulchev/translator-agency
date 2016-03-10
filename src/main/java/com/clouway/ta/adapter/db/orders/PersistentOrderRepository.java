@@ -30,7 +30,7 @@ public class PersistentOrderRepository implements OrderRepository {
 
   @Override
   public void register(Order order) {
-    //inject counter with current user
+    // TODO (PanayotKulchev) inject counter with current user and prettify
     OrdersCounter counter;
     List<OrdersCounter> list = ofy().load().type(OrdersCounter.class).list();
     if (list.size() > 0) {
@@ -132,7 +132,7 @@ public class PersistentOrderRepository implements OrderRepository {
     return newOrder()
             .id(entity.getId())
             .status(entity.getStatus())
-            .title(entity.getStatus())
+            .title(entity.getTitle())
             .clientId(entity.getClientId())
             .clientName(entity.getClientName())
             .description(entity.getDescription())
