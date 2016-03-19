@@ -4,6 +4,7 @@
 
 angular.module('ta.orders', [
     'ui.router',
+    'i18n',
     'ui.bootstrap',
     'ta.http',
     'ngAnimate',

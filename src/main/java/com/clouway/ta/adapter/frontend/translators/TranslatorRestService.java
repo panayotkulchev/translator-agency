@@ -30,12 +30,10 @@ import static com.clouway.ta.core.translators.Translator.newTranslator;
 public class TranslatorRestService {
 
   private final TranslatorRepository translatorRepository;
-  private final LanguageRepository languageRepository;
 
   @Inject
-  public TranslatorRestService(TranslatorRepository translatorRepository, LanguageRepository languageRepository) {
+  public TranslatorRestService(TranslatorRepository translatorRepository) {
     this.translatorRepository = translatorRepository;
-    this.languageRepository = languageRepository;
   }
 
   @Get

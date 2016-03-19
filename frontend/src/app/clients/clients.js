@@ -126,7 +126,6 @@ angular.module('ta.clients', [
         client.id = data;
         $scope.datalists.push(client);
       });
-
     };
 
     $scope.update = function (client, index) {

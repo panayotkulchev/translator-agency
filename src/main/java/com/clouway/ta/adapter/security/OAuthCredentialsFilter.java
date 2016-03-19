@@ -40,20 +40,18 @@ public class OAuthCredentialsFilter implements Filter {
     String uri = request.getRequestURI();
     System.out.println(uri);
 
-    if (!uri.contains("/login") && !uri.contains("/loginPage") && !uri.contains("/logout") && !uri.contains("/logoutPage")) {
+    if (!uri.contains("/login") && !uri.contains("/logout")) {
 
       if (userService.getCurrentUser() != null) {
         String email = userService.getCurrentUser().getEmail();
-        System.out.println(email);
-//        if (!email.equals("panayotkulchev@gmail.com")){
+
+//        if (!email.equals("PanayotKulchev@gmail.com")){
 //          HttpServletResponse response = (HttpServletResponse) resp;
 //          response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-//          System.out.println("NOT AWOLLED");
 //          return;
 //        }
 
       } else {
-        System.out.println("UNAUTHORIZED");
         HttpServletResponse response = (HttpServletResponse) resp;
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         return;
