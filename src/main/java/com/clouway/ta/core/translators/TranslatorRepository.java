@@ -1,4 +1,4 @@
-package com.clouway.ta.core;
+package com.clouway.ta.core.translators;
 
 import com.clouway.ta.core.translators.Translator;
 

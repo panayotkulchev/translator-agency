@@ -1,6 +1,6 @@
 package com.clouway.ta.adapter.security;
 
-import com.clouway.ta.core.UserRepository;
+import com.clouway.ta.core.users.UserRepository;
 import com.clouway.ta.core.examples.SessionManager;
 import com.clouway.ta.core.examples.SessionRepository;
 import com.clouway.ta.core.examples.SidFetcher;

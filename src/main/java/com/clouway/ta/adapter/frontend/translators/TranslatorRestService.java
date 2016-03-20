@@ -1,7 +1,6 @@
 package com.clouway.ta.adapter.frontend.translators;
 
-import com.clouway.ta.core.TranslatorRepository;
-import com.clouway.ta.core.languages.LanguageRepository;
+import com.clouway.ta.core.translators.TranslatorRepository;
 import com.clouway.ta.core.translators.Translator;
 import com.google.api.client.util.Lists;
 import com.google.inject.Inject;
@@ -51,7 +50,7 @@ public class TranslatorRestService {
 
   @At("/favorites")
   @Get
-  public Reply<?> getFavorites(Request request) {
+  public Reply<?> getFavorites() {
 
     List<Translator> translators = translatorRepository.getFavorites();
 

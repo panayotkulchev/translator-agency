@@ -1,6 +1,6 @@
 package com.clouway.ta.adapter.db.translators;
 
-import com.clouway.ta.core.TranslatorRepository;
+import com.clouway.ta.core.translators.TranslatorRepository;
 import com.clouway.ta.core.translators.Translator;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

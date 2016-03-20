@@ -1,6 +1,6 @@
 package com.clouway.ta.adapter.db.users;
 
-import com.clouway.ta.core.UserRepository;
+import com.clouway.ta.core.users.UserRepository;
 import com.clouway.ta.adapter.frontend.UserEntity;
 import com.clouway.ta.core.examples.User;
 

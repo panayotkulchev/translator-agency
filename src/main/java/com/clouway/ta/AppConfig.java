@@ -7,7 +7,7 @@ import com.clouway.ta.adapter.frontend.languages.LanguagesRestService;
 import com.clouway.ta.adapter.frontend.orders.OrderRestService;
 import com.clouway.ta.adapter.frontend.translators.TranslatorRestService;
 import com.clouway.ta.adapter.security.*;
-import com.clouway.ta.core.CurrentUser;
+import com.clouway.ta.core.users.CurrentUser;
 import com.google.appengine.api.users.UserService;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;

@@ -155,4 +155,50 @@ public class Translator {
     registered = builder.registered;
     comment = builder.comment;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Translator that = (Translator) o;
+
+    if (favorite != that.favorite) return false;
+    if (registered != that.registered) return false;
+    if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
+    if (currentAddress != null ? !currentAddress.equals(that.currentAddress) : that.currentAddress != null)
+      return false;
+    if (document != null ? !document.equals(that.document) : that.document != null) return false;
+    if (eid != null ? !eid.equals(that.eid) : that.eid != null) return false;
+    if (email != null ? !email.equals(that.email) : that.email != null) return false;
+    if (iban != null ? !iban.equals(that.iban) : that.iban != null) return false;
+    if (languages != null ? !languages.equals(that.languages) : that.languages != null) return false;
+    if (languagesLine != null ? !languagesLine.equals(that.languagesLine) : that.languagesLine != null) return false;
+    if (name != null ? !name.equals(that.name) : that.name != null) return false;
+    if (permanentAddress != null ? !permanentAddress.equals(that.permanentAddress) : that.permanentAddress != null)
+      return false;
+    if (phones != null ? !phones.equals(that.phones) : that.phones != null) return false;
+    if (skype != null ? !skype.equals(that.skype) : that.skype != null) return false;
+
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = email != null ? email.hashCode() : 0;
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    result = 31 * result + (currentAddress != null ? currentAddress.hashCode() : 0);
+    result = 31 * result + (permanentAddress != null ? permanentAddress.hashCode() : 0);
+    result = 31 * result + (phones != null ? phones.hashCode() : 0);
+    result = 31 * result + (languages != null ? languages.hashCode() : 0);
+    result = 31 * result + (languagesLine != null ? languagesLine.hashCode() : 0);
+    result = 31 * result + (skype != null ? skype.hashCode() : 0);
+    result = 31 * result + (eid != null ? eid.hashCode() : 0);
+    result = 31 * result + (document != null ? document.hashCode() : 0);
+    result = 31 * result + (iban != null ? iban.hashCode() : 0);
+    result = 31 * result + (favorite ? 1 : 0);
+    result = 31 * result + (registered ? 1 : 0);
+    result = 31 * result + (comment != null ? comment.hashCode() : 0);
+    return result;
+  }
 }

@@ -1,4 +1,4 @@
-package com.clouway.ta.core;
+package com.clouway.ta.core.users;
 
 import java.util.Date;
 

@@ -1,7 +1,7 @@
 package com.clouway.ta.adapter.db.orders;
 
 import com.clouway.ta.adapter.frontend.Comment;
-import com.clouway.ta.core.CurrentUser;
+import com.clouway.ta.core.users.CurrentUser;
 import com.clouway.ta.core.orders.Order;
 import com.clouway.ta.core.orders.OrderRepository;
 import com.clouway.ta.core.orders.OrderStatus;

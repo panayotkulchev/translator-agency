@@ -1,7 +1,7 @@
 package com.clouway.ta.adapter.security;
 
 
-import com.clouway.ta.core.UserRepository;
+import com.clouway.ta.core.users.UserRepository;
 import com.clouway.ta.adapter.http.validator.Validator;
 import com.clouway.ta.core.examples.SessionManager;
 import com.google.appengine.api.users.UserService;

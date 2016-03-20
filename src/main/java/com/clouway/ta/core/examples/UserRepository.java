@@ -1,6 +1,6 @@
 package com.clouway.ta.core.examples;
 
-import com.clouway.ta.core.CurrentUser;
+import com.clouway.ta.core.users.CurrentUser;
 
 /**
  * Created on 15-5-5.
