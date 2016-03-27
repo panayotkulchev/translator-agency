@@ -46,9 +46,14 @@ angular.module('ta.clients', [
     $scope.modalData = {};
     $scope.clientId = $stateParams.clientId || "";
 
+    /**
+     * Load page initial data
+     */
     $scope.loadInitialData = function () {
       clientsGateway.getAll().then(function onSuccess(data) {
         $scope.datalists = data;
+
+        // If scope.clientId is present only this client is shown
         if ($scope.clientId) {
           $scope.clientId = Number($scope.clientId);
           var client = findById(data, $scope.clientId);
@@ -57,20 +62,10 @@ angular.module('ta.clients', [
       });
     };
 
-    function findById(itemList, itemId) {
-      return _.find(itemList, {id: itemId});
-    }
-
-    $scope.openUpdateModal = function (clent) {
-      $scope.modalData.client = clent;
-      $scope.showAddBtn = false;
-      $scope.showEditBtn = true;
-      $scope.modalTitle = "CLIENTS.UPDATE";
-      $('#myModal').modal('show');
-    };
-
+    /**
+     * Open new client registration dialog
+     */
     $scope.openRegistrationModal = function () {
-
       $scope.modalData.client = {};
       $scope.showAddBtn = true;
       $scope.showEditBtn = false;
@@ -78,6 +73,22 @@ angular.module('ta.clients', [
       $('#myModal').modal('show');
     };
 
+    /**
+     * Updates client update dialog
+     * @param clent
+     */
+    $scope.openUpdateModal = function (client) {
+      $scope.modalData.client = client;
+      $scope.showAddBtn = false;
+      $scope.showEditBtn = true;
+      $scope.modalTitle = "CLIENTS.UPDATE";
+      $('#myModal').modal('show');
+    };
+
+    /**
+     * Adds client
+     * @param client
+     */
     $scope.add = function (client) {
       clientsGateway.add(client).then(function onSuccess(data) {
         client.id = data;
@@ -85,16 +96,34 @@ angular.module('ta.clients', [
       });
     };
 
+    /**
+     * Update client by id and update it in the list
+     * @param client
+     * @param index
+     */
     $scope.update = function (client, index) {
       clientsGateway.update(client).then(function () {
         $scope.datalists[index] = client;
       });
     };
 
+    /**
+     * Delete client by id and remove it from the list
+     * @param clientId
+     * @param index
+     */
     $scope.deleteClient = function (clientId, index) {
       clientsGateway.deleteById(clientId).then(function () {
         $scope.datalists.splice(index, 1);
       });
     };
 
+    /**
+     * Find item in a list of items by Id
+     * @param itemList
+     * @param itemId
+     */
+    function findById(itemList, itemId) {
+      return _.find(itemList, {id: itemId});
+    }
   });

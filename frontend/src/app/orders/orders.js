@@ -1,7 +1,6 @@
 /**
  * Created by pepo on 16-2-8.
  */
-
 angular.module('ta.orders', [
     'ui.router',
     'i18n',
@@ -75,20 +74,34 @@ angular.module('ta.orders', [
 
     $scope.orderList = [];
 
+    /**
+     * Load page initial data
+     */
     $scope.loadInitialData = function () {
       ordersGateway.getAll().then(function onSuccess(data) {
         $scope.orderList = data;
       });
     };
 
+    /**
+     * Go to clients page to search for client by his id
+     * @param clientId
+     */
     $scope.searchClient = function (clientId) {
       $state.go('clients', {clientId: clientId});
     };
 
+    /**
+     * Go to page for editing orders
+     * @param orderId
+     */
     $scope.editOrder = function (orderId) {
       $state.go("orderEditor", {orderId: orderId});
     };
 
+    /**
+     * Go to page for adding new order
+     */
     $scope.goToOrderEditor = function () {
       $state.go("orderEditor");
     };
@@ -105,45 +118,77 @@ angular.module('ta.orders', [
     $scope.comments = [];
     $scope.modalData = {};
     $scope.orderTypeOptions = ['TRANSLATION', 'LEGALIZATION'];
+
+    /**
+     * Open client search dialog
+     */
     $scope.openClientSearchDialog = function () {
-      $scope.modalData.modalTitle = "Търсене на клиент";
+      $scope.modalData.modalTitle = "Търсене на клиент"; // TODO add translation
       $('#clientSearchModal').modal('show');
     };
 
+    /**
+     * Search for clients
+     * @param query
+     */
     $scope.searchClient = function (query) {
       clientsGateway.search(query).then(function (data) {
         $scope.clientsList = data;
       });
     };
 
+    /**
+     * Select client
+     * @param client
+     */
     $scope.select = function (client) {
       $scope.order.clientId = client.id;
       $scope.order.clientName = client.name;
     };
 
+    /**
+     * Register new order
+     * @param order
+     */
     $scope.registerOrder = function (order) {
       ordersGateway.register(order).then(function onSuccess() {
-        growl.success('Поръчката е добавена');
+        growl.success('Поръчката е добавена'); // TODO add translation
         $scope.goToOrders();
       });
     };
 
+    /**
+     * Go to orders page
+     */
     $scope.goToOrders = function () {
       $state.go("orders");
     };
 
+    /**
+     * Load order by id
+     * @param orderId
+     */
     $scope.loadOrder = function (orderId) {
       ordersGateway.loadOrder(orderId).then(function (data) {
         $scope.order = data;
       });
     };
 
+    /**
+     * Initialize order form for editing
+     * @param orderId
+     */
     $scope.initForm = function (orderId) {
       if ($scope.inEditMode) {
         $scope.loadOrder(orderId);
       }
     };
 
+    // TODO add translation for the next couple functions
+    /**
+     * Edit order
+     * @param order
+     */
     $scope.editOrder = function (order) {
       ordersGateway.editOrder(order).then(function () {
         growl.success('Поръчката е обновена');
@@ -151,6 +196,10 @@ angular.module('ta.orders', [
       });
     };
 
+    /**
+     * Change order status to 'raw'
+     * @param orderId
+     */
     $scope.raw = function (orderId) {
       ordersGateway.raw(orderId).then(function () {
         $scope.order.status = 'raw';
@@ -158,6 +207,10 @@ angular.module('ta.orders', [
       });
     };
 
+    /**
+     * Change order status to 'assigned'
+     * @param orderId
+     */
     $scope.assign = function (orderId) {
       ordersGateway.assign(orderId).then(function () {
         $scope.order.status = 'assigned';
@@ -165,6 +218,10 @@ angular.module('ta.orders', [
       });
     };
 
+    /**
+     * Change order status to 'executed'
+     * @param orderId
+     */
     $scope.execute = function (orderId) {
       ordersGateway.execute(orderId).then(function () {
         $scope.order.status = 'executed';
@@ -172,6 +229,10 @@ angular.module('ta.orders', [
       });
     };
 
+    /**
+     * Change order status to 'closed'
+     * @param orderId
+     */
     $scope.close = function (orderId) {
       ordersGateway.close(orderId).then(function () {
         $scope.order.status = 'closed';
@@ -179,6 +240,11 @@ angular.module('ta.orders', [
       });
     };
 
+    /**
+     * Add order comment
+     * @param orderId
+     * @param comment
+     */
     $scope.addOrderComment = function (orderId, comment) {
       if (!comment) {
         return;

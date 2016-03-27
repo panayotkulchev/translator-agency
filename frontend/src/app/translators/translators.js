@@ -31,8 +31,7 @@ angular.module('ta.translators', [
           }
         },
         data: {pageTitle: 'Преводачи номенклатура'}
-      })
-    ;
+      });
   })
 
   .service('translatorsGateway', function (httpRequest) {
@@ -71,9 +70,12 @@ angular.module('ta.translators', [
     $scope.translator.favorite = false;
     $scope.translator.registered = false;
 
-
+    /**
+     * Add new translator
+     * @param translator
+     */
     $scope.add = function (translator) {
-      $window.scrollTo(0, 0);
+
       translatorsGateway.add(translator).then(
         function onSuccess() {
           growl.success("{{'TRANSLATORS.REGISTERED_SUCCESSFUL' | translate}}");
@@ -82,7 +84,10 @@ angular.module('ta.translators', [
       );
     };
 
-
+    /**
+     * Edit translator
+     * @param translator
+     */
     $scope.edit = function (translator) {
 
       translatorsGateway.edit(translator).then(
@@ -93,7 +98,9 @@ angular.module('ta.translators', [
       );
     };
 
-
+    /**
+     * Initialize translator form with needed data
+     */
     $scope.initForm = function () {
 
       languagesGateway.getActive().then(
@@ -111,10 +118,16 @@ angular.module('ta.translators', [
       }
     };
 
+    /**
+     * Auto scroll to the top of the page
+     */
     $scope.scrollTop = function () {
       $window.scrollTo(0, 0);
     };
 
+    /**
+     * Go to translator list page
+     */
     $scope.cancel = function () {
       $state.go("translatorsList");
     };
@@ -126,6 +139,10 @@ angular.module('ta.translators', [
     $scope.translators = [];
     $scope.selectedLanguageOptions = [];
 
+    /**
+     * Get translators by their languages
+     * @param selectedLanguages
+     */
     $scope.getByLanguages = function (selectedLanguages) {
       if (selectedLanguages.length > 0) {
         translatorsGateway.getByLanguages(selectedLanguages).then(
@@ -142,12 +159,15 @@ angular.module('ta.translators', [
       }
     };
 
+    /**
+     * Delete translator by id
+     * @param id
+     */
     $scope.deleteById = function (id) {
       translatorsGateway.deleteById(id).then(
         function onSuccess() {
-          var position = $scope.translators.map(function (e) {
-            return e.email;
-          }).indexOf(id);
+          // TODO use underscore to find the index
+          var position = $scope.translators.map(function (e) {return e.email; }).indexOf(id);
           if (position !== -1) {
             $scope.translators.splice(position, 1);
           }
@@ -156,6 +176,9 @@ angular.module('ta.translators', [
       );
     };
 
+    /**
+     * Loads all active languages
+     */
     $scope.findAllLangs = function () {
       languagesGateway.getActive().then(
         function onSuccess(data) {
@@ -164,20 +187,34 @@ angular.module('ta.translators', [
       );
     };
 
+    /**
+     * Loads all translators marked as 'favorite' at page enter
+     */
     $scope.initialLoad = function () {
       translatorsGateway.getFavorites().then(function (data) {
         $scope.translators = data;
       });
     };
 
+    /**
+     * Go to translator edit page to add new translator
+     */
     $scope.goToTranslatorEditor = function () {
       $state.go("translatorsEditor");
     };
 
+    /**
+     * Go to translator edit page to edit translator by his id
+     */
     $scope.editTranslator = function (id) {
       $state.go("translatorsEditor", {id: id});
     };
 
+    /**
+     * Open translator information dialog
+     * @param translator
+     */
+    //TODO change with better name
     $scope.open = function (translator) {
 
       var modalInstance = $modal.open({
@@ -195,7 +232,12 @@ angular.module('ta.translators', [
   })
 
   .controller('TranslatorInfoCtrl', function ($scope, $modalInstance, data) {
+
     $scope.translator = data;
+
+    /**
+     * Close dialog
+     */
     $scope.ok = function () {
       $modalInstance.close();
     };
