@@ -7,6 +7,7 @@ import com.clouway.ta.core.orders.OrderRepository;
 import com.clouway.ta.core.orders.OrderStatus;
 import com.google.api.client.util.Lists;
 import com.google.inject.Inject;
+import com.googlecode.objectify.VoidWork;
 
 import java.util.List;
 
@@ -22,32 +23,24 @@ import static com.clouway.ta.core.orders.Order.newOrder;
 public class PersistentOrderRepository implements OrderRepository {
 
   private final CurrentUser currentUser;
+  private final OrdersCounter counter;
 
   @Inject
-  public PersistentOrderRepository(CurrentUser currentUser) {
+  public PersistentOrderRepository(CurrentUser currentUser, OrdersCounter counter) {
     this.currentUser = currentUser;
+    this.counter = counter;
   }
 
   @Override
   public void register(Order order) {
-    // TODO (PanayotKulchev) inject counter with current user and prettify
-    OrdersCounter counter;
-    List<OrdersCounter> list = ofy().load().type(OrdersCounter.class).list();
-    if (list.size() > 0) {
-      counter = list.get(0);
-    } else {
-      counter = new OrdersCounter(1L, 0L);
-      counter.reset();
-      ofy().save().entity(counter).now();
-    }
 
-    OrderEntity entity = newOrderEntity()
+    final OrderEntity entity = newOrderEntity()
             .status(OrderStatus.RAW)
             .title(order.title)
             .clientId(order.clientId)
             .clientName(order.clientName)
             .description(order.description)
-            .number(counter.nextAvailabe())
+            .number(counter.nextAvailable())
             .comment(order.comment)
             .createdOn(currentUser.getTime())
             .createdBy(currentUser.email)
@@ -56,7 +49,13 @@ public class PersistentOrderRepository implements OrderRepository {
             .type(order.type)
             .build();
 
-    ofy().save().entities(entity, counter).now();
+    ofy().transact(new VoidWork() {
+      @Override
+      public void vrun() {
+        ofy().save().entity(entity).now();
+        ofy().save().entity(counter).now();
+      }
+    });
   }
 
   @Override

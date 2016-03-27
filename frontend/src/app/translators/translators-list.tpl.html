@@ -35,9 +35,8 @@
                             <div class="form-group form-group-sm">
                                 <label for="filter" class="hidden-xs" translate>TRANSLATORS.FILTER </label>
 
-                                <ol id="filter" class="nya-bs-select btn-sm" title="{{'TRANSLATORS.CHOOSE_LANGUAGE' | translate}}"
-                                    ng-model="selectedLanguageOptions" multiple
-                                    data-size="5" data-live-search="true">
+                                <ol id="filter" class="nya-bs-select" title="{{'TRANSLATORS.CHOOSE_LANGUAGE' | translate}}"
+                                    ng-model="selectedLanguageOptions" multiple data-size="5">
                                     <li nya-bs-option="option in languageOptions">
                                         <a>
                                             <span>{{option}}</span>

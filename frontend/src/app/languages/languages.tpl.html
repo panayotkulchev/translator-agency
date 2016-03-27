@@ -11,17 +11,18 @@
     </div>
 
     <div class="panel-body" style="min-height: 700px;">
-        <div class="row">
+        <div class="row top-buffer">
             <div class="col-md-offset-2 col-md-8">
                 <form class="form-inline" role="form">
-                    <div class="form-group form-group-sm">
+                    <div class="form-group form-group-sm pull-right">
 
                         <input class="form-control" type="text" ng-model="lang"/>
 
                         <button type="submit" class="btn btn-success btn-sm"
                                 tooltip="Добавяне на нов език"
-                                ng-click="addLanguage(lang)" translate>
-                            <i class="fa fa-plus"></i> LANGUAGES.ADD
+                                ng-click="addLanguage(lang)">
+                            <i class="fa fa-plus"></i>
+                            <span translate>LANGUAGES.ADD</span>
                         </button>
 
                     </div>

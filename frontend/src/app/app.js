@@ -9,6 +9,7 @@ angular.module('ta.core', [
     'ui.router',
     'angular-loading-bar',
     'ngAnimate',
+    'jcs-autoValidate',
     'ta.home',
     'ta.translators',
     'ta.languages',
@@ -28,6 +29,7 @@ angular.module('ta.core', [
     tmhDynamicLocaleProvider.localeLocationPattern('locales/angular-locale_{{locale}}.js');
 
   })
+
 
   .config(function ($httpProvider) {
     $httpProvider.interceptors.push(function ($q, $location, $window) {
@@ -61,12 +63,20 @@ angular.module('ta.core', [
 
   })
 
-  .run(function run(tmhDynamicLocale, $rootScope, amMoment) {
+  .run(function run(tmhDynamicLocale, $rootScope, amMoment, validator, defaultErrorMessageResolver, $state, $stateParams) {
+    //locales
     tmhDynamicLocale.set('bg');
+    // form auto validate
+    defaultErrorMessageResolver.setI18nFileRootPath('locales');
+    defaultErrorMessageResolver.setCulture('bg');
+    validator.setValidElementStyling(false);
+
     // Change locale when translation changes
     $rootScope.$on('$translateChangeSuccess', function (event, data) {
       tmhDynamicLocale.set(data.language);
       amMoment.changeLocale(data.language);
+      defaultErrorMessageResolver.setCulture(data.language);
+      $state.go($state.current, $stateParams, {reload: true});
     });
   })
 

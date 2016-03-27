@@ -9,7 +9,8 @@ angular.module('ta.orders', [
     'ta.http',
     'ngAnimate',
     'ui.keypress',
-    'common'
+    'common',
+    'ta.orders.i18n'
   ])
 
   .config(function config($stateProvider) {
@@ -38,56 +39,6 @@ angular.module('ta.orders', [
     });
   })
 
-  .config(function i18n($translateProvider) {
-    $translateProvider
-      .translations('bg', {
-        ORDERS: {
-          ORDERS: "Поръчки",
-          NOMENCLATURE: "списък",
-          NEW: "Нова поръчка",
-          ADD: "добавяне",
-          TITLE: "ЗАГЛАВИЕ",
-          DESCRIPTION: "ОПИСАНИЕ",
-          CLIENT: "КЛИЕНТ",
-          SEARCH: "Търси",
-          ADDED: "Добавена",
-          PRIORITY: "Приоритет",
-          ATTENTION: "Внимание",
-          TYPE: "ВИД",
-          CHOOSE_ORDER_TYPE: "Избери вид услуга...",
-          STATUS_RAW: "Приета",
-          STATUS_ASSIGNED: "Възложена",
-          STATUS_EXECUTED: "Изпълнена",
-          STATUS_CLOSED: "Затворена"
-        },
-        TRANSLATION: "Превод",
-        LEGALIZATION: "Легализация"
-      })
-      .translations('en', {
-        ORDERS: {
-          ORDERS: "Orders",
-          NOMENCLATURE: "list",
-          NEW: "New order",
-          ADD: "registration",
-          TITLE: "TITLE",
-          DESCRIPTION: "DESCRIPTION",
-          CLIENT: "CLIENT",
-          SEARCH: "Search",
-          ADDED: "Added",
-          PRIORITY: "Priority",
-          ATTENTION: "Attention",
-          TYPE: "TYPE",
-          CHOOSE_ORDER_TYPE: "Choose order type...",
-          STATUS_RAW: "Raw",
-          STATUS_ASSIGNED: "Assigned",
-          STATUS_EXECUTED: "Executed",
-          STATUS_CLOSED: "Closed"
-        },
-        TRANSLATION: "Translation",
-        LEGALIZATION: "Legalization"
-      });
-  })
-
   .service('ordersGateway', function (httpRequest) {
     return {
       register: function (order) {
@@ -103,19 +54,19 @@ angular.module('ta.orders', [
         return httpRequest.put("/r/orders", order);
       },
       raw: function (orderId) {
-        return httpRequest.put("/r/orders/"+orderId+'/raw');
+        return httpRequest.put("/r/orders/" + orderId + '/raw');
       },
       assign: function (orderId) {
-        return httpRequest.put("/r/orders/"+orderId+'/assign');
+        return httpRequest.put("/r/orders/" + orderId + '/assign');
       },
       execute: function (orderId) {
-        return httpRequest.put("/r/orders/"+orderId+'/execute');
+        return httpRequest.put("/r/orders/" + orderId + '/execute');
       },
       close: function (orderId) {
-        return httpRequest.put("/r/orders/"+orderId+'/close');
+        return httpRequest.put("/r/orders/" + orderId + '/close');
       },
       addOrderComment: function (orderId, comment) {
-        return httpRequest.post("/r/orders/"+orderId+"/comment", {orderId: orderId, comment: comment} );
+        return httpRequest.post("/r/orders/" + orderId + "/comment", {orderId: orderId, comment: comment});
       }
     };
   })
@@ -152,7 +103,7 @@ angular.module('ta.orders', [
     $scope.order = {};
     $scope.comment = {};
     $scope.comments = [];
-    $scope.modalData= {};
+    $scope.modalData = {};
     $scope.orderTypeOptions = ['TRANSLATION', 'LEGALIZATION'];
     $scope.openClientSearchDialog = function () {
       $scope.modalData.modalTitle = "Търсене на клиент";
@@ -188,7 +139,7 @@ angular.module('ta.orders', [
     };
 
     $scope.initForm = function (orderId) {
-      if($scope.inEditMode) {
+      if ($scope.inEditMode) {
         $scope.loadOrder(orderId);
       }
     };
@@ -208,10 +159,10 @@ angular.module('ta.orders', [
     };
 
     $scope.assign = function (orderId) {
-     ordersGateway.assign(orderId).then(function () {
-       $scope.order.status = 'assigned';
-       growl.success('Статусът е променен');
-     });
+      ordersGateway.assign(orderId).then(function () {
+        $scope.order.status = 'assigned';
+        growl.success('Статусът е променен');
+      });
     };
 
     $scope.execute = function (orderId) {
@@ -229,7 +180,7 @@ angular.module('ta.orders', [
     };
 
     $scope.addOrderComment = function (orderId, comment) {
-      if (!comment){
+      if (!comment) {
         return;
       }
 

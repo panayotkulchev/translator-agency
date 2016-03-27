@@ -24,7 +24,9 @@
     "nya-bootstrap-select": "~2.0.10",
     "bootstrap-language": "*",
     "angular-moment": "~0.10.3",
-    "moment": "~2.11.2"
+    "moment": "~2.11.2",
+    "angular-auto-validate": "~1.19.3",
+    "bootstrap-select": "~1.10.0"
   },
   "resolutions": {
     "angular": "~1.4",

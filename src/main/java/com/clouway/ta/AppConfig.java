@@ -1,12 +1,14 @@
 package com.clouway.ta;
 
 import com.clouway.ta.adapter.db.PersistenceModule;
+import com.clouway.ta.adapter.db.orders.OrdersCounter;
 import com.clouway.ta.adapter.frontend.clients.ClientsRestService;
 import com.clouway.ta.adapter.frontend.users.CurrentUserService;
 import com.clouway.ta.adapter.frontend.languages.LanguagesRestService;
 import com.clouway.ta.adapter.frontend.orders.OrderRestService;
 import com.clouway.ta.adapter.frontend.translators.TranslatorRestService;
 import com.clouway.ta.adapter.security.*;
+import com.clouway.ta.adapter.transport.PingServlet;
 import com.clouway.ta.core.users.CurrentUser;
 import com.google.appengine.api.users.UserService;
 import com.google.inject.AbstractModule;
@@ -18,6 +20,8 @@ import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
 import com.google.sitebricks.SitebricksModule;
 import com.googlecode.objectify.ObjectifyFilter;
+
+import static com.clouway.ta.adapter.db.OfyService.ofy;
 
 public class AppConfig extends GuiceServletContextListener {
 
@@ -33,6 +37,8 @@ public class AppConfig extends GuiceServletContextListener {
                 filter("/*").through(ObjectifyFilter.class);
                 filter("/*").through(OAuthCredentialsFilter.class);
 
+                // ping
+                serve("/ping").with(PingServlet.class);
               }
             },
 
@@ -62,6 +68,12 @@ public class AppConfig extends GuiceServletContextListener {
               @RequestScoped
               public CurrentUser getCurrentUser(UserService userService) {
                 return new CurrentUser(userService.getCurrentUser().getEmail());
+              }
+
+              @Provides
+              @RequestScoped
+              public OrdersCounter getOrdersCounter() {
+                return ofy().load().type(OrdersCounter.class).list().get(0);
               }
             }
 

@@ -1,5 +1,51 @@
 <div class="jumbotron">
     <h3>Home page</h3>
+    <form novalidate="novalidate" ng-submit="vm.onSubmit()">
+        <div class="form-group">
+            <label for="ttt">Name</label>
+            <input type="text" class="form-control" id="ttt" placeholder="ttt" ng-model="vm.model.name" required="" required-err-type="myCustomError2" ng-minlength="1" ng-maxlength="20" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName">Name</label>
+            <input type="text" class="form-control" id="exampleInputName" placeholder="Name" ng-model="vm.model.name" required="" ng-minlength="6" ng-maxlength="255" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email" ng-model="vm.model.email" required="" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password" ng-model="vm.model.password" required="" ng-minlength="6" ng-maxlength="12" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputGender">Gender</label>
+            <select class="form-control" id="exampleInputGender" placeholder="Email" ng-model="vm.model.gender" ng-options="gender for gender in vm.genders" required="">
+                <option value="">Select Gender...</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" ng-model="model.termsAccepted" required/>
+                I accept the terms...
+            </label>
+        </div>
+        {{haha}}
+        <select class="selectpicker" ng-model = "haha" required>
+            <option>Mustard</option>
+            <option>Ketchup</option>
+            <option>Barbecue</option>
+        </select>
 
+
+        <button type="submit" class="btn btn-default">Submit Form</button>
+        <button type="reset" class="btn btn-secondary">Rest Form</button>
+    </form>
+
+    {{haha}}
+    <select class="selectpicker" ng-model = "haha">
+        <option>Mustard</option>
+        <option>Ketchup</option>
+        <option>Barbecue</option>
+    </select>
 </div>
 

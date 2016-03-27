@@ -77,7 +77,10 @@ module.exports = {
       'vendor/moment/locale/bg.js',
       'vendor/angular-ui-utils/keypress.js',
       'vendor/underscore/underscore.js',
-      'vendor/angular-loading-bar/src/loading-bar.js'
+      'vendor/angular-loading-bar/src/loading-bar.js',
+      'vendor/angular-auto-validate/dist/jcs-auto-validate.js',
+      'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
+      'vendor/bootstrap-select/dist/js/i18n/defaults-bg_BG.min.js'
     ],
     css: [
       'vendor/boostrap/dist/css/boostrap.css',
@@ -86,6 +89,7 @@ module.exports = {
       'vendor/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
       'vendor/angular-loading-bar/src/loading-bar.css',
       'vendor/bootstrap-language/languages.css',
+      'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
       'app/common.less'
     ],
     fonts: [
@@ -97,7 +101,9 @@ module.exports = {
     ],
     locales: [
       'vendor/angular-i18n/angular-locale_bg.js',
-      'vendor/angular-i18n/angular-locale_en.js'
+      'vendor/angular-i18n/angular-locale_en.js',
+      'src/app/i18n/jcs-auto-validate_bg.json',
+      'src/app/i18n/jcs-auto-validate_en.json'
     ]
   }
 };

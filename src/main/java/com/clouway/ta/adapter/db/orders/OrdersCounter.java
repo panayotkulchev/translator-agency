@@ -16,6 +16,7 @@ public class OrdersCounter {
   private Long id;
   private Long countOfOrders;
 
+  @SuppressWarnings("unused")
   public OrdersCounter() {
   }
 
@@ -36,7 +37,7 @@ public class OrdersCounter {
     this.countOfOrders--;
   }
 
-  public Long nextAvailabe() {
+  public Long nextAvailable() {
     countOfOrders++;
     return countOfOrders;
   }

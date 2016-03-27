@@ -13,9 +13,37 @@
  * specified, as shown below.
  */
 angular.module('ta.home', [
-    'ui.router'
+    'ui.router',
+  'i18n',
+    'jcs-autoValidate'
 
   ])
+
+.config(function i18n($translateProvider) {
+  $translateProvider
+    .translations('bg', {
+      TEST: {
+        TEST: "BG"
+      }
+    })
+    .translations('en', {
+        TEST: {
+          TEST: "ENG"
+        }
+    });
+
+})
+
+  //.run(function (validator, defaultErrorMessageResolver) {
+  //  defaultErrorMessageResolver.setCulture('fr-FR');
+  //  validator.setValidElementStyling(false);
+  //  defaultErrorMessageResolver.getErrorMessages().then(function (errorMessages) {
+  //    errorMessages['myCustomError'] = 'My custom error message';
+  //    errorMessages['myCustomError2'] = "aaa";
+  //    console.log($translate.instant('TEST.TEST'));
+  //    errorMessages['anotherErrorMessage'] = 'An error message with the attribute value {0}';
+  //  });
+  //})
 
   /**
    * Each section or module of the site can also have its own routes. AngularJS
