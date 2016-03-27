@@ -5,7 +5,7 @@
 Install Node.js and then:
 
 ```sh
-$ git clone git://github.com/clouway/clouway-cw
+$ git clone git://github.com/panayotkulchev/translator-agency.git
 $ cd frontend
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
