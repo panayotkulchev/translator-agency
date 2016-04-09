@@ -99,6 +99,18 @@ angular.module('ta.translators', [
     };
 
     /**
+     * Submit translator editor form
+     * @param translator
+     */
+    $scope.submitForm = function (translator) {
+      if($scope.inEditMode){
+        $scope.edit(translator);
+      } else {
+        $scope.add(translator);
+      }
+    };
+
+    /**
      * Initialize translator form with needed data
      */
     $scope.initForm = function () {

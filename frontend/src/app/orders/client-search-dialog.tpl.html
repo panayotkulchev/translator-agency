@@ -1,0 +1,68 @@
+<div class="modal fade" id="clientSearchModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{modalData.modalTitle | translate}}</h4>
+            </div>
+            <div class="modal-body" align="center">
+
+                <tabset class="tab-content">
+                    <tab heading="Име/Булстат">
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2 top-buffer">
+                                <form class="form-horizontal">
+                                    <div class="form-group form-group-sm">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="query">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary btn-sm" type="submit"
+                                                            ng-click="searchClient(query)">
+                                                        <i class="fa fa-search"></i>
+                                                        <span translate>ORDERS.SEARCH</span>
+                                                    </button>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div style="max-height: 200px; overflow-y:scroll;">
+                            <a class="list-group-item table-row-pointer text-left"
+                               ng-class="{'table-row-selected' : modalData.client.id == client.id}"
+                               ng-click="modalData.client = client"
+                               ng-repeat="client in clientsList | orderBy:'name'"
+                               style="padding-top: 0; padding-bottom: 0">
+                                <h5>
+                                    <small class="text-muted text-uppercase">име</small>
+                                    <span>{{client.name}}</span>
+                                    <small class="text-muted text-uppercase">булстат</small>
+                                    <span>{{client.eik}}</span>
+                                    <small class="text-muted text-uppercase">мол</small>
+                                    <span>{{client.mol}}</span>
+                                </h5>
+
+                            </a>
+                        </div>
+                    </tab>
+                </tabset>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm pull-right"
+                        data-dismiss="modal"
+                        ng-click="select(modalData.client)">
+                    <i class="fa fa-plus"></i>
+                    <span translate>BUTTON.SELECT</span>
+                </button>
+
+                <button type="button" class="btn btn-default btn-sm pull-right"
+                        data-dismiss="modal"
+                        style="margin-right: 15px">
+                    <span translate>BUTTON.CANCEL</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

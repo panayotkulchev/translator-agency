@@ -51,8 +51,18 @@ public class OrderRestService {
     else {
       List<Order> orders = orderRepository.getAll();
       List<OrderDto> dtos = adapt(orders);
-      return Reply.with(orders).as(Json.class);
+      return Reply.with(dtos).as(Json.class);
     }
+  }
+
+  @At("/closed")
+  @Get
+  public Reply getClosed(Request request){
+
+    List<Order> orders = orderRepository.getClosed();
+    List<OrderDto> dtos = adapt(orders);
+
+    return Reply.with(dtos).as(Json.class);
   }
 
   @Post

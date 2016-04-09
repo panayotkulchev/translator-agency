@@ -11,7 +11,7 @@
     </div>
 
     <div class="panel-body" style="min-height: 700px;">
-        <form class="form-horizontal" novalidate ng-submit="add(translator)">
+        <form class="form-horizontal" novalidate ng-submit="submitForm(translator)">
             <div class="row top-buffer">
                 <div class="col-xs-offset-1 col-xs-10">
                     <div class="row">
@@ -213,14 +213,13 @@
                             </div>
 
                             <button type="submit" class="btn btn-success btn-sm pull-right"
-                                    ng-show="!inEditMode" ng-click="scrollTop()">
+                                    ng-if="!inEditMode" ng-click="scrollTop()">
                                 <i class="fa fa-plus"></i>
                                 <span translate>BUTTON.REGISTER</span>
                             </button>
 
-                            <button type="button" class="btn btn-success btn-sm pull-right"
-                                    ng-show="inEditMode"
-                                    ng-click="edit(translator)">
+                            <button type="submit" class="btn btn-success btn-sm pull-right"
+                                    ng-if="inEditMode" ng-click="scrollTop()">
                                 <i class="fa fa-pencil"></i>
                                 <span translate>BUTTON.UPDATE</span>
                             </button>

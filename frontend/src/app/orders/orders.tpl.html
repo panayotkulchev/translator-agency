@@ -13,12 +13,18 @@
         </div>
     </div>
 
-    <div class="panel-body" style="min-height: 700px;">
+    <div class="panel-body" style="min-height: 500px;">
         <div class="row">
             <div class="col-sm-offset-1 col-sm-10">
 
                 <div class="row">
                     <div class="col-xs-12 top-buffer">
+                        <div class="btn-group btn-group-sm">
+                            <label class="btn btn-default" ng-model="radioModel" btn-radio="'Opened'" ng-click="loadAll()">
+                                <span translate>ORDERS.FILTER_OPENED</span></label>
+                            <label class="btn btn-default" ng-model="radioModel" btn-radio="'Closed'" ng-click="loadClosed()">
+                                <span translate>ORDERS.FILTER_CLOSED</span></label>
+                        </div>
                         <button type="button"
                                 class="btn btn-success btn-sm pull-right"
                                 ng-click="goToOrderEditor()">
@@ -41,7 +47,8 @@
                                             'fa fa fa-exclamation-triangle text-warning': order.status === 'raw',
                                             'fa fa-hourglass-half text-primary': order.status === 'assigned',
                                             'fa fa-check text-success': order.status === 'executed',
-                                            'fa fa-thumbs-o-up': order.status === 'closed'}"></i>
+                                            'fa fa-thumbs-o-up': order.status === 'closed'}"
+                                               tooltip="{{'ORDERS.STATUS_'+order.status.toUpperCase() | translate}}"></i>
                                         </div>
                                         <div class="col-sm-10">
 
@@ -63,12 +70,12 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12 text-muted small">
-                                <span>#{{order.number}}
-                                    <span translate>ORDERS.ADDED</span>
-                                    <span am-time-ago="order.createdOn"></span>
-                                    <!--<span date-time>{{order.createdOn}}</span>-->
-                                    от {{order.createdBy}}
-                                </span>
+                                                    <span>#{{order.number}}
+                                                        <span translate>ORDERS.ADDED</span>
+                                                        <span am-time-ago="order.createdOn"></span>
+                                                        <!--<span date-time>{{order.createdOn}}</span>-->
+                                                        от {{order.createdBy}}
+                                                    </span>
                                                 </div>
                                             </div>
 

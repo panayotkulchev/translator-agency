@@ -60,7 +60,13 @@ public class PersistentOrderRepository implements OrderRepository {
 
   @Override
   public List<Order> getAll() {
-    List<OrderEntity> entities = ofy().load().type(OrderEntity.class).list();
+    List<OrderEntity> entities = ofy().load().type(OrderEntity.class).filter("status !=", OrderStatus.CLOSED).list();
+    return adapt(entities);
+  }
+
+  @Override
+  public List<Order> getClosed() {
+    List<OrderEntity> entities = ofy().load().type(OrderEntity.class).filter("status", OrderStatus.CLOSED).list();
     return adapt(entities);
   }
 

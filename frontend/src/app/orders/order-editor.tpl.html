@@ -1,4 +1,4 @@
-<div class="panel">
+<div class="panel panel-default">
     <span ng-init="initForm(orderId)"></span>
 
     <div class="panel-heading">
@@ -6,87 +6,94 @@
             <div class="col-xs-12">
                 <h5>
                     <span translate>ORDERS.ORDERS</span>
-                    <span class="text-muted" translate>ORDERS.ADD</span></h5></div>
+                    <span class="text-muted" translate>ORDERS.ADD</span></h5>
+            </div>
         </div>
     </div>
 
-    <div class="panel-body" style="min-height: 700px;">
-        <div class="row top-buffer">
-            <div class="col-xs-offset-1 col-xs-10">
-                <div class="row" ng-if="inEditMode">
-                    <div class="col-sm-12">
-                        <div class="btn-group btn-group-sm pull-right">
-                            <button class="btn btn-warning" ng-click="raw(orderId)">
-                                <i class="fa fa-exclamation-triangle"></i> <span translate>ORDERS.STATUS_RAW</span>
-                            </button>
-                            <button class="btn btn-primary" ng-click="assign(orderId)">
-                                <i class="fa fa-hourglass-half"></i> <span translate>ORDERS.STATUS_ASSIGNED</span>
-                            </button>
-                            <button class="btn btn-success" ng-click="execute(orderId)">
-                                <i class="fa fa-check"></i> <span translate>ORDERS.STATUS_EXECUTED</span>
-                            </button>
-                            <button class="btn btn-default" ng-click="close(orderId)">
-                                <i class="fa fa-thumbs-o-up"></i> <span translate>ORDERS.STATUS_CLOSED</span>
-                            </button>
+    <div class="panel-body">
+        <form class="form-horizontal" novalidate ng-submit="submitOrderForm(order)">
+            <div class="row top-buffer">
+                <div class="col-xs-offset-1 col-xs-10">
+                    <div class="row" ng-if="inEditMode">
+                        <div class="col-sm-12">
+                            <div class="btn-group btn-group-sm">
+                                <label class="btn btn-default" ng-model="radioModel" btn-radio="'raw'"
+                                       ng-click="raw(orderId)">
+                                    <i class="fa fa-exclamation-triangle"></i>&nbsp<span
+                                        translate>ORDERS.STATUS_RAW</span></label>
+                                <label class="btn btn-default" ng-model="radioModel" btn-radio="'assigned'"
+                                       ng-click="assign(orderId)">
+                                    <i class="fa fa-hourglass-half"></i>&nbsp<span
+                                        translate>ORDERS.STATUS_ASSIGNED</span></label>
+                                <label class="btn btn-default" ng-model="radioModel" btn-radio="'execute'"
+                                       ng-click="execute(orderId)">
+                                    <i class="fa fa-check"></i>&nbsp<span
+                                        translate>ORDERS.STATUS_EXECUTED</span></label>
+                                <label class="btn btn-default" ng-model="radioModel" btn-radio="'closed'"
+                                       ng-click="close(orderId)">
+                                    <i class="fa fa-thumbs-o-up"></i>&nbsp<span
+                                        translate>ORDERS.STATUS_CLOSED</span></label>
+                            </div>
                         </div>
+
                     </div>
+                    <form class="form-horizontal" novalidate ng-submit="registerOrder(order)">
+                        <div class="row">
+                            <div class="col-sm-12 top-buffer">
 
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 top-buffer">
-
-                        <div class="panel panel-default"
-                             ng-class="{ 'panel-warning': order.status === 'raw',
+                                <div class="panel panel-default"
+                                     ng-class="{ 'panel-warning': order.status === 'raw',
                                          'panel-primary': order.status === 'assigned',
                                          'panel-success': order.status === 'executed',
                                          'panel-default': order.status === 'closed'}">
-                            <div class="panel-heading panel-heading-sm"></div>
+                                    <div class="panel-heading panel-heading-sm"><span ng-if="inEditMode">#{{order.number}}</span></div>
 
-                            <div class="panel-body">
-                                <form class="form-horizontal">
+                                    <div class="panel-body">
+                                        <form class="form-horizontal">
 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label"
-                                               style="font-size: 12px" translate>
-                                            ORDERS.TYPE</label>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label"
+                                                       style="font-size: 12px" translate>
+                                                    ORDERS.TYPE</label>
 
-                                        <div class="col-sm-10">
-                                            <ol class="nya-bs-select form-control"
-                                                title="{{'ORDERS.CHOOSE_ORDER_TYPE' | translate}}"
-                                                ng-model="order.type"
-                                                data-size="5">
-                                                <li nya-bs-option="option in orderTypeOptions">
-                                                    <a>
-                                                        <span translate>{{option}}</span>
+                                                <div class="col-sm-10">
+                                                    <ol class="nya-bs-select form-control"
+                                                        title="{{'ORDERS.CHOOSE_ORDER_TYPE' | translate}}"
+                                                        ng-model="order.type" data-size="5" required>
+                                                        <li nya-bs-option="option in orderTypeOptions">
+                                                            <a>
+                                                                <span translate>{{option}}</span>
 
-                                                        <span class="glyphicon glyphicon-ok check-mark"></span>
-                                                    </a>
-                                                </li>
-                                            </ol>
-                                        </div>
-                                    </div>
+                                                                <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                            </a>
+                                                        </li>
+                                                    </ol>
+                                                </div>
+                                            </div>
 
-                                    <div class="form-group form-group-sm">
-                                        <label class="col-sm-2 control-label" translate>
-                                            ORDERS.TITLE
-                                        </label>
+                                            <div class="form-group form-group-sm">
+                                                <label class="col-sm-2 control-label" translate>
+                                                    ORDERS.TITLE
+                                                </label>
 
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control"
-                                                   ng-model="order.title">
-                                        </div>
-                                    </div>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="order.title" required minlength="5"
+                                                           maxlength="100">
+                                                </div>
+                                            </div>
 
-                                    <div class="form-group form-group-sm">
-                                        <label class="col-sm-2 control-label" translate>
-                                            ORDERS.CLIENT
-                                        </label>
+                                            <div class="form-group form-group-sm">
+                                                <label class="col-sm-2 control-label" translate>
+                                                    ORDERS.CLIENT
+                                                </label>
 
-                                        <div class="col-sm-10">
+                                                <div class="col-sm-10">
 
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" disabled
-                                                       ng-model="order.clientName">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" disabled
+                                                               ng-model="order.clientName" required>
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-primary btn-sm" type="button"
                                                             ng-click="openClientSearchDialog()">
@@ -94,181 +101,128 @@
                                                         <span translate>ORDERS.SEARCH</span>
                                                     </button>
                                                 </span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
 
 
-                                    <div class="form-group form-group-sm">
-                                        <label class="col-sm-2 control-label" translate>
-                                            ORDERS.DESCRIPTION
-                                        </label>
+                                            <div class="form-group form-group-sm">
+                                                <label class="col-sm-2 control-label" translate>
+                                                    ORDERS.DESCRIPTION
+                                                </label>
 
-                                        <div class="col-sm-10">
+                                                <div class="col-sm-10">
                                                 <textarea class="form-control" rows="2"
                                                           ng-model="order.description"></textarea>
-                                        </div>
+                                                </div>
 
+                                            </div>
+
+                                            <div class="form-group form-group-sm">
+                                                <label class="col-sm-2 control-label text-uppercase" translate>
+                                                    ORDERS.PRIORITY </label>
+
+                                                <div class="col-sm-10">
+                                                    <input simple-switch ng-model="order.priority" type="checkbox"
+                                                           id="priority"
+                                                           width="30"
+                                                           on-text="BUTTON.YES" off-text="BUTTON.NO">
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group form-group-sm">
+                                                <label class="col-sm-2 control-label text-uppercase" translate>
+                                                    ORDERS.ATTENTION </label>
+
+                                                <div class="col-sm-10">
+                                                    <input simple-switch ng-model="order.requireAttention"
+                                                           type="checkbox"
+                                                           id="requireAttention" width="30"
+                                                           on-text="BUTTON.YES" off-text="BUTTON.NO">
+                                                </div>
+
+                                            </div>
+
+                                        </form>
                                     </div>
+                                </div>
 
-                                    <div class="form-group form-group-sm">
-                                        <label class="col-sm-2 control-label text-uppercase" translate> ORDERS.PRIORITY </label>
 
-                                        <div class="col-sm-10">
-                                            <input simple-switch ng-model="order.priority" type="checkbox" id="priority"
-                                                   width="30"
-                                                   on-text="BUTTON.YES" off-text="BUTTON.NO">
-                                        </div>
-
+                                <div class="row" ng-if="inEditMode">
+                                    <div class="col-sm-12 text-muted small">
+                                                        <span translate>ORDERS.UPDATED</span>
+                                                        <span am-time-ago="order.updatedOn"></span>
+                                                        <!--<span date-time>{{order.createdOn}}</span>-->
+                                                        от {{order.updatedBy}}
                                     </div>
+                                </div>
 
-                                    <div class="form-group form-group-sm">
-                                        <label class="col-sm-2 control-label text-uppercase" translate> ORDERS.ATTENTION </label>
+                                <button type="submit" class="btn btn-success btn-sm pull-right"
+                                        ng-if="!inEditMode">
+                                    <i class="fa fa-plus"></i>
+                                    <span translate>BUTTON.REGISTER</span>
+                                </button>
 
-                                        <div class="col-sm-10">
-                                            <input simple-switch ng-model="order.requireAttention" type="checkbox"
-                                                   id="requireAttention" width="30"
-                                                   on-text="BUTTON.YES" off-text="BUTTON.NO">
-                                        </div>
+                                <button type="submit" class="btn btn-success btn-sm pull-right"
+                                        ng-if="inEditMode">
+                                    <i class="fa fa-pencil"></i>
+                                    <span translate>BUTTON.UPDATE</span>
+                                </button>
 
-                                    </div>
-
-                                </form>
+                                <button type="button" class="btn btn-default btn-sm pull-right"
+                                        ng-click="goToOrders()"
+                                        style="margin-right: 15px">
+                                    <span translate>BUTTON.CANCEL</span>
+                                </button>
                             </div>
                         </div>
+                    </form>
 
-                        <button type="button" class="btn btn-success btn-sm pull-right"
-                                ng-show="!inEditMode"
-                                ng-click="registerOrder(order)">
-                            <i class="fa fa-plus"></i>
-                            <span translate>BUTTON.REGISTER</span>
-                        </button>
+                    <!--NEW COMMENT FORM-->
+                    <div class="row top-buffer" ng-if="inEditMode">
+                        <div class="col-sm-12">
+                            <form class="form-horizontal">
+                                <div class="form-group form-group-sm">
+                                    <label class="col-sm-2 control-label" translate>
+                                        ДОБАВИ КОМЕНТАР
+                                    </label>
 
-                        <button type="button" class="btn btn-success btn-sm pull-right"
-                                ng-show="inEditMode"
-                                ng-click="editOrder(order)">
-                            <i class="fa fa-pencil"></i>
-                            <span translate>BUTTON.UPDATE</span>
-                        </button>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="comment.content"
+                                               ui-keypress="{enter: 'addOrderComment(orderId, comment.content)'}"/>
+                                    </div>
 
-                        <button type="button" class="btn btn-default btn-sm pull-right"
-                                ng-click="goToOrders()"
-                                style="margin-right: 15px">
-                            <span translate>BUTTON.CANCEL</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!--NEW COMMENT FORM-->
-                <div class="row top-buffer" ng-if="inEditMode">
-                    <div class="col-sm-12">
-                        <form class="form-horizontal">
-                            <div class="form-group form-group-sm">
-                                <label class="col-sm-2 control-label" translate>
-                                    ДОБАВИ КОМЕНТАР
-                                </label>
-
-                                <div class="col-sm-10">
-                            <input type="text" class="form-control" ng-model="comment.content"
-                                      ui-keypress="{enter: 'addOrderComment(orderId, comment.content)'}"/>
                                 </div>
-
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
-                <!--COMMENTS LIST-->
-                <div class="row top-buffer">
-                    <div class="col-sm-12">
-                        <table class="table table-condensed table-hover">
-                            <tbody>
-                            <tr ng-repeat="comment in order.comments | orderBy: '-createdOn'">
-                                <td>
-                                    <info-line class="pull-right" narrow="true">
-                                        <small>&nbsp;&nbsp; <span am-time-ago="comment.createdOn"></span></small>
-                                    </info-line>
-                                    <info-line label="<b>{{comment.author}}:</b>" narrow="true">
-                                        <span class="text-multiline">{{comment.content}}</span>
-                                    </info-line>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <!--COMMENTS LIST-->
+                    <div class="row top-buffer">
+                        <div class="col-sm-12">
+                            <table class="table table-condensed table-hover">
+                                <tbody>
+                                <tr ng-repeat="comment in order.comments | orderBy: '-createdOn'">
+                                    <td>
+                                        <info-line class="pull-right" narrow="true">
+                                            <small>&nbsp;&nbsp; <span am-time-ago="comment.createdOn"></span></small>
+                                        </info-line>
+                                        <info-line label="<b>{{comment.author}}:</b>" narrow="true">
+                                            <span class="text-multiline">{{comment.content}}</span>
+                                        </info-line>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
 
+                        </div>
                     </div>
-                </div>
 
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="clientSearchModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">{{modalData.modalTitle | translate}}</h4>
-                </div>
-                <div class="modal-body" align="center">
-
-                    <tabset class="tab-content">
-                        <tab heading="Име/Булстат">
-                            <div class="row">
-                                <div class="col-sm-8 col-sm-offset-2 top-buffer">
-                                    <form class="form-horizontal">
-                                        <div class="form-group form-group-sm">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" ng-model="query">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-primary btn-sm" type="submit"
-                                                            ng-click="searchClient(query)">
-                                                        <i class="fa fa-search"></i>
-                                                        <span translate>ORDERS.SEARCH</span>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-                            <div style="max-height: 200px; overflow-y:scroll;">
-                                <a class="list-group-item table-row-pointer text-left"
-                                   ng-class="{'table-row-selected' : modalData.client.id == client.id}"
-                                   ng-click="modalData.client = client"
-                                   ng-repeat="client in clientsList | orderBy:'name'"
-                                   style="padding-top: 0; padding-bottom: 0">
-                                    <h5>
-                                        <small class="text-muted text-uppercase">име</small>
-                                        <span>{{client.name}}</span>
-                                        <small class="text-muted text-uppercase">булстат</small>
-                                        <span>{{client.eik}}</span>
-                                        <small class="text-muted text-uppercase">мол</small>
-                                        <span>{{client.mol}}</span>
-                                    </h5>
-
-                                </a>
-                            </div>
-                        </tab>
-                    </tabset>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success btn-sm pull-right"
-                            data-dismiss="modal"
-                            ng-click="select(modalData.client)">
-                        <i class="fa fa-plus"></i>
-                        <span translate>BUTTON.SELECT</span>
-                    </button>
-
-                    <button type="button" class="btn btn-default btn-sm pull-right"
-                            data-dismiss="modal"
-                            style="margin-right: 15px">
-                        <span translate>BUTTON.CANCEL</span>
-                    </button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
+
+    <span ng-include=" 'orders/client-search-dialog.tpl.html' "></span>
 </div>

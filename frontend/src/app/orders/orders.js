@@ -49,6 +49,9 @@ angular.module('ta.orders', [
       getAll: function () {
         return httpRequest.get('/r/orders');
       },
+      getClosed: function () {
+        return httpRequest.get('/r/orders/closed');
+      },
       editOrder: function (order) {
         return httpRequest.put("/r/orders", order);
       },
@@ -79,6 +82,25 @@ angular.module('ta.orders', [
      */
     $scope.loadInitialData = function () {
       ordersGateway.getAll().then(function onSuccess(data) {
+        $scope.orderList = data;
+      });
+      $scope.radioModel = 'Opened';
+    };
+
+    /**
+     * Load all but closed orders
+     */
+    $scope.loadAll = function () {
+      ordersGateway.getAll().then(function onSuccess(data) {
+        $scope.orderList = data;
+      });
+    };
+
+    /**
+     * Load all closed orders
+     */
+    $scope.loadClosed = function () {
+      ordersGateway.getClosed().then(function onSuccess(data) {
         $scope.orderList = data;
       });
     };
@@ -113,7 +135,7 @@ angular.module('ta.orders', [
     $scope.orderId = $stateParams.orderId;
     $scope.inEditMode = $scope.orderId ? true : false;
 
-    $scope.order = {};
+    $scope.order = {type: 'TRANSLATION'};
     $scope.comment = {};
     $scope.comments = [];
     $scope.modalData = {};
@@ -132,6 +154,10 @@ angular.module('ta.orders', [
      * @param query
      */
     $scope.searchClient = function (query) {
+      if (!query || query.length < 3) {
+        return;
+      }
+
       clientsGateway.search(query).then(function (data) {
         $scope.clientsList = data;
       });
@@ -157,6 +183,14 @@ angular.module('ta.orders', [
       });
     };
 
+    $scope.submitOrderForm = function (order) {
+      if ($scope.inEditMode){
+        $scope.editOrder(order);
+      } else {
+        $scope.registerOrder(order);
+      }
+    };
+
     /**
      * Go to orders page
      */
@@ -171,6 +205,7 @@ angular.module('ta.orders', [
     $scope.loadOrder = function (orderId) {
       ordersGateway.loadOrder(orderId).then(function (data) {
         $scope.order = data;
+        $scope.radioModel = data.status;
       });
     };
 

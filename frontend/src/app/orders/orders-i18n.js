@@ -15,6 +15,7 @@ angular.module('ta.orders.i18n', ['i18n'])
           CLIENT: "КЛИЕНТ",
           SEARCH: "Търси",
           ADDED: "Добавена",
+          UPDATED: "Редактирана",
           PRIORITY: "Приоритет",
           ATTENTION: "Внимание",
           TYPE: "ВИД",
@@ -22,7 +23,9 @@ angular.module('ta.orders.i18n', ['i18n'])
           STATUS_RAW: "Приета",
           STATUS_ASSIGNED: "Възложена",
           STATUS_EXECUTED: "Изпълнена",
-          STATUS_CLOSED: "Затворена"
+          STATUS_CLOSED: "Затворена",
+          FILTER_OPENED: 'Отворени',
+          FILTER_CLOSED: 'Затворени'
         },
         TRANSLATION: "Превод",
         LEGALIZATION: "Легализация"
@@ -38,6 +41,7 @@ angular.module('ta.orders.i18n', ['i18n'])
           CLIENT: "CLIENT",
           SEARCH: "Search",
           ADDED: "Added",
+          UPDATED: "Updated",
           PRIORITY: "Priority",
           ATTENTION: "Attention",
           TYPE: "TYPE",
@@ -45,7 +49,9 @@ angular.module('ta.orders.i18n', ['i18n'])
           STATUS_RAW: "Raw",
           STATUS_ASSIGNED: "Assigned",
           STATUS_EXECUTED: "Executed",
-          STATUS_CLOSED: "Closed"
+          STATUS_CLOSED: "Closed",
+          FILTER_OPENED: 'Opened',
+          FILTER_CLOSED: 'Closed'
         },
         TRANSLATION: "Translation",
         LEGALIZATION: "Legalization"

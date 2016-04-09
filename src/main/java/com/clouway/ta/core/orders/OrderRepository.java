@@ -13,6 +13,8 @@ public interface OrderRepository {
 
   List<Order> getAll();
 
+  List<Order> getClosed();
+
   Order get(Long orderId);
 
   void update(Order order);
