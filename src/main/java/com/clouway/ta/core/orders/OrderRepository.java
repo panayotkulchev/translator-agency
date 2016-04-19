@@ -28,4 +28,6 @@ public interface OrderRepository {
   void closeOrder(Long orderId);
 
   void addOrderComment(Long orderId, String comment);
+
+  List<Order> search(String filter, Integer offset, Integer limit);
 }

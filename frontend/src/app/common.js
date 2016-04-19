@@ -18,7 +18,11 @@
  *
  * Click here {@link bss.common eventBus to learn more about it}.
  */
-angular.module('common', ['ui.bootstrap'])
+angular.module('common', [
+  'ui.bootstrap',
+  'common.paging',
+    'angular-ladda'
+])
 
   //.directive('datetimepicker', function () {
   //  function _byDefault(value, defaultValue) {

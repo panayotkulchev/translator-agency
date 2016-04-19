@@ -158,6 +158,7 @@ angular.module('ta.translators', [
     $scope.getByLanguages = function (selectedLanguages) {
       if (selectedLanguages.length > 0) {
         translatorsGateway.getByLanguages(selectedLanguages).then(
+
           function onSuccess(data) {
             $scope.translators = data;
             $scope.showNoResultsMsg = data.length === 0;

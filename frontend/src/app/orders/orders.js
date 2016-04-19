@@ -49,6 +49,10 @@ angular.module('ta.orders', [
       getAll: function () {
         return httpRequest.get('/r/orders');
       },
+      searchOrders: function (filter, offset, limit) {
+        var searchRequest = {filter: filter, offset: offset, limit: limit};
+        return httpRequest.get('/r/orders/search', searchRequest);
+      },
       getClosed: function () {
         return httpRequest.get('/r/orders/closed');
       },
@@ -75,35 +79,12 @@ angular.module('ta.orders', [
 
   .controller('OrdersCtrl', function OrdersCtrl($scope, $state, ordersGateway) {
 
+    $scope.loading = false;
+
+    $scope.pageSize = 3;
     $scope.orderList = [];
-
-    /**
-     * Load page initial data
-     */
-    $scope.loadInitialData = function () {
-      ordersGateway.getAll().then(function onSuccess(data) {
-        $scope.orderList = data;
-      });
-      $scope.radioModel = 'Opened';
-    };
-
-    /**
-     * Load all but closed orders
-     */
-    $scope.loadAll = function () {
-      ordersGateway.getAll().then(function onSuccess(data) {
-        $scope.orderList = data;
-      });
-    };
-
-    /**
-     * Load all closed orders
-     */
-    $scope.loadClosed = function () {
-      ordersGateway.getClosed().then(function onSuccess(data) {
-        $scope.orderList = data;
-      });
-    };
+    $scope.filterOptions = {OPENED: "OPENED", CLOSED: 'CLOSED'};
+    $scope.selectedFilter = $scope.filterOptions.OPENED;
 
     /**
      * Go to clients page to search for client by his id
@@ -126,6 +107,48 @@ angular.module('ta.orders', [
      */
     $scope.goToOrderEditor = function () {
       $state.go("orderEditor");
+    };
+
+    /**
+     * Load more orders
+     * @param filter
+     * @param offset
+     * @param limit
+     */
+    $scope.showMore = function (filter, offset, limit) {
+      $scope.loading = true;
+      ordersGateway.searchOrders(filter, offset, limit).then(function (orders) {
+        reRenderDisplay(orders);
+        $scope.loading = false;
+      });
+    };
+
+    /**
+     * Loads orders depending on the selected filter value
+     * @param filter
+     */
+    $scope.onFilterChange = function (filter) {
+      $scope.pager.reset();
+
+      ordersGateway.searchOrders(filter, $scope.pager.offset, $scope.pager.count).then(
+        function onSuccess(orders) {
+          $scope.orderList = [];
+          reRenderDisplay(orders);
+        },
+
+        function onError() {
+          $scope.pager.rollback();
+        });
+    };
+
+    /**
+     * Re-render displayed orders
+     * @param orders
+     */
+    var reRenderDisplay = function (orders) {
+      $scope.pager.accept(orders);
+      orders = orders.slice(0, $scope.pager.pageSize);
+      $scope.orderList = $scope.orderList.concat(orders);
     };
   })
 
@@ -184,7 +207,7 @@ angular.module('ta.orders', [
     };
 
     $scope.submitOrderForm = function (order) {
-      if ($scope.inEditMode){
+      if ($scope.inEditMode) {
         $scope.editOrder(order);
       } else {
         $scope.registerOrder(order);

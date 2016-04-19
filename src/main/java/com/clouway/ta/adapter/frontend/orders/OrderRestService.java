@@ -2,7 +2,6 @@ package com.clouway.ta.adapter.frontend.orders;
 
 import com.clouway.ta.core.orders.Order;
 import com.clouway.ta.core.orders.OrderRepository;
-import com.clouway.ta.adapter.db.orders.OrderEntity;
 import com.google.api.client.util.Lists;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -39,25 +38,37 @@ public class OrderRestService {
   }
 
   @Get
-  public Reply get(Request request){
+  public Reply get(Request request) {
     String orderId = request.param("orderId");
 
-    if (orderId!=null){
+    if (orderId != null) {
       Order order = orderRepository.get(Long.valueOf(orderId));
       OrderDto dto = adapt(order);
       return Reply.with(dto).as(Json.class);
-    }
 
-    else {
+    } else {
       List<Order> orders = orderRepository.getAll();
       List<OrderDto> dtos = adapt(orders);
       return Reply.with(dtos).as(Json.class);
     }
   }
 
+  @At("/search")
+  @Get
+  public Reply search(Request request) {
+    String filter = (request.param("filter"));
+    Integer offset = Integer.parseInt(request.param("offset"));
+    Integer limit = Integer.parseInt(request.param("limit"));
+
+    List<Order> orders = orderRepository.search(filter, offset, limit);
+    List<OrderDto> dtos = adapt(orders);
+
+    return Reply.with(dtos).as(Json.class);
+  }
+
   @At("/closed")
   @Get
-  public Reply getClosed(Request request){
+  public Reply getClosed(Request request) {
 
     List<Order> orders = orderRepository.getClosed();
     List<OrderDto> dtos = adapt(orders);
@@ -66,7 +77,7 @@ public class OrderRestService {
   }
 
   @Post
-  public Reply register(Request request){
+  public Reply register(Request request) {
 
     OrderDto orderDto = request.read(OrderDto.class).as(Json.class);
 
@@ -78,7 +89,7 @@ public class OrderRestService {
   }
 
   @Put
-  public Reply update(Request request){
+  public Reply update(Request request) {
 
     OrderDto orderDto = request.read(OrderDto.class).as(Json.class);
 
@@ -127,16 +138,16 @@ public class OrderRestService {
 
   @At("/:orderId/comment")
   @Post
-  public Reply addOrderComment(Request request){
+  public Reply addOrderComment(Request request) {
 
-    NewOrderCommentRequest req= request.read(NewOrderCommentRequest.class).as(Json.class);
+    NewOrderCommentRequest req = request.read(NewOrderCommentRequest.class).as(Json.class);
 
     orderRepository.addOrderComment(req.orderId, req.comment);
 
     return Reply.saying().ok();
   }
 
-//  ADAPT METHODS
+  //  ADAPT METHODS
   private Order adapt(OrderDto orderDto) {
     return newOrder()
             .id(orderDto.id)
@@ -176,7 +187,7 @@ public class OrderRestService {
   private List<OrderDto> adapt(List<Order> orders) {
     List<OrderDto> dtos = Lists.newArrayList();
 
-    for (Order order: orders){
+    for (Order order : orders) {
       dtos.add(adapt(order));
     }
     return dtos;

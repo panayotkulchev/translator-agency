@@ -80,7 +80,10 @@ module.exports = {
       'vendor/angular-loading-bar/src/loading-bar.js',
       'vendor/angular-auto-validate/dist/jcs-auto-validate.js',
       'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
-      'vendor/bootstrap-select/dist/js/i18n/defaults-bg_BG.min.js'
+      'vendor/bootstrap-select/dist/js/i18n/defaults-bg_BG.min.js',
+      "vendor/ladda/js/spin.js",
+      "vendor/ladda/dist/ladda.min.js",
+      "vendor/angular-ladda/dist/angular-ladda.min.js"
     ],
     css: [
       'vendor/boostrap/dist/css/boostrap.css',
@@ -90,7 +93,8 @@ module.exports = {
       'vendor/angular-loading-bar/src/loading-bar.css',
       'vendor/bootstrap-language/languages.css',
       'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
-      'app/common.less'
+      'app/common.less',
+      'vendor/ladda/dist/ladda-themeless.min.css'
     ],
     fonts: [
       'vendor/components-font-awesome/fonts/*',

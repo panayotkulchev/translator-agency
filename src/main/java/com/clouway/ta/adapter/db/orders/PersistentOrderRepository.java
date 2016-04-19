@@ -8,6 +8,7 @@ import com.clouway.ta.core.orders.OrderStatus;
 import com.google.api.client.util.Lists;
 import com.google.inject.Inject;
 import com.googlecode.objectify.VoidWork;
+import com.googlecode.objectify.cmd.Query;
 
 import java.util.List;
 
@@ -98,6 +99,7 @@ public class PersistentOrderRepository implements OrderRepository {
   public void rawOrder(Long orderId) {
     OrderEntity entity = ofy().load().type(OrderEntity.class).id(orderId).now();
     entity.setStatus(OrderStatus.RAW);
+    entity.open(); //todo remove from all
     ofy().save().entity(entity).now();
   }
 
@@ -105,6 +107,7 @@ public class PersistentOrderRepository implements OrderRepository {
   public void assignOrder(Long orderId) {
     OrderEntity entity = ofy().load().type(OrderEntity.class).id(orderId).now();
     entity.setStatus(OrderStatus.ASSIGNED);
+    entity.open();
     ofy().save().entity(entity).now();
   }
 
@@ -112,6 +115,7 @@ public class PersistentOrderRepository implements OrderRepository {
   public void executeOrder(Long orderId) {
     OrderEntity entity = ofy().load().type(OrderEntity.class).id(orderId).now();
     entity.setStatus(OrderStatus.EXECUTED);
+    entity.open();
     ofy().save().entity(entity).now();
   }
 
@@ -119,6 +123,7 @@ public class PersistentOrderRepository implements OrderRepository {
   public void closeOrder(Long orderId) {
     OrderEntity entity = ofy().load().type(OrderEntity.class).id(orderId).now();
     entity.setStatus(OrderStatus.CLOSED);
+    entity.close();
     ofy().save().entity(entity).now();
   }
 
@@ -129,6 +134,34 @@ public class PersistentOrderRepository implements OrderRepository {
     Comment comment = new Comment(currentUser.email, currentUser.getTime(), content);
     entity.addComment(comment);
     ofy().save().entity(entity).now();
+  }
+
+  @Override
+  public List<Order> search(String filter, Integer offset, Integer limit) {
+
+    List<OrderEntity> entities;
+
+    if (filter.equalsIgnoreCase(OrderStatus.CLOSED)){
+
+      entities = ofy().load()
+              .type(OrderEntity.class)
+              .filter("closed", true)
+              .order("-number")
+              .offset(offset)
+              .limit(limit)
+              .list();
+    } else {
+
+      entities = ofy().load()
+              .type(OrderEntity.class)
+              .filter("closed", false)
+              .order("-number")
+              .offset(offset)
+              .limit(limit)
+              .list();
+    }
+
+    return adapt(entities);
   }
 
 //  ADAPT METHODS

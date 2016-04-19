@@ -24,7 +24,6 @@ angular.module('ta.core', [
     growlProvider.globalDisableIcons(true);
     growlProvider.globalTimeToLive({success: 5000, error: 10000, warning: 5000, info: 5000});
 
-    // todo remove may be
     // Specify location of angular locale files
     tmhDynamicLocaleProvider.localeLocationPattern('locales/angular-locale_{{locale}}.js');
 
@@ -38,7 +37,7 @@ angular.module('ta.core', [
           return response;
         },
         'responseError': function (rejection) {
-          console.log(rejection);
+
           if (rejection.status === 401) {
             $window.location.href = '/logout';
           }
@@ -104,7 +103,7 @@ angular.module('ta.core', [
       }
     });
 
-    // SET UP PROFFERED LANGUAGE
+    // SET UP PREFFERED LANGUAGE
     $scope.defaultLanguageIsBg = true;
 
     $scope.changeAppLanguage = function () {

@@ -35,6 +35,7 @@ public class OrderEntity {
     private boolean priority;
     private String type;
     private List<Comment> comments;
+    private boolean closed;
 
     private Builder() {
     }
@@ -119,6 +120,11 @@ public class OrderEntity {
       return this;
     }
 
+    public Builder close(){
+      closed = true;
+      return this;
+    }
+
     public OrderEntity build() {
       return new OrderEntity(this);
     }
@@ -136,6 +142,7 @@ public class OrderEntity {
   private Long clientId;
   private String clientName;
   private String description;
+  @Index
   private Long number;
   private String comment;
   private Date createdOn;
@@ -147,6 +154,8 @@ public class OrderEntity {
   @Index
   private String type;
   private List<Comment> comments = new ArrayList<>();
+  @Index
+  private boolean closed = false;
 
   @SuppressWarnings("unchecked")
   public OrderEntity() {
@@ -169,6 +178,7 @@ public class OrderEntity {
     setPriority(builder.priority);
     setType(builder.type);
     setComments(builder.comments);
+    setClosed(builder.closed);
   }
 
   public Long getId() {
@@ -302,6 +312,18 @@ public class OrderEntity {
   public void addComment(Comment comment){
     this.comments.add(comment);
   };
+
+  public void setClosed(boolean closed) {
+    this.closed = closed;
+  }
+
+  public void close() {
+    closed = true;
+  }
+
+  public void open() {
+    closed = false;
+  }
 
   @Override
   public String toString() {

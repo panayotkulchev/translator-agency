@@ -1,0 +1,14 @@
+PAGING:
+  SHOW_MORE_BUTTON:
+    en: Show more
+    bg: Покажи още
+  SHOW_MORE_TOOLTIP:
+    en: Show more results
+    bg: Показване на още резултати
+
+  NEXT:
+    en: Next
+    bg: Следваща
+  PREVIOUS:
+    en: Previous
+    bg: Предишна

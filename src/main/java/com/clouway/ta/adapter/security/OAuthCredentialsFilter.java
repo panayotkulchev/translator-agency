@@ -34,11 +34,9 @@ public class OAuthCredentialsFilter implements Filter {
 
 //todo (pkulchev) meke it readable
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-    System.out.println("oauth filter");
 
     HttpServletRequest request = (HttpServletRequest) req;
     String uri = request.getRequestURI();
-    System.out.println(uri);
 
     if (!uri.contains("/login") && !uri.contains("/logout")) {
 

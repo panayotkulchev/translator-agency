@@ -26,7 +26,8 @@
     "angular-moment": "~0.10.3",
     "moment": "~2.11.2",
     "angular-auto-validate": "~1.19.3",
-    "bootstrap-select": "~1.10.0"
+    "bootstrap-select": "~1.10.0",
+    "angular-ladda": "~0.3.4"
   },
   "resolutions": {
     "angular": "~1.4",

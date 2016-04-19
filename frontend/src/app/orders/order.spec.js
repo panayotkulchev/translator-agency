@@ -26,18 +26,6 @@ describe('Orders', function () {
 
     it('doesn\'t have any assertions', function(){});
 
-    it('load initial data', function () {
-      ordersGateway.getAll = jasmine.createSpy('gateway.getAll').and.returnValue(deferred.promise);
-      var dummyOrders = [{id: 111}, {id: 222}];
-      scope.orderList = [];
-
-      scope.loadInitialData();
-      deferred.resolve(dummyOrders);
-      scope.$digest();
-
-      expect(scope.orderList).toBe(dummyOrders);
-    });
-
     it('search client', function () {
       state.go = jasmine.createSpy('state.go');
       var clientId = 123;

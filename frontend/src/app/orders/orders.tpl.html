@@ -1,5 +1,6 @@
 <div class="panel panel-default">
-    <span ng-init="loadInitialData()"></span>
+    <!--<span ng-init="loadInitialData()"></span>-->
+    <!--<span ng-init="searchOrders(radioModel, pager.offset, pager.count)"></span>-->
 
     <div class="panel-heading">
         <div class="row">
@@ -17,12 +18,15 @@
         <div class="row">
             <div class="col-sm-offset-1 col-sm-10">
 
+                <!--FILTERS-->
                 <div class="row">
                     <div class="col-xs-12 top-buffer">
                         <div class="btn-group btn-group-sm">
-                            <label class="btn btn-default" ng-model="radioModel" btn-radio="'Opened'" ng-click="loadAll()">
+                            <label class="btn btn-default" ng-model="selectedFilter" btn-radio="filterOptions.OPENED"
+                                   ng-click="onFilterChange(filterOptions.OPENED, pager.offset, pager.count)">
                                 <span translate>ORDERS.FILTER_OPENED</span></label>
-                            <label class="btn btn-default" ng-model="radioModel" btn-radio="'Closed'" ng-click="loadClosed()">
+                            <label class="btn btn-default" ng-model="selectedFilter" btn-radio="filterOptions.CLOSED"
+                                   ng-click="onFilterChange(filterOptions.CLOSED, pager.offset, pager.count)">
                                 <span translate>ORDERS.FILTER_CLOSED</span></label>
                         </div>
                         <button type="button"
@@ -32,13 +36,13 @@
                             <span translate>ORDERS.NEW</span>
                         </button>
                     </div>
-
                 </div>
 
+                <!--ORDERS LIST-->
                 <div class="row">
                     <div class="col-sm-12 top-buffer">
                         <ul class="list-group">
-                            <li ng-repeat="order in orderList | orderBy: '-number'" class="list-group-item highlight">
+                            <li ng-repeat="order in orderList" class="list-group-item highlight">
 
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -54,7 +58,8 @@
 
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <strong><a href style="color: #767676" ng-click="searchClient(order.clientId)">{{order.clientName}}</a></strong>
+                                                    <strong><a href style="color: #767676"
+                                                               ng-click="searchClient(order.clientId)">{{order.clientName}}</a></strong>
                                                     <strong ng-click="editOrder(order.id)" style="cursor: pointer">{{order.title}}</strong>
                                                     <!--use ng-class-->
                                                     <span class="label label-success" style="margin-left: 5px"
@@ -64,7 +69,8 @@
                                                     <span class="label label-info" style="margin-left: 5px"
                                                           ng-show=order.priority translate>ORDERS.PRIORITY</span>
                                                     <span class="label label-warning" style="margin-left: 5px"
-                                                               ng-show=order.requireAttention translate>ORDERS.ATTENTION</span>
+                                                          ng-show=order.requireAttention
+                                                          translate>ORDERS.ATTENTION</span>
                                                 </div>
 
                                             </div>
@@ -88,9 +94,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </li>
                         </ul>
+                    </div>
+                </div>
+
+                <!--SHOW MORE RESULTS-->
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <show-more on-show-more="showMore(selectedFilter, offset, count)"
+                                   page-size="pageSize" button-class="btn-sm"
+                                   name="pager" initial-load="true"></show-more>
                     </div>
                 </div>
 
@@ -98,3 +112,6 @@
         </div>
     </div>
 </div>
+<script>
+
+</script>

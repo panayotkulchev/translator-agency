@@ -32,7 +32,8 @@ angular.module('i18n', [
           CANCEL: "Отмени",
           OK: "Разбрах",
           REGISTER: "Регистрирай",
-          SELECT: "Избери"
+          SELECT: "Избери",
+          SHOW_MORE: "Покажи още"
         }
       })
       .translations('en', {
@@ -57,7 +58,8 @@ angular.module('i18n', [
           CANCEL: "Cancel",
           OK: "OK",
           REGISTER: "REGISTER",
-          SELECT: "Избери"
+          SELECT: "Избери",
+          SHOW_MORE: "Show more"
         }
       });
   });

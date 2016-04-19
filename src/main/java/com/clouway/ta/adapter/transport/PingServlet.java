@@ -1,5 +1,6 @@
 package com.clouway.ta.adapter.transport;
 
+import com.clouway.ta.adapter.db.orders.OrderEntity;
 import com.clouway.ta.adapter.db.orders.OrdersCounter;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,6 +56,15 @@ public class PingServlet extends HttpServlet {
       initOrdersCounter();
 
       log.log(Level.INFO, "Counter initialized.");
+      writer.println("DONE");
+    }
+
+    //   /ping?task=indexOrders
+    if ("indexOrders".equals(task)) {
+      List<OrderEntity> entities = ofy().load().type(OrderEntity.class).list();
+      ofy().save().entities(entities).now();
+
+      log.log(Level.INFO, " - "+ entities.size());
       writer.println("DONE");
     }
   }
