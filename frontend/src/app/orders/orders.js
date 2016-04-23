@@ -46,15 +46,9 @@ angular.module('ta.orders', [
       loadOrder: function (orderId) {
         return httpRequest.get('/r/orders', {orderId: orderId});
       },
-      getAll: function () {
-        return httpRequest.get('/r/orders');
-      },
       searchOrders: function (filter, offset, limit) {
         var searchRequest = {filter: filter, offset: offset, limit: limit};
         return httpRequest.get('/r/orders/search', searchRequest);
-      },
-      getClosed: function () {
-        return httpRequest.get('/r/orders/closed');
       },
       editOrder: function (order) {
         return httpRequest.put("/r/orders", order);
@@ -81,7 +75,7 @@ angular.module('ta.orders', [
 
     $scope.loading = false;
 
-    $scope.pageSize = 3;
+    $scope.pageSize = 5;
     $scope.orderList = [];
     $scope.filterOptions = {OPENED: "OPENED", CLOSED: 'CLOSED'};
     $scope.selectedFilter = $scope.filterOptions.OPENED;
@@ -116,10 +110,9 @@ angular.module('ta.orders', [
      * @param limit
      */
     $scope.showMore = function (filter, offset, limit) {
-      $scope.loading = true;
+
       ordersGateway.searchOrders(filter, offset, limit).then(function (orders) {
         reRenderDisplay(orders);
-        $scope.loading = false;
       });
     };
 
@@ -167,8 +160,8 @@ angular.module('ta.orders', [
     /**
      * Open client search dialog
      */
+    //TODO replace with uib-modal
     $scope.openClientSearchDialog = function () {
-      $scope.modalData.modalTitle = "Търсене на клиент"; // TODO add translation
       $('#clientSearchModal').modal('show');
     };
 
@@ -180,9 +173,8 @@ angular.module('ta.orders', [
       if (!query || query.length < 3) {
         return;
       }
-
-      clientsGateway.search(query).then(function (data) {
-        $scope.clientsList = data;
+      clientsGateway.search(query).then(function (clientsResponse) {
+        $scope.clientsList = clientsResponse;
       });
     };
 
@@ -190,9 +182,9 @@ angular.module('ta.orders', [
      * Select client
      * @param client
      */
-    $scope.select = function (client) {
-      $scope.order.clientId = client.id;
-      $scope.order.clientName = client.name;
+    $scope.select = function (selectedClient) {
+      $scope.order.clientId = selectedClient.id;
+      $scope.order.clientName = selectedClient.name;
     };
 
     /**
@@ -206,6 +198,10 @@ angular.module('ta.orders', [
       });
     };
 
+    /**
+     * Submit order form
+     * @param order
+     */
     $scope.submitOrderForm = function (order) {
       if ($scope.inEditMode) {
         $scope.editOrder(order);
@@ -242,14 +238,14 @@ angular.module('ta.orders', [
       }
     };
 
-    // TODO add translation for the next couple functions
+    // TODO add translation for the next couple functions and use constant for order status
     /**
      * Edit order
      * @param order
      */
     $scope.editOrder = function (order) {
       ordersGateway.editOrder(order).then(function () {
-        growl.success('Поръчката е обновена');
+        growl.success("{{'ORDERS.ORDER_WAS_UPDATED' | translate}}");
         $scope.goToOrders();
       });
     };
@@ -261,7 +257,7 @@ angular.module('ta.orders', [
     $scope.raw = function (orderId) {
       ordersGateway.raw(orderId).then(function () {
         $scope.order.status = 'raw';
-        growl.success('Статусът е променен');
+        growl.success("{{'ORDERS.STATUS_WAS_UPDATED' | translate}}");
       });
     };
 
@@ -272,7 +268,7 @@ angular.module('ta.orders', [
     $scope.assign = function (orderId) {
       ordersGateway.assign(orderId).then(function () {
         $scope.order.status = 'assigned';
-        growl.success('Статусът е променен');
+        growl.success("{{'ORDERS.STATUS_WAS_UPDATED' | translate}}");
       });
     };
 
@@ -283,7 +279,7 @@ angular.module('ta.orders', [
     $scope.execute = function (orderId) {
       ordersGateway.execute(orderId).then(function () {
         $scope.order.status = 'executed';
-        growl.success('Статусът е променен');
+        growl.success("{{'ORDERS.STATUS_WAS_UPDATED' | translate}}");
       });
     };
 
@@ -294,7 +290,7 @@ angular.module('ta.orders', [
     $scope.close = function (orderId) {
       ordersGateway.close(orderId).then(function () {
         $scope.order.status = 'closed';
-        growl.success('Статусът е променен');
+        growl.success("{{'ORDERS.STATUS_WAS_UPDATED' | translate}}");
       });
     };
 

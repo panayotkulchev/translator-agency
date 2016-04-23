@@ -3,12 +3,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{modalData.modalTitle | translate}}</h4>
+                <h4 class="modal-title" translate>ORDERS.SEARCH_CLIENT</h4>
             </div>
             <div class="modal-body" align="center">
 
                 <tabset class="tab-content">
-                    <tab heading="Име/Булстат">
+                    <tab heading="{{'ORDERS.NAME_OR_BULSTAT' | translate}}">
                         <div class="row">
                             <div class="col-sm-8 col-sm-offset-2 top-buffer">
                                 <form class="form-horizontal">
@@ -36,11 +36,11 @@
                                ng-repeat="client in clientsList | orderBy:'name'"
                                style="padding-top: 0; padding-bottom: 0">
                                 <h5>
-                                    <small class="text-muted text-uppercase">име</small>
+                                    <small class="text-muted text-uppercase" translate>ORDERS.NAME</small>
                                     <span>{{client.name}}</span>
-                                    <small class="text-muted text-uppercase">булстат</small>
+                                    <small class="text-muted text-uppercase" translate>ORDERS.BULSTAT</small>
                                     <span>{{client.eik}}</span>
-                                    <small class="text-muted text-uppercase">мол</small>
+                                    <small class="text-muted text-uppercase" translate>ORDERS.MOL</small>
                                     <span>{{client.mol}}</span>
                                 </h5>
 

@@ -52,13 +52,14 @@
                                     <div class="panel-body">
                                         <form class="form-horizontal">
 
-                                            <div class="form-group">
+                                            <div class="form-group form-group-sm">
                                                 <label class="col-sm-2 control-label"
                                                        style="font-size: 12px" translate>
                                                     ORDERS.TYPE</label>
 
                                                 <div class="col-sm-10">
                                                     <ol class="nya-bs-select form-control"
+                                                        style="padding: 0; padding-right: 0"
                                                         title="{{'ORDERS.CHOOSE_ORDER_TYPE' | translate}}"
                                                         ng-model="order.type" data-size="5" required>
                                                         <li nya-bs-option="option in orderTypeOptions">
@@ -144,16 +145,16 @@
 
                                             </div>
 
-                                        </form>
-                                    </div>
-                                </div>
+                                            <div class="row" ng-if="order.updatedOn">
+                                                <div class="col-sm-12 text-muted text-right small">
+                                                    <span translate>ORDERS.UPDATED</span>
+                                                    <span am-time-ago="order.updatedOn"></span>
+                                                    <!--<span date-time>{{order.createdOn}}</span>-->
+                                                    от {{order.updatedBy}}
+                                                </div>
+                                            </div>
 
-                                <div class="row" ng-if="order.updatedOn">
-                                    <div class="col-sm-12 text-muted small">
-                                                        <span translate>ORDERS.UPDATED</span>
-                                                        <span am-time-ago="order.updatedOn"></span>
-                                                        <!--<span date-time>{{order.createdOn}}</span>-->
-                                                        от {{order.updatedBy}}
+                                        </form>
                                     </div>
                                 </div>
 
@@ -183,9 +184,7 @@
                         <div class="col-sm-12">
                             <form class="form-horizontal">
                                 <div class="form-group form-group-sm">
-                                    <label class="col-sm-2 control-label" translate>
-                                        ДОБАВИ КОМЕНТАР
-                                    </label>
+                                    <label class="col-sm-2 control-label" translate>ORDERS.ADD_COMMENT</label>
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" ng-model="comment.content"
