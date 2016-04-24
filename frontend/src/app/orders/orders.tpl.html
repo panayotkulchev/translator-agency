@@ -23,10 +23,10 @@
                     <div class="col-xs-12 top-buffer">
                         <div class="btn-group btn-group-sm">
                             <label class="btn btn-default" ng-model="selectedFilter" btn-radio="filterOptions.OPENED"
-                                   ng-click="onFilterChange(filterOptions.OPENED, pager.offset, pager.count)">
+                                   ng-click="onFilterChange(filterOptions.OPENED)">
                                 <span translate>ORDERS.FILTER_OPENED</span></label>
                             <label class="btn btn-default" ng-model="selectedFilter" btn-radio="filterOptions.CLOSED"
-                                   ng-click="onFilterChange(filterOptions.CLOSED, pager.offset, pager.count)">
+                                   ng-click="onFilterChange(filterOptions.CLOSED)">
                                 <span translate>ORDERS.FILTER_CLOSED</span></label>
                         </div>
                         <button type="button"
