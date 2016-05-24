@@ -83,7 +83,9 @@ module.exports = {
       'vendor/bootstrap-select/dist/js/i18n/defaults-bg_BG.min.js',
       "vendor/ladda/js/spin.js",
       "vendor/ladda/dist/ladda.min.js",
-      "vendor/angular-ladda/dist/angular-ladda.min.js"
+      "vendor/angular-ladda/dist/angular-ladda.min.js",
+      "vendor/spin.js/spin.js",
+      "vendor/angular-spinner/angular-spinner.js"
     ],
     css: [
       'vendor/boostrap/dist/css/boostrap.css',

@@ -50,21 +50,21 @@
                                         <label for="langs" class="col-sm-2 control-label"
                                                style="font-size: 12px" translate>
                                             TRANSLATOR_EDITOR.LANGS</label>
+                                        <div class="col-sm-10">
+                                            <ol id="langs" class="nya-bs-select form-control"
+                                                style="padding: 0; padding-right: 0"
+                                                title="{{'TRANSLATOR_EDITOR.CHOOSE_LANGS' | translate}}"
+                                                ng-model="translator.languages" multiple
+                                                data-size="5" data-live-search="false" required>
+                                                <li nya-bs-option="option in languageOptions">
+                                                    <a>
+                                                        <span translate>{{option}}</span>
 
-                                        <ol id="langs" class="nya-bs-select form-control"
-                                            style="padding: 0; padding-right: 0"
-                                            title="{{'TRANSLATOR_EDITOR.CHOOSE_LANGS' | translate}}"
-                                            ng-model="translator.languages" multiple
-                                            data-size="5" data-live-search="false" required>
-                                            <li nya-bs-option="option in languageOptions">
-                                                <a>
-                                                    <span translate>{{option}}</span>
-
-                                                    <span class="glyphicon glyphicon-ok check-mark"></span>
-                                                </a>
-                                            </li>
-                                        </ol>
-
+                                                        <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                    </a>
+                                                </li>
+                                            </ol>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
