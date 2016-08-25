@@ -4,6 +4,7 @@ import com.clouway.ta.core.translators.TranslatorRepository;
 import com.clouway.ta.core.translators.Translator;
 import com.google.api.client.util.Lists;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.google.sitebricks.At;
 import com.google.sitebricks.client.transport.Json;
 import com.google.sitebricks.headless.Reply;
@@ -112,6 +113,17 @@ public class TranslatorRestService {
     String translatorId = request.param("id");
 
     translatorRepository.deleteById(translatorId);
+
+    return Reply.saying().ok();
+  }
+
+  @At("/:translatorId/image")
+  @Post
+  public Reply saveImage(@Named("translatorId") String translatorId, Request request) {
+
+    ImageDto image = request.read(ImageDto.class).as(Json.class);
+
+    translatorRepository.changeAvatar(translatorId, image.image);
 
     return Reply.saying().ok();
   }

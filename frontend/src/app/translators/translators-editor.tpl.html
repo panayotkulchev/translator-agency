@@ -11,10 +11,23 @@
     </div>
 
     <div class="panel-body" style="min-height: 700px;">
+
+
+
+
+
         <form class="form-horizontal" novalidate ng-submit="submitForm(translator)">
             <div class="row top-buffer">
                 <div class="col-xs-offset-1 col-xs-10">
-                    <div class="row">
+                    <div class="row text-center">
+                        <span>
+                            <img class="img-circle avatar" id="output" ng-src="{{myFile2}}"/>
+                            <input type="file" file-model="myFile" id="browser" style="display: none">
+                            <button id="import" type="button" class="btn btn-default btn-xs">Избери файл</button>
+                            <button type="button" class="btn btn-default btn-xs" ng-click="upload()">Запиши</button>
+                        </span>
+                    </div>
+                    <div class="row top-buffer">
                         <div class="col-md-6">
                             <div class="panel panel-default">
 

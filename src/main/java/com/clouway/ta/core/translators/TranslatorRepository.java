@@ -22,4 +22,6 @@ public interface TranslatorRepository {
   void deleteById(String translatorId);
 
   List<Translator> getAllWith(List<String> languages);
+
+  void changeAvatar (String translatorId, String avatar);
 }

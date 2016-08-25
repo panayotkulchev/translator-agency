@@ -57,6 +57,9 @@ angular.module('ta.translators', [
       },
       deleteById: function (id) {
         return httpRequest.del('/r/translators/delete', {id: id});
+      },
+      uploadImage: function (id, image) {
+        return httpRequest.post("/r/translators/" + id + "/image", {image: image});
       }
     };
   })
@@ -144,6 +147,50 @@ angular.module('ta.translators', [
       $state.go("translatorsList");
     };
 
+    $("#import").click(function() {
+      $("#browser").trigger("click");
+    });
+
+    $scope.myFile2 = "assets/avatar.png";
+
+    $scope.upload = function () {
+      var file = $scope.myFile;
+      console.log(file);
+
+      var reader2 = new FileReader();
+      reader2.onloadend = function(){
+        var arrayBuffer = reader2.result;
+        console.log(arrayBuffer.byteLength);
+      };
+
+      var reader = new FileReader();
+      reader.onloadend = function(){
+        var dataURL = reader.result;
+        console.log("data URL = ", dataURL);
+        $scope.myFile2 = dataURL;
+        translatorsGateway.uploadImage(email, dataURL).then(function () {
+          console.log("Succsess upload image");
+        });
+        var output = document.getElementById('output');
+        //output.src = dataURL;
+      };
+
+      reader2.readAsArrayBuffer(file);
+      reader.readAsDataURL(file);
+    };
+
+    $scope.data = 'none';
+    $scope.add = function(){
+      //var f = document.getElementById('file').files[0];
+      var f = $scope.myFile2;
+      var  r = new FileReader();
+      r.onloadend = function(e){
+        $scope.data = e.target.result;
+        console.log(data);
+        //send your binary data via $http or $resource or do anything else with it
+      };
+      r.readAsBinaryString(f);
+    };
   })
 
   .controller('TranslatorsListCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state, $modal, $translate) {
@@ -255,6 +302,22 @@ angular.module('ta.translators', [
       $modalInstance.close();
     };
   })
+
+  .directive('fileModel', ['$parse', function ($parse) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+        var model = $parse(attrs.fileModel);
+        var modelSetter = model.assign;
+
+        element.bind('change', function(){
+          scope.$apply(function(){
+            modelSetter(scope, element[0].files[0]);
+          });
+        });
+      }
+    };
+  }])
 
 ;
 

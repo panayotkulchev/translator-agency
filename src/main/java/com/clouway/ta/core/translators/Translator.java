@@ -24,6 +24,7 @@ public class Translator {
     private boolean favorite;
     private boolean registered;
     private String comment;
+    private String avatar;
 
     private Builder() {
     }
@@ -98,6 +99,11 @@ public class Translator {
       return this;
     }
 
+    public Builder avatar(String val) {
+      avatar = val;
+      return this;
+    }
+
     public Translator build() {
       return new Translator(this);
     }
@@ -121,6 +127,7 @@ public class Translator {
   public final boolean favorite;
   public final boolean registered;
   public final String comment;
+  public final String avatar;
 
   public Translator() {
     this.email = null;
@@ -137,6 +144,7 @@ public class Translator {
     this.favorite = false;
     this.registered = false;
     this.comment = null;
+    this.avatar = null;
   }
 
   private Translator(Builder builder) {
@@ -154,7 +162,9 @@ public class Translator {
     favorite = builder.favorite;
     registered = builder.registered;
     comment = builder.comment;
+    avatar = builder.avatar;
   }
+
 
   @Override
   public boolean equals(Object o) {
@@ -165,22 +175,22 @@ public class Translator {
 
     if (favorite != that.favorite) return false;
     if (registered != that.registered) return false;
-    if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
+    if (email != null ? !email.equals(that.email) : that.email != null) return false;
+    if (name != null ? !name.equals(that.name) : that.name != null) return false;
     if (currentAddress != null ? !currentAddress.equals(that.currentAddress) : that.currentAddress != null)
       return false;
-    if (document != null ? !document.equals(that.document) : that.document != null) return false;
-    if (eid != null ? !eid.equals(that.eid) : that.eid != null) return false;
-    if (email != null ? !email.equals(that.email) : that.email != null) return false;
-    if (iban != null ? !iban.equals(that.iban) : that.iban != null) return false;
-    if (languages != null ? !languages.equals(that.languages) : that.languages != null) return false;
-    if (languagesLine != null ? !languagesLine.equals(that.languagesLine) : that.languagesLine != null) return false;
-    if (name != null ? !name.equals(that.name) : that.name != null) return false;
     if (permanentAddress != null ? !permanentAddress.equals(that.permanentAddress) : that.permanentAddress != null)
       return false;
     if (phones != null ? !phones.equals(that.phones) : that.phones != null) return false;
+    if (languages != null ? !languages.equals(that.languages) : that.languages != null) return false;
+    if (languagesLine != null ? !languagesLine.equals(that.languagesLine) : that.languagesLine != null) return false;
     if (skype != null ? !skype.equals(that.skype) : that.skype != null) return false;
+    if (eid != null ? !eid.equals(that.eid) : that.eid != null) return false;
+    if (document != null ? !document.equals(that.document) : that.document != null) return false;
+    if (iban != null ? !iban.equals(that.iban) : that.iban != null) return false;
+    if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
+    return avatar != null ? avatar.equals(that.avatar) : that.avatar == null;
 
-    return true;
   }
 
   @Override
@@ -199,6 +209,7 @@ public class Translator {
     result = 31 * result + (favorite ? 1 : 0);
     result = 31 * result + (registered ? 1 : 0);
     result = 31 * result + (comment != null ? comment.hashCode() : 0);
+    result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
     return result;
   }
 }

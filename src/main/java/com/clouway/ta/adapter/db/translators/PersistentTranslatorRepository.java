@@ -73,6 +73,13 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
     return translators;
   }
 
+  @Override
+  public void changeAvatar(String translatorId, String avatar) {
+    TranslatorEntity entity = ofy().load().type(TranslatorEntity.class).id(translatorId).now();
+    entity.setAvatar(avatar);
+    ofy().save().entity(entity).now();
+  }
+
 
   @Override
   public List<Translator> getFavorites() {
@@ -116,6 +123,7 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
             .favorite(entity.isFavorite())
             .registered(entity.isRegistered())
             .comment(entity.getComment())
+            .avatar(entity.getAvatar())
             .build();
   }
 

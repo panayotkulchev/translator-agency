@@ -2,6 +2,7 @@ package com.clouway.ta.adapter.db.translators;
 
 
 import com.google.api.client.util.Lists;
+import com.google.appengine.api.datastore.Blob;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -32,6 +33,7 @@ public class TranslatorEntity {
     private boolean favorite;
     private boolean registered;
     private String comment;
+    private Blob avatar;
 
     private Builder() {
     }
@@ -106,6 +108,11 @@ public class TranslatorEntity {
       return this;
     }
 
+    public Builder avatar(String val) {
+      avatar = new Blob(val.getBytes());
+      return this;
+    }
+
     public TranslatorEntity build() {
       return new TranslatorEntity(this);
     }
@@ -132,6 +139,7 @@ public class TranslatorEntity {
   private boolean favorite = false;
   private boolean registered = false;
   private String comment;
+  private Blob avatar;
 
 
   @SuppressWarnings("unchecked")
@@ -250,6 +258,14 @@ public class TranslatorEntity {
     this.comment = comment;
   }
 
+  public void setAvatar(String avatar) {
+    this.avatar = new Blob(avatar.getBytes());
+  }
+
+  public String getAvatar() {
+    return new String(avatar.getBytes());
+  }
+
   private TranslatorEntity(Builder builder) {
     email = builder.email;
     name = builder.name;
@@ -265,6 +281,7 @@ public class TranslatorEntity {
     favorite = builder.favorite;
     registered = builder.registered;
     comment = builder.comment;
+    avatar = builder.avatar;
   }
 
   @Override

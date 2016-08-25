@@ -25,6 +25,7 @@ public class TranslatorDto {
     private boolean favorite;
     private boolean registered;
     private String comment;
+    private String avatar;
 
     private Builder() {
     }
@@ -99,6 +100,11 @@ public class TranslatorDto {
       return this;
     }
 
+    public Builder avatar(String val) {
+      avatar = val;
+      return this;
+    }
+
     public TranslatorDto build() {
       return new TranslatorDto(this);
     }
@@ -122,6 +128,7 @@ public class TranslatorDto {
   public final boolean favorite;
   public final boolean registered;
   public final String comment;
+  public final String avatar;
 
   @SuppressWarnings("unused")
   public TranslatorDto() {
@@ -139,6 +146,7 @@ public class TranslatorDto {
     this.favorite = false;
     this.registered = false;
     this.comment = null;
+    this.avatar = null;
   }
 
   private TranslatorDto(Builder builder) {
@@ -156,6 +164,7 @@ public class TranslatorDto {
     favorite = builder.favorite;
     registered = builder.registered;
     comment = builder.comment;
+    avatar = builder.avatar;
   }
 
   public void createLanguageLine() {
