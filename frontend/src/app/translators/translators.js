@@ -64,12 +64,12 @@ angular.module('ta.translators', [
     };
   })
 
-  .controller('TranslatorsEditorCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state, $stateParams, $window) {
+  .controller('TranslatorsEditorCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state, $stateParams, $window, $q) {
 
     var email = $stateParams.id;
     $scope.inEditMode = email ? true : false;
 
-    $scope.translator = {};
+    $scope.translator = {avatar: "assets/avatar.png"};
     $scope.translator.favorite = false;
     $scope.translator.registered = false;
 
@@ -147,50 +147,54 @@ angular.module('ta.translators', [
       $state.go("translatorsList");
     };
 
-    $("#import").click(function() {
+    $("#output").click(function() {
       $("#browser").trigger("click");
     });
 
-    $scope.myFile2 = "assets/avatar.png";
+    var isValid = function (file) {
+      var deferred = $q.defer();
+      var valid = false;
+      var fileSizeReader = new FileReader();
 
-    $scope.upload = function () {
-      var file = $scope.myFile;
-      console.log(file);
+      fileSizeReader.onloadend = function () {
+        var arrayBuffer = fileSizeReader.result;
+        valid = arrayBuffer.byteLength < (1024 * 1024);
 
-      var reader2 = new FileReader();
-      reader2.onloadend = function(){
-        var arrayBuffer = reader2.result;
-        console.log(arrayBuffer.byteLength);
+        if (valid) {
+          deferred.resolve();
+
+        } else {
+          growl.warning("File should be less than 1MB");
+          deferred.reject();
+        }
       };
 
+      fileSizeReader.readAsArrayBuffer(file);
+
+      return deferred.promise;
+    };
+
+    var applyAvatar = function (file) {
       var reader = new FileReader();
-      reader.onloadend = function(){
+
+      reader.onloadend = function () {
         var dataURL = reader.result;
-        console.log("data URL = ", dataURL);
-        $scope.myFile2 = dataURL;
-        translatorsGateway.uploadImage(email, dataURL).then(function () {
-          console.log("Succsess upload image");
-        });
+        $scope.translator.avatar = dataURL;
         var output = document.getElementById('output');
-        //output.src = dataURL;
+        output.src = dataURL;
       };
 
-      reader2.readAsArrayBuffer(file);
       reader.readAsDataURL(file);
     };
 
-    $scope.data = 'none';
-    $scope.add = function(){
-      //var f = document.getElementById('file').files[0];
-      var f = $scope.myFile2;
-      var  r = new FileReader();
-      r.onloadend = function(e){
-        $scope.data = e.target.result;
-        console.log(data);
-        //send your binary data via $http or $resource or do anything else with it
-      };
-      r.readAsBinaryString(f);
-    };
+    $scope.$watch('avatarFile', function (newVal, oldVal) {
+      if (!angular.equals(newVal, oldVal)){
+        isValid(newVal).then(function () {
+          console.log("then  ");
+          applyAvatar(newVal);
+        });
+      }
+    });
   })
 
   .controller('TranslatorsListCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state, $modal, $translate) {
