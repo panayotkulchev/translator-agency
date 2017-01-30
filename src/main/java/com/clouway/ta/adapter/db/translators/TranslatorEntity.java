@@ -263,7 +263,11 @@ public class TranslatorEntity {
   }
 
   public String getAvatar() {
-    return new String(avatar.getBytes());
+    if (avatar != null){
+      return new String(avatar.getBytes());
+    }
+
+     return null;
   }
 
   private TranslatorEntity(Builder builder) {

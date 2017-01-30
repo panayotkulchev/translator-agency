@@ -35,7 +35,7 @@ angular.module('common.paging', ['i18n'])
       scope: {
         search: '&onPageChange',
         pageSize: '=',
-        pager: '=name',
+        pager: '=?name',
         initialLoad: '='
       }
     };
