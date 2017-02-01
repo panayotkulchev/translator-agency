@@ -2,7 +2,7 @@
   "name": "Translators Frontend",
   "version": "0.1",
   "devDependencies": {
-    "angular": "~1.4.7",
+    "angular": "1.4.6",
     "angular-bootstrap": "~1.2",
     "angular-bootstrap-switch": "~0.4.0",
     "angular-dynamic-locale": "~0.1.27",
@@ -28,7 +28,8 @@
     "angular-auto-validate": "~1.19.3",
     "bootstrap-select": "~1.10.0",
     "angular-ladda": "~0.3.4",
-    "angular-animate": "1.4.7"
+    "angular-animate": "1.4.7",
+    "table-to-json": "~0.11.1"
   },
   "resolutions": {
     "angular": "~1.4",

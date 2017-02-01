@@ -1,11 +1,13 @@
 package com.clouway.ta.adapter.db;
 
 import com.clouway.ta.adapter.db.clients.PersistentClientRepository;
+import com.clouway.ta.adapter.db.expenses.PersistentExpensesRepository;
 import com.clouway.ta.adapter.db.languages.PersistentLanguageRepository;
 import com.clouway.ta.adapter.db.orders.PersistentOrderRepository;
 import com.clouway.ta.adapter.db.translators.PersistentTranslatorRepository;
 import com.clouway.ta.adapter.db.users.PersistentUserRepository;
 import com.clouway.ta.core.clients.ClientRepository;
+import com.clouway.ta.core.expenses.ExpensesRepository;
 import com.clouway.ta.core.languages.LanguageRepository;
 import com.clouway.ta.core.orders.OrderRepository;
 import com.clouway.ta.core.translators.TranslatorRepository;
@@ -25,6 +27,7 @@ import com.googlecode.objectify.ObjectifyFilter;
 public class PersistenceModule extends AbstractModule {
   @Override
   protected void configure() {
+    bind(ExpensesRepository.class).to(PersistentExpensesRepository.class);
     bind(TranslatorRepository.class).to(PersistentTranslatorRepository.class);
     bind(LanguageRepository.class).to(PersistentLanguageRepository.class);
     bind(SessionRepository.class).to(PersistentSessionRepository.class);

@@ -1,0 +1,212 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5>
+                    <span translate>Рзаходи</span>
+                    <span class="text-muted" translate>отчет</span>
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body" style="min-height: 500px;">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10">
+
+                <div class="row">
+                    <div class="col-xs-12 top-buffer">
+                        <button type="button"
+                                class="btn btn-success btn-sm pull-right"
+                                ng-click="vm.goToExpenseEditor()">
+                            <i class="fa fa-plus"></i>
+                            <span translate>Нов разход</span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 top-buffer">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-8 col-lg-6">
+                                <uib-tabset active="active">
+
+                                    <!--PERIOD REPORT-->
+                                    <uib-tab heading="{{'Отчет за период' | translate}}" select="vm.reportMode=true">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <table>
+                                                            <tr>
+                                                                <td class="text-right" width="90px">
+                                                                    <label class="small text-uppercase" style="padding-right: 5px"
+                                                                           translate>ОТ ДАТА:</label>
+                                                                </td>
+                                                                <td width="100px">
+                                                                    <div class="form-group-sm">
+                                                                        <date-picker no-animate ng-model="vm.startDate" trim-to-start="true" current-text="Днес" custom-style="width: 85px"></date-picker>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-right" width="110px">
+                                                                    <label class="small text-uppercase" style="padding-right: 5px"
+                                                                           translate>ДО ДАТА:</label>
+                                                                </td>
+                                                                <td width="100px">
+                                                                    <div class="form-group-sm">
+                                                                        <date-picker no-animate ng-model="vm.endDate" trim-to-end="true" currentText="Днес" custom-style="width: 85px"></date-picker>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer text-right">
+                                                <button class="btn btn-default" ng-click="vm.getPeriodReport(vm.startDate, vm.endDate)">Търсене</button>
+                                            </div>
+                                        </div>
+                                    </uib-tab>
+
+                                    <!--MONTHLY REPORT-->
+                                    <uib-tab heading="{{'Отчет за месец' | translate}}" select="vm.reportMode=false">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <table>
+                                                            <tr>
+                                                                <td class="text-right" width="90px"><label class="small text-uppercase"
+                                                                                                           style="padding-right: 5px"
+                                                                                                           translate>МЕСЕЦ:</label>
+                                                                </td>
+                                                                <td width="100px" class="form-group-sm">
+                                                                    <date-picker ng-model="vm.monthReportDate" custom-style="width: 85px;"
+                                                                                 current-text="Този месец" month-select-mode></date-picker>
+                                                                </td>
+                                                                <td width="120px">
+                                                                    <button class="btn btn-sm btn-default"
+                                                                            uib-tooltip="{{'Изтегляне' | translate}}">
+                                                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                                                        <span translate>Изтегляне</span>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer text-right">
+                                                <button class="btn btn-default" ng-click="vm.getMonthlyReport(vm.monthReportDate)">Търсене</button>
+                                            </div>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!--NUMBER OF RESULTS TBD-->
+                    <div class="text-right">
+                        <h5 class="text-muted" style="margin-right: 15px">
+                            {{'TRANSLATORS.RESULTS'| translate}} {{vm.expensesList.length}}</h5>
+                    </div>
+                </div>
+
+
+                <div class="row top-buffer" ng-show="translators.length>20">
+                    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-10 col-md-offset-3 col-md-6 input-group"
+                         style="margin: 10px auto">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input class="form-control" type="text" ng-model="search"
+                               placeholder="Търси в резултатите..."/>
+                    </div>
+                </div>
+
+                <div ng-show="showNoResultsMsg"
+                     class="alert alert-warning text-center col-md-offset-2 col-md-8"
+                     style="margin-top: 15px">
+                    {{'TRANSLATORS.NO_RESULT_MESSAGE'|translate}}
+                </div>
+
+                <div class="top-buffer" ng-show="vm.expensesList.length!==0" >
+                    <download-as-xls table-id="expensesReport" file-name="invoiceReport"></download-as-xls>
+                    <table class="table table-hover table-striped table-vert-align-middle table-condensed table-row-pointer"
+                           id="expensesReport">
+                        <thead>
+                        <tr>
+                            <th class="text-center text-primary" style="width: 15px">
+                                <h6><strong>#</strong></h6>
+                            </th>
+                            <th class="text-center text-primary">
+                                <h6><strong translate> Дата </strong></h6>
+                            </th>
+                            <th class="text-center text-primary" style="width: 200px">
+                                <h6><strong translate>Сума</strong></h6>
+                            </th>
+                            <th class="text-center text-primary" style="width: 100px">
+                                <h6><strong translate>Тип</strong></h6>
+                            </th>
+                            <th class="text-center text-primary hidden-sm hidden-xs" style="width: 150px">
+                                <h6><strong translate>Описание</strong></h6>
+                            </th>
+                            <th class="text-center text-primary" style="width: 80px">
+                                <h6><strong translate>TRANSLATORS.OPTIONS</strong></h6>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat="expense in vm.expensesList">
+                            <td class="text-center" style="width: 15px" ng-click="open(row)">
+                                <small>{{$index+1}}</small>
+                            </td>
+                            <td class="text-center" style="width: 50px" ng-click="open(row)">
+                                <small><date>{{expense.date}}</date>
+                                </small>
+                            </td>
+                            <td class="text-center" ng-click="open(row)">
+                                <small>
+                                    <money>{{expense.amount}}</money>
+                                </small>
+                            </td>
+                            <td class="text-center" ng-click="open(row)">
+                                <small> {{expense.type}}
+                                </small>
+                            </td>
+                            <td class="text-center hidden-sm hidden-xs" ng-click="open(row)">
+                                <small>{{expense.description}}</small>
+                            </td>
+
+                            <td class="text-center">
+
+                                <button type="button" class="btn btn-info btn-xs"
+                                        ng-click="editTranslator(row.email)"
+                                        uib-tooltip="{{'TODO'| translate}}">
+                                    <i class="fa fa-pencil"></i></button>
+
+                                <confirm-modal
+                                        message="Сигурни ли сте, че искате да изтриете {{row.name}}?"
+                                        ok-pressed="deleteById(row.email)">
+                                    <button type="button" class="btn btn-danger btn-xs"
+                                            uib-tooltip="{{'TODO'| translate}}">
+                                        <i class="fa fa-trash"></i></button>
+                                </confirm-modal>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--END EXPENCES LIST-->
+
+            </div>
+
+        </div>
+    </div>
+</div>

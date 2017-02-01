@@ -85,7 +85,8 @@ module.exports = {
       "vendor/ladda/dist/ladda.min.js",
       "vendor/angular-ladda/dist/angular-ladda.min.js",
       "vendor/spin.js/spin.js",
-      "vendor/angular-spinner/angular-spinner.js"
+      "vendor/angular-spinner/angular-spinner.js",
+      'vendor/table-to-json/lib/jquery.tabletojson.min.js'
     ],
     css: [
       'vendor/boostrap/dist/css/boostrap.css',
@@ -100,16 +101,14 @@ module.exports = {
     ],
     fonts: [
       'vendor/components-font-awesome/fonts/*',
-      'vendor/bootstrap/fonts/*',
-      'vendor/bootstrap/fonts/glyphicons-halflings-regular.woff',
-      'vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2'
+      'vendor/bootstrap/dist/fonts/*'
     ],
     assets: [
       'vendor/bootstrap-language/languages.png'
     ],
     locales: [
-      'vendor/angular-i18n/angular-locale_bg.js',
-      'vendor/angular-i18n/angular-locale_en.js',
+      'vendor/angular-i18n/angular-locale_bg-bg.js',
+      'vendor/angular-i18n/angular-locale_en-en.js',
       'src/app/i18n/jcs-auto-validate_bg.json',
       'src/app/i18n/jcs-auto-validate_en.json'
     ]

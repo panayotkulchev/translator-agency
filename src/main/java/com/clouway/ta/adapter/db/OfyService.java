@@ -1,6 +1,7 @@
 package com.clouway.ta.adapter.db;
 
 import com.clouway.ta.adapter.db.clients.ClientEntity;
+import com.clouway.ta.adapter.db.expenses.ExpenseEntity;
 import com.clouway.ta.adapter.db.languages.LanguageEntity;
 import com.clouway.ta.adapter.db.orders.OrdersCounter;
 import com.clouway.ta.adapter.db.orders.OrderEntity;
@@ -26,6 +27,7 @@ public class OfyService {
     ObjectifyService.register(SessionEntity.class);
     ObjectifyService.register(OrderEntity.class);
     ObjectifyService.register(OrdersCounter.class);
+    ObjectifyService.register(ExpenseEntity.class);
   }
 
   public static Objectify ofy() {

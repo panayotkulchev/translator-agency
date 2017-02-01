@@ -3,6 +3,7 @@ package com.clouway.ta;
 import com.clouway.ta.adapter.db.PersistenceModule;
 import com.clouway.ta.adapter.db.orders.OrdersCounter;
 import com.clouway.ta.adapter.frontend.clients.ClientsRestService;
+import com.clouway.ta.adapter.frontend.expenses.ExpensesRestService;
 import com.clouway.ta.adapter.frontend.users.CurrentUserService;
 import com.clouway.ta.adapter.frontend.languages.LanguagesRestService;
 import com.clouway.ta.adapter.frontend.orders.OrderRestService;
@@ -53,6 +54,7 @@ public class AppConfig extends GuiceServletContextListener {
                 at("/r/clients").serve(ClientsRestService.class);
                 at("/r/currentUser").serve(CurrentUserService.class);
                 at("/r/orders").serve(OrderRestService.class);
+                at("/r/expenses").serve(ExpensesRestService.class);
 
                 at("/loginPage").show(LoginPage.class);
                 at("/logout").serve(LogoutService.class);

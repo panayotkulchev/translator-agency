@@ -14,6 +14,7 @@ angular.module('ta.core', [
     'ta.translators',
     'ta.languages',
     'ta.clients',
+    'ta.expenses',
     'ta.orders'
   ])
   .config(function myAppConfig($stateProvider, $urlRouterProvider, growlProvider, tmhDynamicLocaleProvider) {

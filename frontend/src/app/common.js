@@ -21,6 +21,7 @@
 angular.module('common', [
   'ui.bootstrap',
   'common.paging',
+    'common.date-time',
     'angular-ladda'
 ])
 
@@ -98,7 +99,7 @@ angular.module('common', [
   //})
   //
   //
-  ///**
+  // /**
   // * @ngdoc directive
   // * @name datePicker
   // * @restrict E
@@ -131,7 +132,7 @@ angular.module('common', [
   // * @param {boolean} trimToStart if 'true' ngModel is set to 00:00 local time
   // * @param {String} customStyle adds style to the template
   // */
-  //.directive('datePicker', function ($filter) {
+  // .directive('datePickerr', function ($filter) {
   //  return {
   //    restrict: 'E',
   //    scope: {
@@ -191,7 +192,7 @@ angular.module('common', [
   //      };
   //    }
   //  };
-  //})
+  // })
   //
   ///**
   // * Provides for search functionality
@@ -917,61 +918,61 @@ angular.module('common', [
   //  };
   //})
   //
-  ///**
-  // * @ngdoc directive
-  // * @name money
-  // * @restrict EA
-  // *
-  // * @description
-  // * Formats certain amount /number/ to double value with two decimal points.
-  // * Can be added currency like 'BGN', 'EUR', '$'.
-  // * Currency can be passed as translation string and translated.
-  // *
-  // * Example usages:
-  // *
-  // * <pre>
-  // *
-  // *   // as element
-  // *   <money>{{amount}}</money>
-  // *
-  // *   // as attribute
-  // *   <td money>3.599998</td>
-  // *
-  // *   // custom currency added
-  // *    <money currency="BGN">1.234</money>
-  // *
-  // *   // translation string as currency
-  // *   <money currency="CASHBOOK.CURRENCY">1.234</money>
-  // *
-  // * </pre>
-  // *
-  // * @param {String} currency can be translation string, sign, or regular string added after the amount
-  // */
-  //.directive('money', function ($filter, $interpolate, eventBus, $translate) {
-  //
-  //  return {
-  //    restrict: 'EA',
-  //
-  //    link: function (scope, elem, attrs) {
-  //      var currency = attrs.currency ? attrs.currency : '';
-  //      currency = $translate.instant(currency);
-  //
-  //      var inner = $interpolate(elem.html())(scope);
-  //      var html = $filter('currency')(inner, '', 2);
-  //
-  //      html = (currency !== '') ? html + ' ' + currency : html;
-  //      elem.text(html);
-  //
-  //      eventBus.onMsg('$localeChangeSuccess', function () {
-  //
-  //        var html = $filter('currency')(inner, '', 2);
-  //
-  //        html = (currency !== '') ? html + ' ' + currency : html;
-  //        elem.text(html);
-  //      });
-  //    }
-  //  };
-  //})
+  /**
+  * @ngdoc directive
+  * @name money
+  * @restrict EA
+  *
+  * @description
+  * Formats certain amount /number/ to double value with two decimal points.
+  * Can be added currency like 'BGN', 'EUR', '$'.
+  * Currency can be passed as translation string and translated.
+  *
+  * Example usages:
+  *
+  * <pre>
+  *
+  *   // as element
+  *   <money>{{amount}}</money>
+  *
+  *   // as attribute
+  *   <td money>3.599998</td>
+  *
+  *   // custom currency added
+  *    <money currency="BGN">1.234</money>
+  *
+  *   // translation string as currency
+  *   <money currency="CASHBOOK.CURRENCY">1.234</money>
+  *
+  * </pre>
+  *
+  * @param {String} currency can be translation string, sign, or regular string added after the amount
+  */
+  .directive('money', function ($filter, $interpolate, eventBus, $translate) {
+
+   return {
+     restrict: 'EA',
+
+     link: function (scope, elem, attrs) {
+       var currency = attrs.currency ? attrs.currency : '';
+       currency = $translate.instant(currency);
+
+       var inner = $interpolate(elem.html())(scope);
+       var html = $filter('currency')(inner, '', 2);
+
+       html = (currency !== '') ? html + ' ' + currency : html;
+       elem.text(html);
+
+       eventBus.onMsg('$localeChangeSuccess', function () {
+
+         var html = $filter('currency')(inner, '', 2);
+
+         html = (currency !== '') ? html + ' ' + currency : html;
+         elem.text(html);
+       });
+     }
+   };
+  })
   //
   /**
    * @ngdoc directive
@@ -1996,4 +1997,175 @@ angular.module('common', [
       }
     };
   })
+
+    .directive('noAnimate', ['$animate',
+        function($animate) {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    $animate.enabled(false, element);
+                    scope.$watch(function () {
+                        $animate.enabled(false, element);
+                    });
+                }
+            };
+        }
+    ])
+
+    .directive('yesAnimate', ['$animate',
+        function($animate) {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    $animate.enabled(true, element);
+                    scope.$watch(function () {
+                        $animate.enabled(true, element);
+                    });
+                }
+            };
+        }
+    ])
+
+    /**
+     * @ngdoc directive
+     * @name moneyInput
+     * @restrict A
+     *
+     * @description
+     * Restrict value of input field to be number in format #.##
+     *
+     * @example
+     *<input type="text" ng-model="someValue" money-input"/>
+     */
+    .directive('moneyInput', function ($timeout) {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, element, attrs, ngModelCtrl) {
+
+                var DISPLAY_REGEX = /^(-?)[0-9]*(\.[0-9]{0,2})?$/;
+                var VALIDATION_REGEX = /^(-?)[0-9]+\.[0-9]{2}$/;
+
+                element.bind('blur', function () {
+                    if(angular.equals(ngModelCtrl.$viewValue, "")) {
+                        ngModelCtrl.$setViewValue('0.00');
+                    }
+                    ngModelCtrl.$render();
+                });
+
+                element.bind('focus', function () {
+                    if (angular.equals(Number(ngModelCtrl.$viewValue), 0)) {
+                        ngModelCtrl.$setViewValue('');
+                        ngModelCtrl.$render();
+                    }
+                });
+
+                ngModelCtrl.$render = function () {
+                    var value = ngModelCtrl.$isEmpty(ngModelCtrl.$viewValue) ? '' : ngModelCtrl.$viewValue;
+                    if(!angular.equals(ngModelCtrl.$viewValue, '') && !angular.equals(ngModelCtrl.$viewValue, "-")) {
+                        value = Number(value).toFixed(2);
+                    }
+
+                    element.val(value);
+
+                    $timeout(function () {
+                        ngModelCtrl.$setViewValue(value);
+                    });
+                };
+
+                ngModelCtrl.$parsers.push(function (inputValue) {
+                    if (angular.equals("", inputValue) || DISPLAY_REGEX.test(inputValue)) {
+                        return inputValue;
+                    }
+
+                    ngModelCtrl.$setViewValue(ngModelCtrl.$$rawModelValue);
+                    ngModelCtrl.$render();
+
+                    return ngModelCtrl.$$rawModelValue;
+                });
+
+                ngModelCtrl.$validators.validFormat = function (modelValue, viewValue) {
+                    return VALIDATION_REGEX.test(modelValue || viewValue);
+                };
+            }
+        };
+    })
+
+    /**
+     * @ngdoc directive
+     * @name downloadAsXls
+     * @restrict EA
+     *
+     * @description
+     * Parse content of html table and transform=
+     * it to downloadable xls file
+     *
+     * Important: table must have id
+     *
+     * Example usages:
+     *
+     * <pre>
+     * <download-as-xls table-id="invoiceReport" file-name="invoiceReport"></download-as-xls>
+     * </pre>
+     *
+     * @param {String} tableId - id of the table witch will be transformed.
+     * @param {String} [filename] - name of the file to download. If missed it will be named download.xls
+     */
+
+    .directive("downloadAsXls", function () {
+        return {
+            scope: true,
+            templateUrl: 'common/download-as-xls.tpl.html',
+            bindToController: {
+                tableId: '@',
+                fileName: '@'
+            },
+            controllerAs: 'vm',
+            controller: function () {
+
+                var vm = this;
+
+                vm.export = function () {
+
+                    var table = $('#' + vm.tableId).tableToJSON();
+
+                    var fileName = vm.fileName || 'download';
+                    fileName = fileName + '.xls';
+
+                    var blobContent = [];
+
+                    angular.forEach(table[0], function (value, title) {
+                        blobContent.push(title, ',');
+                    });
+                    blobContent.push('\n');
+
+                    angular.forEach(table, function (tableRow) {
+                        angular.forEach(tableRow, function (cell) {
+
+                            if (!cell) {
+                                cell = " ";
+                            }
+
+                            var tmp = cell;
+
+                            cell = cell.replace(/,/g, '.');
+
+                            if (isNaN(cell)){
+                                cell = '"' + tmp + '"';
+                            }
+
+                            blobContent.push(cell, ",");
+                        });
+                        blobContent.push("\n");
+                    });
+
+                    var blob = new Blob(blobContent, {type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation;charset=UTF-8'});
+
+                    var objectUrl = (window.URL || window.webkitURL).createObjectURL(blob);
+                    var link = angular.element('<a/>');
+                    link.attr({href: objectUrl, download: fileName})[0].click();
+                };
+            }
+        };
+    })
 ;

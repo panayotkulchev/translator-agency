@@ -1,0 +1,123 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5>
+                    <span translate>Разходи</span>
+                    <span class="text-muted" translate>добавяне</span>
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body" style="min-height: 500px;">
+        <div class="row top-buffer">
+            <div class="col-md-offset-1 col-md-10">
+
+                <div class="row">
+                    <div class="col-md-6" style="padding: 20px 20px">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3>Добавяне разход:</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <select ng-model="vm.expense.type"
+                                        data-ng-options="type for type in vm.expenseTypes" class="input-large form-control"
+                                        style="padding-left: 8px">
+                                    <option value="">-Изберете тип разход-</option>
+                                </select><br/>
+
+                                <input class="form-control" type="text" ng-model="vm.expense.amount" money-input/><br>
+
+                                <date-picker no-animate ng-model="vm.expense.date" trim-to-start="true"></date-picker>
+                                <br>
+
+                                <textarea class="form-control" ng-model="vm.expense.description" rows="4" style="resize: none"
+                                          placeholder="Short description"></textarea><br>
+
+                                    <button class="btn btn-success btn-sm pull-right"
+                                            ng-if="!inEditMode" ng-click="vm.addExpense(vm.expense); scrollTop()">
+                                        <i class="fa fa-plus"></i>
+                                        <span translate>BUTTON.REGISTER</span>
+                                    </button>
+
+                                    <button class="btn btn-success btn-sm pull-right"
+                                            ng-if="inEditMode" ng-click="scrollTop()">
+                                        <i class="fa fa-pencil"></i>
+                                        <span translate>BUTTON.UPDATE</span>
+                                    </button>
+
+                                    <button class="btn btn-default btn-sm pull-right"
+                                            ng-click="cancel()"
+                                            style="margin-right: 15px">
+                                        <span translate>BUTTON.CANCEL</span>
+                                    </button>
+
+                                <!--<button class="btn btn-success form-control" ng-click="vm.addExpense(vm.expense)" style="margin-top: 25px">Добави</button>-->
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="padding: 20px 10px">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Днес:</h3><info-line class="pull-right">//TODO</info-line>
+                            </div>
+                            <div class="panel-body">
+                                Общо: <b>300.00 BGN </b> в 12 транзакции
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Вчера:</h3> <info-line class="pull-right">//TODO</info-line>
+                            </div>
+                            <div class="panel-body">
+                                Общо: <b>560.00 BGN </b> в 18 транзакции
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Миналата седмица:</h3><info-line class="pull-right">//TODO</info-line>
+                            </div>
+                            <div class="panel-body">
+                                Общо: <b>4568.00 BGN </b> в 76 транзакции
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Миналия месец:</h3><info-line class="pull-right">//TODO</info-line>
+                            </div>
+                            <div class="panel-body">
+                                Общо: <b>28 525.00 BGN </b> в 403 транзакции
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="hasErrorMessage" class="alert alert-danger" role="alert" style="margin-bottom: 0px">{{errorMessage}}</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
