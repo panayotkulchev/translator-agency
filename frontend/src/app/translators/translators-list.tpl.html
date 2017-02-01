@@ -151,14 +151,14 @@
 
                                 <button type="button" class="btn btn-info btn-xs"
                                 ng-click="editTranslator(row.email)"
-                                tooltip="{{'TRANSLATORS.EDIT'| translate}}">
+                                uib-tooltip="{{'TRANSLATORS.EDIT'| translate}}">
                                 <i class="fa fa-pencil"></i></button>
 
                                 <confirm-modal
                                 message="Сигурни ли сте, че искате да изтриете {{row.name}}?"
                                 ok-pressed="deleteById(row.email)">
                                 <button type="button" class="btn btn-danger btn-xs"
-                                tooltip="{{'TRANSLATORS.DELETE'| translate}}">
+                                uib-tooltip="{{'TRANSLATORS.DELETE'| translate}}">
                                 <i class="fa fa-trash"></i></button>
                                 </confirm-modal>
 

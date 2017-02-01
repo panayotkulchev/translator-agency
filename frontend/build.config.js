@@ -69,7 +69,7 @@ module.exports = {
       'vendor/angular-ui-utils/modules/route/route.js',
       'vendor/bootstrap-switch/dist/js/bootstrap-switch.min.js',
       'vendor/nya-bootstrap-select/dist/js/nya-bs-select.js',
-      'vendor/angular-animate/angular-animate.js',
+      'vendor/angular-animate/angular-animate.min.js',
       'vendor/angular-translate/angular-translate.min.js',
       'vendor/angular-dynamic-locale/dist/tmhDynamicLocale.js',
       'vendor/moment/moment.js',
@@ -100,7 +100,9 @@ module.exports = {
     ],
     fonts: [
       'vendor/components-font-awesome/fonts/*',
-      'vendor/bootstrap/fonts/*'
+      'vendor/bootstrap/fonts/*',
+      'vendor/bootstrap/fonts/glyphicons-halflings-regular.woff',
+      'vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2'
     ],
     assets: [
       'vendor/bootstrap-language/languages.png'

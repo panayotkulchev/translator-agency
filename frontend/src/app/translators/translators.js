@@ -197,7 +197,7 @@ angular.module('ta.translators', [
     });
   })
 
-  .controller('TranslatorsListCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state, $modal, $translate) {
+  .controller('TranslatorsListCtrl', function TranslatorsCtrl($scope, translatorsGateway, languagesGateway, growl, $state, $uibModal) {
 
     $scope.translators = [];
     $scope.selectedLanguageOptions = [];
@@ -281,7 +281,7 @@ angular.module('ta.translators', [
     //TODO change with better name
     $scope.open = function (translator) {
 
-      var modalInstance = $modal.open({
+      var modalInstance = $uibModal.open({
         animation: true,
         templateUrl: 'translators/translator-info-modal.tpl.html',
         controller: 'TranslatorInfoCtrl',
@@ -295,7 +295,7 @@ angular.module('ta.translators', [
 
   })
 
-  .controller('TranslatorInfoCtrl', function ($scope, $modalInstance, data) {
+  .controller('TranslatorInfoCtrl', function ($scope, $uibModalInstance, data) {
 
     $scope.translator = data;
 
@@ -303,7 +303,7 @@ angular.module('ta.translators', [
      * Close dialog
      */
     $scope.ok = function () {
-      $modalInstance.close();
+      $uibModalInstance.close();
     };
   })
 

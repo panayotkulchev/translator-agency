@@ -1831,7 +1831,7 @@ angular.module('common', [
   //  };
   //})
 
-  .directive('confirmModal', ['$modal', function ($modal) {
+  .directive('confirmModal', ['$uibModal', function ($uibModal) {
 
     return {
       transclude: true,
@@ -1846,7 +1846,7 @@ angular.module('common', [
         //var opened = false;
         scope.open = function () {
           //if(opened) {return;}
-          var modalInstance = $modal.open({
+          var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'confirm-modal.tpl.html',
             controller: 'ConfirmModalCtrl',
@@ -1872,16 +1872,16 @@ angular.module('common', [
     };
   }])
 
-  .controller('ConfirmModalCtrl', ['$scope', '$modalInstance', 'data', function ($scope, $modalInstance, data) {
+  .controller('ConfirmModalCtrl', ['$scope', '$uibModalInstance', 'data', function ($scope, $uibModalInstance, data) {
 
     $scope.data = data;
 
     $scope.ok = function () {
-      $modalInstance.close();
+        $uibModalInstance.close();
     };
 
     $scope.cancel = function () {
-      $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
   }])
 

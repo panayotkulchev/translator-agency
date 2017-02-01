@@ -92,7 +92,7 @@ angular.module('ta.core', [
     };
   })
 
-  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest, $modal, tmhDynamicLocale, CurrentUser) {
+  .controller('AppCtrl', function AppCtrl($rootScope, $scope, $translate, httpRequest, $uibModal, tmhDynamicLocale, CurrentUser) {
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
       // set page to top
