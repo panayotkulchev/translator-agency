@@ -21,8 +21,9 @@
 angular.module('common', [
   'ui.bootstrap',
   'common.paging',
-    'common.date-time',
-    'angular-ladda'
+    'common.date-time'
+    // ,
+    // 'angular-ladda'
 ])
 
   //.directive('datetimepicker', function () {

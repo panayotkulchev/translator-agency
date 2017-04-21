@@ -144,6 +144,7 @@ public class TranslatorRestService {
             .favorite(translatorDto.favorite)
             .registered(translatorDto.registered)
             .comment(translatorDto.comment)
+            .avatar(translatorDto.avatar)
             .build();
   }
 
@@ -162,6 +163,7 @@ public class TranslatorRestService {
             .favorite(translator.favorite)
             .registered(translator.registered)
             .comment(translator.comment)
+            .avatar(translator.avatar)
             .build();
   }
 

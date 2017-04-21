@@ -63,13 +63,14 @@ module.exports = {
       'vendor/bootstrap/dist/js/bootstrap.js',
       'vendor/angular/angular.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-      'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
+      // 'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-growl-v2/build/angular-growl.min.js',
       'vendor/angular-ui-utils/modules/route/route.js',
       'vendor/bootstrap-switch/dist/js/bootstrap-switch.min.js',
       'vendor/nya-bootstrap-select/dist/js/nya-bs-select.js',
       'vendor/angular-animate/angular-animate.min.js',
+      // 'vendor/angular-animate/angular-animate.min.js.map',
       'vendor/angular-translate/angular-translate.min.js',
       'vendor/angular-dynamic-locale/dist/tmhDynamicLocale.js',
       'vendor/moment/moment.js',
@@ -79,13 +80,13 @@ module.exports = {
       'vendor/underscore/underscore.js',
       'vendor/angular-loading-bar/src/loading-bar.js',
       'vendor/angular-auto-validate/dist/jcs-auto-validate.js',
-      'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
-      'vendor/bootstrap-select/dist/js/i18n/defaults-bg_BG.min.js',
-      "vendor/ladda/js/spin.js",
-      "vendor/ladda/dist/ladda.min.js",
-      "vendor/angular-ladda/dist/angular-ladda.min.js",
-      "vendor/spin.js/spin.js",
-      "vendor/angular-spinner/angular-spinner.js",
+      // 'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
+      // 'vendor/bootstrap-select/dist/js/i18n/defaults-bg_BG.min.js',
+      // "vendor/ladda/js/spin.js",
+      // "vendor/ladda/dist/ladda.min.js",
+      // "vendor/angular-ladda/dist/angular-ladda.min.js",
+      // "vendor/spin.js/spin.js",
+      // "vendor/angular-spinner/angular-spinner.js",
       'vendor/table-to-json/lib/jquery.tabletojson.min.js'
     ],
     css: [
@@ -94,10 +95,13 @@ module.exports = {
       'vendor/angular-growl-v2/build/angular-growl.min.css',
       'vendor/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
       'vendor/angular-loading-bar/src/loading-bar.css',
-      'vendor/bootstrap-language/languages.css',
-      'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
-      'app/common.less',
-      'vendor/ladda/dist/ladda-themeless.min.css'
+      'vendor/bootstrap-language/languages.css'
+        // ,
+      // 'vendor/bootstrap-language/languages.png'
+
+        // 'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
+      // 'app/common.less',
+      // 'vendor/ladda/dist/ladda-themeless.min.css'
     ],
     fonts: [
       'vendor/components-font-awesome/fonts/*',
@@ -107,8 +111,8 @@ module.exports = {
       'vendor/bootstrap-language/languages.png'
     ],
     locales: [
-      'vendor/angular-i18n/angular-locale_bg-bg.js',
-      'vendor/angular-i18n/angular-locale_en-en.js',
+      'vendor/angular-i18n/angular-locale_bg.js',
+      'vendor/angular-i18n/angular-locale_en.js',
       'src/app/i18n/jcs-auto-validate_bg.json',
       'src/app/i18n/jcs-auto-validate_en.json'
     ]

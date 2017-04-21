@@ -1,13 +1,13 @@
 {
-  "author": "clouWay Developers",
-  "name": "clouway-cw",
+  "author": "Panayot Kulchev",
+  "name": "translator-agency",
   "version": "0.0.1",
-  "homepage": "https://github.com/clouway/clouway-cw",
+  "homepage": "https://github.com/panayotkulchev/translator-agency",
   "licenses": {},
-  "bugs": "https://github.com/clouway/clouway-cw/issues",
+  "bugs": "https://github.com/panayotkulchev/translator-agency/issues",
   "repository": {
     "type": "git",
-    "url": "git@github.com:clouway/clouway-cw.git"
+    "url": "git@github.com:panayotkulchev/translator-agency.git"
   },
   "dependencies": {},
   "devDependencies": {
