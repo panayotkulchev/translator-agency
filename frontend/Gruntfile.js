@@ -114,6 +114,14 @@ module.exports = function (grunt) {
                         expand: true,
                         flatten: true
                     },
+                    {
+                        //for font-awesome
+                        src: ['<%= vendor_files.fonts %>'],
+                        dest: '<%= build_dir %>/fonts/',
+                        cwd: '.',
+                        expand: true,
+                        flatten: true
+                    },
                   {
                     //for i18n locales
                     src: ['<%= vendor_files.locales %>'],
@@ -177,6 +185,14 @@ module.exports = function (grunt) {
                         dest: '<%= compile_dir %>/',
                         cwd: '.',
                         expand: true
+                    },
+                    {
+                        //for font-awesome
+                        src: ['<%= vendor_files.fonts %>'],
+                        dest: '<%= compile_dir %>/fonts/',
+                        cwd: '.',
+                        expand: true,
+                        flatten: true
                     },
                   {
                     //for i18n locales

@@ -44,6 +44,7 @@ public class PersistentTranslatorRepository implements TranslatorRepository {
     entity.setFavorite(translator.favorite);
     entity.setRegistered(translator.registered);
     entity.setComment(translator.comment);
+    entity.setAvatar(translator.avatar);
 
     ofy().save().entity(entity).now();
   }
